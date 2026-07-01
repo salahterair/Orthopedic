@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orthopaedic Clinical Teaching — Year 4 MBBS</title>
+<style>
+:root {
+  --primary:#1a4a7a;
+  --primary-dark:#0f2d4f;
+  --accent:#2563a8;
+  --accent-light:#e8f0fb;
+  --green:#1a6b3a;
+  --green-light:#eaf5ea;
+  --amber:#b85c00;
+  --red:#991b1b;
+  --white:#fff;
+  --text:#111;
+  --muted:#4a5568;
+  --border:#b0c8e8;
+  --bg:#f0f4f8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(160deg,#0a1e3d 0%,#1a4a7a 55%,#1e5f9e 100%);color:var(--white);padding:52px 20px 44px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 16px;font-size:.78rem;letter-spacing:.8px;text-transform:uppercase;color:#a8c4e0;margin-bottom:18px}
+.hero h1{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:700;line-height:1.25;margin-bottom:10px;color:#fff}
+.hero h1 span{color:#7eb8f7}
+.hero p{font-size:.97rem;color:#b8d0e8;max-width:560px;margin:0 auto 24px;line-height:1.7}
+.hero-meta{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:6px}
+.hero-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:.8rem;color:#c8ddf2}
+
+/* ── SECTION LABEL ── */
+.section-label{max-width:960px;margin:36px auto 0;padding:0 16px}
+.section-label h2{font-size:1.05rem;color:var(--primary);font-weight:700;border-bottom:2px solid var(--border);padding-bottom:10px;margin-bottom:20px;letter-spacing:.2px}
+
+/* ── GRID ── */
+.card-grid{max-width:960px;margin:0 auto;padding:0 16px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+
+/* ── APP CARD ── */
+.app-card{background:var(--white);border-radius:12px;border:1px solid #dde8f5;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit}
+.app-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,74,122,.15)}
+.card-stripe{height:6px}
+.card-stripe.blue{background:linear-gradient(90deg,#1a4a7a,#2563a8)}
+.card-stripe.red{background:linear-gradient(90deg,#7c1111,#c0392b)}
+.card-stripe.green{background:linear-gradient(90deg,#1a6b3a,#27ae60)}
+.card-stripe.amber{background:linear-gradient(90deg,#b85c00,#e67e22)}
+.card-body{padding:20px 20px 16px;flex:1;display:flex;flex-direction:column}
+.card-icon{font-size:2rem;margin-bottom:10px;line-height:1}
+.card-title{font-size:1.05rem;font-weight:700;color:var(--primary);margin-bottom:4px;line-height:1.3}
+.card-subtitle{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:10px}
+.card-desc{font-size:.87rem;color:#333;line-height:1.6;flex:1}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:.72rem;padding:3px 10px;border-radius:20px;font-weight:600;letter-spacing:.2px}
+.tag-lecture{background:#e8f0fb;color:#1a4a7a}
+.tag-flash{background:#eaf5ea;color:#1a6b3a}
+.tag-mcq{background:#fff3e0;color:#b85c00}
+.tag-emergency{background:#fef2f2;color:#991b1b}
+.tag-anatomy{background:#f3e8ff;color:#6b21a8}
+.card-footer{padding:14px 20px;border-top:1px solid #f0f4f8;display:flex;align-items:center;justify-content:space-between}
+.card-footer span{font-size:.78rem;color:var(--muted)}
+.open-btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:7px 18px;font-size:.82rem;font-family:'Georgia',serif;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s}
+.open-btn:hover{background:var(--primary)}
+.open-btn.red{background:#991b1b}
+.open-btn.red:hover{background:#6b0f0f}
+.open-btn.green{background:#1a6b3a}
+.open-btn.green:hover{background:#14532d}
+.open-btn.amber{background:#b85c00}
+.open-btn.amber:hover{background:#7c3d00}
+
+/* ── COMING SOON CARD ── */
+.app-card.soon{opacity:.65;pointer-events:none}
+.soon-badge{display:inline-block;background:#f1f5f9;color:var(--muted);border:1px solid #cbd5e1;border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:700;letter-spacing:.3px;margin-top:auto}
+
+/* ── INFO STRIP ── */
+.info-strip{max-width:960px;margin:20px auto;padding:0 16px}
+.info-box{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start}
+.info-box .info-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+.info-box p{font-size:.87rem;color:var(--muted);line-height:1.6}
+.info-box strong{color:var(--primary)}
+
+/* ── FOOTER ── */
+footer{margin-top:auto;background:var(--primary-dark);color:#7a9cc0;text-align:center;padding:18px 16px;font-size:.82rem;line-height:1.8}
+footer strong{color:#a8c4e0}
+footer a{color:#7eb8f7;text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media(max-width:480px){
+  .hero{padding:36px 16px 32px}
+  .card-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Year 4 MBBS · Orthopaedics &amp; MSK</div>
+  <h1>Musculoskeletal &amp;<br><span>Orthopaedic Teaching</span></h1>
+  <p>Interactive lecture apps covering core orthopaedic topics for undergraduate clinical training. Select a module below to begin.</p>
+  <div class="hero-meta">
+    <div class="hero-chip">📖 Lecture Notes</div>
+    <div class="hero-chip">🃏 Flashcards</div>
+    <div class="hero-chip">✅ SBA MCQs</div>
+    <div class="hero-chip">📱 Mobile-Friendly</div>
+  </div>
+</div>
+
+<!-- SECTION LABEL -->
+<div class="section-label">
+  <h2>Available Modules</h2>
+</div>
+
+<!-- CARD GRID -->
+<div class="card-grid">
+
+  <!-- CARD 1: Upper Extremity -->
+  <a class="app-card" href="Upper Extremity.html">
+    <div class="card-stripe blue"></div>
+    <div class="card-body">
+      <div class="card-icon">💪</div>
+      <div class="card-title">Upper Extremity Examination</div>
+      <div class="card-subtitle">Clinical Examination Series</div>
+      <div class="card-desc">Systematic examination of the upper limb including shoulder, elbow, wrist and hand. Clinical manoeuvres, special tests, and examination findings.</div>
+      <div class="card-tags">
+        <span class="tag tag-lecture">Lecture</span>
+        <span class="tag tag-flash">Flashcards</span>
+        <span class="tag tag-mcq">MCQ</span>
+        <span class="tag tag-anatomy">Clinical Exam</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Year 4 MBBS</span>
+      <span class="open-btn">Open →</span>
+    </div>
+  </a>
+
+  <!-- CARD 2: Lower Extremity -->
+  <a class="app-card" href="Lower Extremit.html">
+    <div class="card-stripe amber"></div>
+    <div class="card-body">
+      <div class="card-icon">🦵</div>
+      <div class="card-title">Lower Extremity Examination</div>
+      <div class="card-subtitle">Clinical Examination Series</div>
+      <div class="card-desc">Systematic examination of the lower limb including hip, knee, ankle and foot. Gait analysis, special tests, and clinical findings interpretation.</div>
+      <div class="card-tags">
+        <span class="tag tag-lecture">Lecture</span>
+        <span class="tag tag-flash">Flashcards</span>
+        <span class="tag tag-mcq">MCQ</span>
+        <span class="tag tag-anatomy">Clinical Exam</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Year 4 MBBS</span>
+      <span class="open-btn amber">Open →</span>
+    </div>
+  </a>
+
+  <!-- CARD 3: DJD / Osteoarthritis -->
+  <a class="app-card" href="DJD_Osteoarthritis_App.html">
+    <div class="card-stripe green"></div>
+    <div class="card-body">
+      <div class="card-icon">🦴</div>
+      <div class="card-title">Degenerative Joint Disease</div>
+      <div class="card-subtitle">Osteoarthritis · Joint Pathology</div>
+      <div class="card-desc">Comprehensive coverage of OA/DJD — pathophysiology (LOSS mnemonic), risk factors, joint distribution, Kellgren–Lawrence grading, and management ladder.</div>
+      <div class="card-tags">
+        <span class="tag tag-lecture">Lecture</span>
+        <span class="tag tag-flash">Flashcards</span>
+        <span class="tag tag-mcq">MCQ</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Year 4 MBBS</span>
+      <span class="open-btn green">Open →</span>
+    </div>
+  </a>
+
+  <!-- CARD 4: Septic Arthritis -->
+  <a class="app-card" href="Septic_Arthritis_App.html">
+    <div class="card-stripe red"></div>
+    <div class="card-body">
+      <div class="card-icon">🚨</div>
+      <div class="card-title">Septic Arthritis</div>
+      <div class="card-subtitle">Orthopaedic Emergency · Infective Arthritis</div>
+      <div class="card-desc">Organism-host pairing, Kocher criteria, synovial fluid interpretation, empirical antibiotic selection, and surgical drainage indications. Orthopaedic emergency management.</div>
+      <div class="card-tags">
+        <span class="tag tag-lecture">Lecture</span>
+        <span class="tag tag-flash">Flashcards</span>
+        <span class="tag tag-mcq">MCQ</span>
+        <span class="tag tag-emergency">Emergency</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Year 4 MBBS</span>
+      <span class="open-btn red">Open →</span>
+    </div>
+  </a>
+
+</div>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-box">
+    <div class="info-icon">📌</div>
+    <p><strong>How to use these modules:</strong> Each app is self-contained with a Lecture section (collapsible topic cards), a Flashcard review deck, and an SBA MCQ bank with live scoring. Work through the lecture first, then test yourself with flashcards and MCQs. All modules are optimised for mobile and desktop use.</p>
+  </div>
+</div>
+
+<footer>
+  <strong>Orthopaedic Clinical Teaching · Year 4 MBBS</strong><br>
+  Designed &amp; Developed by <strong>Dr. Salaheldin Terair</strong><br>
+  <span style="font-size:.76rem;opacity:.7">All content is for educational purposes only · Not a substitute for clinical judgment</span>
+</footer>
+
+</body>
+</html>

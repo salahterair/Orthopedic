@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Septic Arthritis — Year 4 MBBS</title>
+<style>
+:root {
+  --primary:#1a4a7a;
+  --primary-dark:#0f2d4f;
+  --accent:#2563a8;
+  --accent-light:#e8f0fb;
+  --green:#1a6b3a;
+  --green-light:#eaf5ea;
+  --amber:#b85c00;
+  --amber-light:#fff3e0;
+  --red:#991b1b;
+  --red-light:#fef2f2;
+  --text:#111;
+  --muted:#4a5568;
+  --border:#b0c8e8;
+  --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:#f0f4f8;color:var(--text);font-size:16px;line-height:1.7}
+/* ── nav ── */
+nav{background:var(--primary-dark);position:sticky;top:0;z-index:100;display:flex;overflow-x:auto;border-bottom:3px solid var(--accent)}
+nav button{flex:1;min-width:90px;padding:13px 10px;border:none;background:transparent;color:#a8c4e0;font-size:14px;font-family:'Georgia',serif;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:.2s}
+nav button.active{color:var(--white);border-bottom-color:#7eb8f7;background:rgba(255,255,255,.07)}
+nav button:hover:not(.active){color:var(--white);background:rgba(255,255,255,.05)}
+/* ── header ── */
+.page-header{background:linear-gradient(135deg,#6b0f0f 0%,#991b1b 50%,#c0392b 100%);color:var(--white);padding:28px 20px 22px;text-align:center}
+.page-header h1{font-size:1.55rem;font-weight:700;margin-bottom:6px}
+.page-header p{font-size:.92rem;color:#f8c4c4;font-style:italic}
+.emergency-banner{background:#dc2626;color:#fff;text-align:center;padding:10px 16px;font-size:.9rem;font-weight:700;letter-spacing:.3px}
+.emergency-banner span{opacity:.85;font-weight:400}
+/* ── page ── */
+.page{display:none;max-width:860px;margin:0 auto;padding:18px 14px 60px}
+.page.active{display:block}
+/* ── lecture cards ── */
+.lec-card{background:var(--white);border-radius:10px;margin-bottom:14px;border:1px solid #dde8f5;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.lec-card-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;cursor:pointer;background:var(--accent-light);transition:.2s;gap:8px}
+.lec-card-head:hover{background:#d6e6f8}
+.lec-card-head h3{font-size:1rem;color:var(--primary);font-weight:700;flex:1}
+.lec-card-head .num{background:var(--accent);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0}
+.lec-card-head .num.red{background:#dc2626}
+.chevron{color:var(--accent);font-size:1.1rem;transition:.25s;flex-shrink:0}
+.lec-card-head.open .chevron{transform:rotate(180deg)}
+.lec-body{display:none;padding:18px 18px 20px}
+.lec-body.open{display:block}
+/* ── text ── */
+h4.sub{color:var(--primary);font-size:.97rem;margin:14px 0 6px;border-left:3px solid var(--accent);padding-left:8px}
+p{margin-bottom:10px}
+ul,ol{margin:6px 0 10px 20px}
+li{margin-bottom:5px}
+strong{color:var(--primary-dark)}
+em{color:var(--muted)}
+/* ── boxes ── */
+.box{border-radius:8px;padding:12px 14px;margin:12px 0;font-size:.93rem}
+.box-clinical{background:var(--green-light);border-left:4px solid var(--green)}
+.box-clinical::before{content:"🩺 Clinical Correlation";display:block;font-weight:700;color:var(--green);margin-bottom:5px;font-size:.88rem}
+.box-exam{background:var(--accent-light);border-left:4px solid var(--accent)}
+.box-exam::before{content:"⭐ Exam Insight";display:block;font-weight:700;color:var(--accent);margin-bottom:5px;font-size:.88rem}
+.box-emergency{background:#fef2f2;border-left:4px solid #dc2626}
+.box-emergency::before{content:"🚨 Emergency";display:block;font-weight:700;color:#dc2626;margin-bottom:5px;font-size:.88rem}
+.box-warn{background:var(--amber-light);border-left:4px solid var(--amber)}
+.box-warn::before{content:"⚠ Warning";display:block;font-weight:700;color:var(--amber);margin-bottom:5px;font-size:.88rem}
+.box-key{background:#f0fdf4;border-left:4px solid #16a34a}
+.box-key::before{content:"🔑 Key Point";display:block;font-weight:700;color:#16a34a;margin-bottom:5px;font-size:.88rem}
+/* ── tables ── */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.88rem}
+.tbl th{background:var(--primary);color:#fff;padding:9px 10px;text-align:left;font-weight:700}
+.tbl td{padding:8px 10px;border-bottom:1px solid #dde8f5;vertical-align:top}
+.tbl tr:nth-child(even) td{background:#f5f9ff}
+.tbl tr:hover td{background:#edf3fc}
+.tbl-red th{background:#991b1b}
+/* ── synovial fluid table ── */
+.sf-row-sep td{background:#fff3e0!important;font-weight:700;color:#b85c00}
+.sf-row-infect td{background:#fef2f2!important;font-weight:700;color:#dc2626}
+/* ── Kocher box ── */
+.kocher-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.kocher-item{background:#f8fafc;border:1.5px solid #dde8f5;border-radius:8px;padding:12px;text-align:center}
+.kocher-item .k-num{font-size:2rem;font-weight:700;color:var(--primary);line-height:1}
+.kocher-item .k-label{font-size:.82rem;color:var(--muted);margin-top:3px}
+.kocher-prob{width:100%;border-collapse:collapse;margin:10px 0;font-size:.88rem}
+.kocher-prob th{background:#7c3aed;color:#fff;padding:7px 10px;text-align:center}
+.kocher-prob td{padding:7px 10px;border-bottom:1px solid #e9d5ff;text-align:center}
+.kocher-prob .risk-low{color:#16a34a;font-weight:700}
+.kocher-prob .risk-mid{color:#ca8a04;font-weight:700}
+.kocher-prob .risk-high{color:#dc2626;font-weight:700}
+/* ── organism table ── */
+.org-host{font-style:italic;color:var(--muted);font-size:.87rem}
+/* ── cascade ── */
+.cascade{display:flex;flex-direction:column;gap:0;margin:10px 0}
+.cascade-step{display:flex;gap:12px;align-items:flex-start;padding:9px 12px;background:#f8fafc;border:1px solid #dde8f5;border-radius:0;position:relative}
+.cascade-step:first-child{border-radius:8px 8px 0 0}
+.cascade-step:last-child{border-radius:0 0 8px 8px}
+.cascade-step::after{content:'↓';position:absolute;bottom:-14px;left:18px;color:#dc2626;font-size:1rem;font-weight:700;z-index:1}
+.cascade-step:last-child::after{display:none}
+.cs-dot{width:12px;height:12px;background:#dc2626;border-radius:50%;flex-shrink:0;margin-top:6px}
+/* ── image placeholder ── */
+.img-placeholder{background:#f0f4f8;border:2px dashed #b0c8e8;border-radius:8px;padding:24px 16px;margin:14px 0;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-style:italic;font-size:.88rem;text-align:center}
+.img-placeholder .img-icon{font-size:2.2rem;opacity:.5}
+/* ── step ── */
+.step{display:flex;gap:12px;align-items:flex-start;margin:10px 0;padding:10px 12px;background:#f8fafc;border-radius:8px;border:1px solid #dde8f5}
+.step-num{background:var(--accent);color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0;margin-top:2px}
+.step-num.red{background:#dc2626}
+.step-title{font-weight:700;color:var(--primary);font-size:.93rem;margin-bottom:3px}
+/* ── antibiotic grid ── */
+.abx-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.abx-card{background:#f0fdf4;border:1.5px solid #b2d8b2;border-radius:8px;padding:12px}
+.abx-card .abx-title{font-weight:700;color:var(--green);font-size:.9rem;margin-bottom:5px}
+.abx-card p{font-size:.87rem;margin:0}
+/* ── complication badges ── */
+.comp-grid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.comp-badge{background:#fef2f2;border:1.5px solid #fca5a5;border-radius:20px;padding:6px 14px;font-size:.85rem;color:#991b1b;font-weight:700}
+/* ── flashcards ── */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;margin-top:10px}
+.fc-item{perspective:900px;height:220px;cursor:pointer}
+.fc-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s ease}
+.fc-item.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:16px;text-align:center}
+.fc-front{background:#7c1111;color:#fff;border:2px solid #991b1b}
+.fc-back{background:var(--green-light);border:2px solid var(--green);transform:rotateY(180deg);color:var(--text)}
+.fc-front .fc-q{font-size:.95rem;font-weight:700;line-height:1.5}
+.fc-back .fc-a{font-size:.87rem;line-height:1.6;color:#111}
+.fc-front .fc-tag{font-size:.72rem;background:rgba(255,255,255,.15);border-radius:20px;padding:3px 10px;margin-bottom:8px;color:#f8c4c4;letter-spacing:.4px}
+.fc-back .fc-label{font-size:.72rem;background:rgba(26,107,58,.15);border-radius:20px;padding:3px 10px;margin-bottom:8px;color:var(--green);font-weight:700;letter-spacing:.4px}
+.fc-hint{font-size:.72rem;color:rgba(255,255,255,.5);position:absolute;bottom:10px}
+.fc-back .fc-hint{color:var(--muted)}
+/* ── MCQ ── */
+.mcq-card{background:var(--white);border-radius:10px;border:1px solid #dde8f5;margin-bottom:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.mcq-head{background:var(--accent-light);padding:14px 16px;border-bottom:1px solid #dde8f5}
+.mcq-head .qnum{font-size:.78rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.mcq-head .qtext{font-size:.95rem;color:var(--text);line-height:1.55;font-weight:700}
+.mcq-opts{padding:12px 16px 0}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;margin-bottom:7px;border:1.5px solid transparent;transition:.15s;background:#f8fafc;font-size:.9rem}
+.opt:hover{border-color:var(--accent);background:var(--accent-light)}
+.opt.correct{background:#f0fdf4;border-color:#16a34a;color:#14532d}
+.opt.wrong{background:var(--red-light);border-color:#dc2626;color:var(--red)}
+.opt .badge{width:26px;height:26px;border-radius:50%;border:2px solid #b0c8e8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;color:var(--muted)}
+.opt.correct .badge{background:#16a34a;border-color:#16a34a;color:#fff}
+.opt.wrong .badge{background:#dc2626;border-color:#dc2626;color:#fff}
+.mcq-exp{background:#f8fafc;border-top:1px solid #dde8f5;padding:12px 16px;font-size:.88rem;color:var(--muted);display:none;line-height:1.6}
+.mcq-exp.show{display:block}
+.mcq-exp strong{color:var(--green);display:block;margin-bottom:3px}
+.score-bar{background:var(--white);border-radius:10px;padding:18px 20px;margin-bottom:16px;border:1px solid var(--border);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score-bar .score-num{font-size:2rem;font-weight:700;color:var(--primary)}
+.score-bar .score-lbl{font-size:.88rem;color:var(--muted)}
+.score-bar button{margin-left:auto;padding:9px 20px;background:var(--accent);color:#fff;border:none;border-radius:7px;font-size:.9rem;cursor:pointer;font-family:'Georgia',serif}
+.score-bar button:hover{background:var(--primary)}
+/* ── summary table ── */
+.summary-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.86rem}
+.summary-table th{background:#991b1b;color:#fff;padding:9px 10px;text-align:left}
+.summary-table td{padding:8px 10px;border-bottom:1px solid #dde8f5;vertical-align:top}
+.summary-table tr:nth-child(even) td{background:#f5f9ff}
+.summary-table td:first-child{font-weight:700;color:var(--primary-dark);width:150px}
+@media(max-width:500px){
+  .page-header h1{font-size:1.25rem}
+  nav button{font-size:12px;padding:11px 6px}
+  .fc-grid{grid-template-columns:1fr}
+  .fc-item{height:230px}
+  .tbl,.summary-table{font-size:.8rem}
+  .kocher-grid{grid-template-columns:1fr 1fr}
+  .abx-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Septic Arthritis</h1>
+  <p>Infective / Suppurative Arthritis · Year 4 MBBS · Orthopaedic Course</p>
+</div>
+<div class="emergency-banner">🚨 ORTHOPAEDIC EMERGENCY &nbsp;—&nbsp; <span>A hot, swollen, painful joint is septic until proven otherwise. Aspirate first, treat without delay.</span></div>
+
+<nav id="main-nav">
+  <button class="active" onclick="showPage('lecture',this)">📖 Lecture</button>
+  <button onclick="showPage('flashcards',this)">🃏 Flashcards</button>
+  <button onclick="showPage('mcq',this)">✅ MCQ</button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     LECTURE PAGE
+══════════════════════════════════════════ -->
+<div class="page active" id="page-lecture">
+
+  <!-- CARD 1 — Definition -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">1</div>
+      <h3>Definition</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <p>Septic arthritis is <strong>inflammation of the synovial membrane</strong> with a <strong>purulent (pus-containing) effusion</strong> into the joint capsule, most often due to <strong>bacterial infection</strong>.</p>
+      <h4 class="sub">Why the Synovium?</h4>
+      <p>The synovium is the <strong>vascular lining</strong> of the joint — blood-borne bacteria seed it first during bacteraemia. Once infection is intra-articular, the joint becomes a <strong>closed abscess cavity</strong> that pus cannot easily escape → rising pressure and rapid, irreversible cartilage damage.</p>
+      <div class="box box-emergency"><strong>Purulent effusion is the key phrase.</strong> The diagnosis is confirmed by aspirating <strong>frank pus</strong> or grossly turbid fluid — not by imaging. If clinical suspicion is high, aspirate regardless of X-ray findings.</div>
+      <div style="margin:14px 0;text-align:center">
+        <img src="https://lh3.googleusercontent.com/d/1X3sbxBqCBcJVmzDlfUS-8-Wb8AmDJqkw" alt="Hot erythematous swollen knee — septic arthritis" style="max-width:100%;border-radius:8px;border:1px solid #dde8f5;box-shadow:0 1px 6px rgba(0,0,0,.12)">
+        <p style="font-size:.82rem;color:var(--muted);font-style:italic;margin-top:6px">Clinical photo: hot, erythematous, swollen knee in septic arthritis</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 — Etiology -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">2</div>
+      <h3>Etiology — Organisms by Host</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <ul>
+        <li>Commonest organism overall: <strong>Staphylococcus aureus</strong></li>
+        <li>~<strong>80% gram-positive</strong> aerobes; ~20% gram-negative</li>
+        <li>50% of cases occur in <strong>children &lt;5 years</strong>; 30% in children &lt;2 years</li>
+        <li><em>Haemophilus influenzae</em> incidence has fallen sharply since the <strong>Hib vaccine</strong></li>
+      </ul>
+
+      <h4 class="sub">Host-Specific Organism Table — High Yield</h4>
+      <table class="tbl">
+        <tr><th>Host / Setting</th><th>Likely Organism</th></tr>
+        <tr><td>Healthy adults / children <em class="org-host">(commonest)</em></td><td><strong>Staphylococcus aureus</strong></td></tr>
+        <tr><td>Young, sexually active adult</td><td><strong>Neisseria gonorrhoeae</strong></td></tr>
+        <tr><td>IV drug user (IVDU)</td><td><strong>Pseudomonas aeruginosa</strong> (also S. aureus)</td></tr>
+        <tr><td>Neonate</td><td>S. aureus, Group B Streptococcus, gram-negatives</td></tr>
+        <tr><td>Sickle-cell disease</td><td><strong>Salmonella</strong> (also S. aureus)</td></tr>
+        <tr><td>Prosthetic joint — early (&lt;3 months)</td><td><strong>S. aureus</strong></td></tr>
+        <tr><td>Prosthetic joint — late / indolent</td><td><strong>Coagulase-negative Staph</strong> (S. epidermidis)</td></tr>
+        <tr><td>Animal bite (cat/dog)</td><td>Pasteurella, Eikenella</td></tr>
+      </table>
+      <div class="box box-clinical"><strong>Match the organism to the story.</strong> "Young, sexually active + migratory arthralgia + rash" = <strong>gonococcus</strong>. "IVDU" = think Pseudomonas and consider unusual joints (sacroiliac, sternoclavicular). "Sickle-cell child" = Salmonella until proven otherwise.</div>
+    </div>
+  </div>
+
+  <!-- CARD 3 — Site -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">3</div>
+      <h3>Site — Which Joint Is Affected?</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <table class="tbl">
+        <tr><th>Age Group</th><th>Most Common Joint</th><th>Frequency</th></tr>
+        <tr><td><strong>Adults</strong></td><td>Knee</td><td>40–50% of cases</td></tr>
+        <tr><td>Adults</td><td>Hip</td><td>20–25%</td></tr>
+        <tr><td><strong>Infants / young children</strong></td><td>Hip</td><td>~95% of cases</td></tr>
+      </table>
+      <h4 class="sub">Why the Hip in Infants?</h4>
+      <p>The infant hip has an <strong>intracapsular metaphysis</strong> with a rich metaphyseal blood supply, making haematogenous seeding — and spread from adjacent osteomyelitis — particularly common. The hip is also a deep, closed, tense compartment.</p>
+      <div class="box box-emergency">A septic hip in a child is a <strong>surgical emergency</strong>. The deep, tense, closed compartment means rising pressure can cause <strong>avascular necrosis (AVN) of the femoral head</strong> within hours. Do not delay for imaging — proceed to urgent washout.</div>
+    </div>
+  </div>
+
+  <!-- CARD 4 — Sources -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">4</div>
+      <h3>Sources of Infection — Routes of Entry</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <ol>
+        <li><strong>Haematogenous</strong> — bacteraemia (most common overall); IV drug injection; distant focus (skin, urine, dental)</li>
+        <li><strong>Direct trauma / penetrating injury</strong> — or iatrogenic (joint injection, arthroscopy, joint replacement surgery)</li>
+        <li><strong>Spread from adjacent osteomyelitis</strong> — bone infection breaking into the joint</li>
+        <li><strong>Contiguous soft-tissue infection</strong> — cellulitis, abscess, bursitis, tenosynovitis spreading inward</li>
+      </ol>
+      <div class="box box-exam"><strong>The anatomical rule — joints at risk from osteomyelitis:</strong> In joints where the <strong>metaphysis lies inside the joint capsule</strong> — Hip, Shoulder, Elbow, Ankle — metaphyseal osteomyelitis can rupture directly into the joint. <em>When in doubt, assume BOTH osteomyelitis AND septic arthritis are present.</em></div>
+      <div class="box box-clinical">Always search for a <strong>primary focus</strong> — skin abscess, recent injection, IV line, dental procedure, urinary source — because eradicating it prevents relapse.</div>
+    </div>
+  </div>
+
+  <!-- CARD 5 — Pathogenesis -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">5</div>
+      <h3>Pathogenesis — The Destructive Cascade</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <p>The synovium is <strong>highly vascular with no limiting basement-membrane barrier</strong>, so bacteria seed it easily during bacteraemia.</p>
+      <div class="cascade">
+        <div class="cascade-step"><div class="cs-dot"></div><div>Bacterial invasion of the synovium → phagocytosis by fibroblast-like synoviocytes</div></div>
+        <div class="cascade-step"><div class="cs-dot"></div><div>Influx of <strong>inflammatory cells</strong> (predominantly neutrophils)</div></div>
+        <div class="cascade-step"><div class="cs-dot"></div><div>Release of <strong>proteolytic enzymes</strong> (bacterial toxins + neutrophil-derived proteases)</div></div>
+        <div class="cascade-step"><div class="cs-dot"></div><div>Synovial <strong>necrosis</strong> + articular surface destruction</div></div>
+        <div class="cascade-step"><div class="cs-dot"></div><div>Accumulation of <strong>purulent synovial fluid</strong> → pressure necrosis</div></div>
+        <div class="cascade-step"><div class="cs-dot"></div><div><strong>Irreversible cartilage and bone destruction</strong></div></div>
+      </div>
+      <div class="box box-emergency"><strong>Why cartilage dies so fast:</strong> Enzymes are from BOTH bacteria (toxins) AND the host's own neutrophils. Neutrophil-derived proteases begin degrading glycosaminoglycans within <strong>8 hours</strong> and collagen within <strong>days</strong> — damage is <strong>irreversible and largely host-mediated</strong>. This is the pathological basis of "treat as an emergency."</div>
+      <div class="box box-exam">Because damage is enzyme-driven and pressure-driven, <strong>draining the pus is as important as antibiotics</strong> — you must decompress the joint and remove the enzyme-laden effusion. Antibiotics alone are insufficient if the joint remains undrained.</div>
+      <h4 class="sub">In Infants</h4>
+      <p>The epiphysis is <strong>cartilaginous</strong> in infants and is destroyed directly. Untreated infection spreads to underlying bone → forms an <strong>abscess or sinus</strong> → enters the bloodstream → <strong>septicaemia</strong>.</p>
+    </div>
+  </div>
+
+  <!-- CARD 6 — Clinical Presentation -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">6</div>
+      <h3>Clinical Presentation</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <h4 class="sub">Classic Presentation</h4>
+      <ul>
+        <li><strong>Fever</strong></li>
+        <li>Erythema, oedema, <strong>heat</strong> over the joint</li>
+        <li><strong>Severe pain</strong></li>
+        <li>Markedly <strong>decreased active AND passive range of motion</strong> (the joint is held still — "<strong>pseudoparalysis</strong>")</li>
+      </ul>
+      <div class="box box-exam"><strong>Pain on passive movement</strong> is the key clinical sign. In inflammatory/mechanical conditions a patient may tolerate gentle passive motion; in septic arthritis even tiny passive movement is <em>agonising</em> because it raises intra-articular pressure on an inflamed capsule. Refusal of ALL movement is a red flag.</div>
+
+      <h4 class="sub">Age-Related Presentations</h4>
+      <table class="tbl">
+        <tr><th>Patient Group</th><th>Presentation Features</th><th>Likely Organism</th></tr>
+        <tr>
+          <td>Young, sexually active adult</td>
+          <td>Fever + <strong>tenosynovitis</strong> + <strong>migratory polyarthralgia</strong> + <strong>dermatitis</strong> (papular/haemorrhagic rash on trunk + extensor surfaces of distal limbs) — the <strong>DGI triad</strong></td>
+          <td><strong>N. gonorrhoeae</strong></td>
+        </tr>
+        <tr>
+          <td>IV drug user</td>
+          <td>Unusual joints (SI joint, sternoclavicular); fever + joint pain</td>
+          <td><strong>Pseudomonas</strong></td>
+        </tr>
+        <tr>
+          <td>Infant / non-verbal child</td>
+          <td>Fever + <strong>irritability</strong> + refuses to move limb or bear weight (<strong>pseudoparalysis</strong>); local signs may be absent in deep joints</td>
+          <td>S. aureus</td>
+        </tr>
+      </table>
+      <div class="box box-clinical">In a non-verbal child, <strong>refusal to move or bear weight + fever = septic joint until excluded</strong>. Do not be reassured by absent local signs in a deep joint like the hip — internal joint pressure may be the only abnormality detectable clinically.</div>
+    </div>
+  </div>
+
+  <!-- CARD 7 — Kocher Criteria -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">7</div>
+      <h3>Kocher Criteria — Child with Irritable Hip</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <p>In a child with an <strong>irritable hip</strong>, four independent clinical predictors distinguish septic arthritis from the more benign <strong>transient synovitis</strong>:</p>
+      <div class="kocher-grid">
+        <div class="kocher-item"><div class="k-num">1</div><div class="k-label"><strong>Non-weight-bearing</strong><br>Cannot bear weight on the leg</div></div>
+        <div class="kocher-item"><div class="k-num">2</div><div class="k-label"><strong>Fever &gt;38.5 °C</strong><br>History of fever</div></div>
+        <div class="kocher-item"><div class="k-num">3</div><div class="k-label"><strong>ESR &gt;40 mm/h</strong><br>Elevated erythrocyte sedimentation rate</div></div>
+        <div class="kocher-item"><div class="k-num">4</div><div class="k-label"><strong>WBC &gt;12,000/µL</strong><br>Leukocytosis on FBC</div></div>
+      </div>
+      <p><em>Many centres also use <strong>CRP &gt;20 mg/L</strong> as an additional strong predictor.</em></p>
+
+      <h4 class="sub">Probability of Septic Arthritis by Criteria Met</h4>
+      <table class="kocher-prob">
+        <tr><th>Criteria Met</th><th>Approximate Probability</th><th>Action</th></tr>
+        <tr><td>0</td><td class="risk-low">&lt;0.2%</td><td>Likely transient synovitis — observe</td></tr>
+        <tr><td>1</td><td class="risk-low">~3%</td><td>Likely transient synovitis — observe</td></tr>
+        <tr><td>2</td><td class="risk-mid">~40%</td><td>Borderline — clinical judgment + CRP</td></tr>
+        <tr><td>3</td><td class="risk-high">~93%</td><td>Urgent aspiration / washout</td></tr>
+        <tr><td>4</td><td class="risk-high">~99%</td><td>Surgical emergency</td></tr>
+      </table>
+      <div class="box box-warn">Kocher criteria <strong>guide but do NOT replace aspiration</strong>. A child meeting 3–4 criteria should proceed to urgent hip aspiration/washout. A child with 0–1 criteria and a well appearance is more likely transient synovitis (all investigations normal, resolves spontaneously in 2 weeks).</div>
+      <div class="box box-exam">Transient synovitis vs Septic arthritis: Transient synovitis is self-limiting, affects children 3–10 years, follows a viral URTI, all investigations are normal. Any deviation from "all normal" should raise suspicion for septic arthritis.</div>
+    </div>
+  </div>
+
+  <!-- CARD 8 — Investigations -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">8</div>
+      <h3>Investigations</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <div class="box box-emergency"><strong>Definitive diagnosis = Joint Aspiration (Arthrocentesis) BEFORE antibiotics.</strong> Starting antibiotics before aspiration suppresses bacterial growth, potentially rendering cultures falsely negative and delaying diagnosis.</div>
+
+      <h4 class="sub">Joint Aspiration — What to Send</h4>
+      <ul>
+        <li><strong>Gram stain</strong></li>
+        <li><strong>Culture &amp; Sensitivity (C/S)</strong></li>
+        <li><strong>WBC count with differential</strong></li>
+        <li><strong>Crystal analysis</strong> (to exclude gout / pseudogout)</li>
+      </ul>
+      <p>Aspirate directly for accessible joints (knee, elbow); use <strong>ultrasound or X-ray guidance</strong> for deep/difficult joints (hip, sacroiliac, sternoclavicular).</p>
+
+      <h4 class="sub">Synovial Fluid WBC Interpretation</h4>
+      <table class="tbl">
+        <tr><th>Category</th><th>WBC Count</th><th>Predominant Cell</th></tr>
+        <tr><td>Normal</td><td>&lt;200/µL</td><td>Mononuclear</td></tr>
+        <tr><td>Non-inflammatory (OA)</td><td>&lt;2,000/µL</td><td>Mixed</td></tr>
+        <tr><td>Inflammatory (RA / Gout)</td><td>2,000–50,000/µL</td><td>Neutrophils</td></tr>
+        <tr class="sf-row-infect"><td>SEPTIC ARTHRITIS</td><td>&gt;50,000/µL (often &gt;100,000)</td><td>&gt;75–90% Neutrophils (PMN)</td></tr>
+      </table>
+      <div class="box box-warn">A WBC &lt;50,000/µL does <strong>not</strong> exclude sepsis — especially with gonococcal infection, partially treated disease, or prosthetic joints. <strong>Culture is definitive</strong>; never rule out infection on cell count alone.</div>
+
+      <h4 class="sub">Blood / Lab Studies</h4>
+      <ul>
+        <li><strong>FBC</strong> — leukocytosis with <em>left shift</em></li>
+        <li><strong>ESR + CRP</strong> — elevated; used to <em>monitor response</em> to treatment (CRP falls faster than ESR)</li>
+        <li><strong>Blood cultures</strong> — positive in ~50% of S. aureus septic arthritis</li>
+        <li><strong>Urethral / cervical / pharyngeal / rectal swabs</strong> — if gonococcus suspected</li>
+      </ul>
+
+      <h4 class="sub">Imaging</h4>
+      <table class="tbl">
+        <tr><th>Modality</th><th>Role</th><th>Key Limitation</th></tr>
+        <tr><td><strong>Plain X-ray</strong></td><td>First-line; shows soft-tissue swelling, widened joint space (effusion), periarticular osteoporosis early; late: joint-space narrowing, destruction</td><td><strong>Normal in first 2 weeks</strong> — never excludes sepsis</td></tr>
+        <tr><td><strong>Ultrasound</strong></td><td>Very sensitive for effusion; guides aspiration; distinguishes soft-tissue abscess/tenosynovitis</td><td>Operator-dependent</td></tr>
+        <tr><td><strong>MRI</strong></td><td><strong>Best for detecting coexisting osteomyelitis</strong>; early bone marrow oedema, periarticular changes</td><td>Time-consuming; not first-line emergency</td></tr>
+        <tr><td><strong>Radionuclide scan</strong></td><td>Increased uptake; useful for difficult sites (SI, sternoclavicular)</td><td>Non-specific; limited availability</td></tr>
+        <tr><td><strong>CT</strong></td><td>Sternoclavicular / sacroiliac joint infection</td><td>Radiation; limited soft-tissue detail</td></tr>
+      </table>
+      <div class="box box-emergency">A <strong>normal plain X-ray NEVER excludes septic arthritis</strong>. Radiographic destruction appears late (after &gt;2 weeks). If clinical suspicion is high, aspirate regardless of imaging findings.</div>
+      <div style="margin:14px 0;text-align:center">
+        <img src="https://lh3.googleusercontent.com/d/1Av-eZRbAdqMcS3BbiR2l5WVTWJZ-U1Yf" alt="X-ray comparison: early vs late septic arthritis" style="max-width:100%;border-radius:8px;border:1px solid #dde8f5;box-shadow:0 1px 6px rgba(0,0,0,.12)">
+        <p style="font-size:.82rem;color:var(--muted);font-style:italic;margin-top:6px">X-ray comparison: early septic arthritis (effusion only) vs late (joint-space destruction, subchondral erosion)</p>
+      </div>
+      <div style="margin:14px 0;text-align:center">
+        <img src="https://lh3.googleusercontent.com/d/18BfQA9-B_RbcUd-Gl3Iid03TC1GgCm0I" alt="Ultrasound: hip effusion in a child" style="max-width:100%;border-radius:8px;border:1px solid #dde8f5;box-shadow:0 1px 6px rgba(0,0,0,.12)">
+        <p style="font-size:.82rem;color:var(--muted);font-style:italic;margin-top:6px">Ultrasound: hip effusion in a child — anechoic fluid anterior to the femoral neck; needle positioned for aspiration</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 9 — Differential Diagnosis -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">9</div>
+      <h3>Differential Diagnosis</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <table class="tbl">
+        <tr><th>Condition</th><th>Key Distinguishing Features</th></tr>
+        <tr><td><strong>Transient synovitis</strong> (children)</td><td>Less acute; all investigations <em>normal</em>; follows viral URTI; self-limiting (Kocher 0–1)</td></tr>
+        <tr><td><strong>Osteomyelitis</strong></td><td>May be indistinguishable; assume both are present when metaphysis is intracapsular</td></tr>
+        <tr><td><strong>Acute haemarthrosis</strong></td><td>Post-traumatic or haemophilic bleed; history + dark bloody aspirate</td></tr>
+        <tr><td><strong>Gout</strong></td><td>Urate crystals in aspirate (negatively birefringent under polarised light); elevated serum urate</td></tr>
+        <tr><td><strong>Pseudogout (CPPD)</strong></td><td>Calcium pyrophosphate crystals (positively birefringent)</td></tr>
+        <tr><td><strong>Rheumatic fever</strong></td><td>Migratory polyarthritis; preceding streptococcal pharyngitis; Jones criteria</td></tr>
+        <tr><td><strong>RA flare</strong></td><td>Known RA history; bilateral / symmetrical; systemic features; RF/anti-CCP positive</td></tr>
+        <tr><td><strong>Reactive arthritis</strong></td><td>Follows GI/GU infection; sterile joint aspirate; urethritis, conjunctivitis triad</td></tr>
+      </table>
+      <div class="box box-warn"><strong>Crystals and infection can coexist.</strong> Finding urate crystals does <em>not</em> exclude septic arthritis. If in doubt, always send culture and treat as septic arthritis until cultures return.</div>
+    </div>
+  </div>
+
+  <!-- CARD 10 — Complications -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num">10</div>
+      <h3>Complications</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <div class="comp-grid">
+        <div class="comp-badge">Joint Dislocation</div>
+        <div class="comp-badge">Avascular Necrosis</div>
+        <div class="comp-badge">Epiphyseal Destruction</div>
+        <div class="comp-badge">Physeal Damage</div>
+        <div class="comp-badge">Limb Shortening</div>
+        <div class="comp-badge">Angular Deformity</div>
+        <div class="comp-badge">Ankylosis</div>
+        <div class="comp-badge">Secondary OA</div>
+        <div class="comp-badge">Osteomyelitis</div>
+        <div class="comp-badge">Abscess / Sinus</div>
+        <div class="comp-badge">Septicaemia</div>
+        <div class="comp-badge">Septic Shock / Death</div>
+      </div>
+      <h4 class="sub">Detail</h4>
+      <ul>
+        <li><strong>Dislocation</strong> — tense effusion (especially infant hip)</li>
+        <li><strong>AVN of the femoral head</strong> — in children; caused by pressure-induced ischaemia of the intracapsular blood supply</li>
+        <li><strong>Epiphyseal destruction</strong> — cartilaginous epiphysis in infants is directly destroyed → unstable <em>pseudarthrosis</em></li>
+        <li><strong>Physeal damage</strong> → growth arrest → <strong>limb shortening</strong> or angular deformity</li>
+        <li><strong>Ankylosis</strong> — eroded cartilage heals with bony or fibrous fusion → stiff joint</li>
+        <li><strong>Secondary OA</strong> — post-infective cartilage loss accelerates degenerative change</li>
+      </ul>
+      <div class="box box-emergency">Every hour of delay adds irreversible damage. In children the threats are AVN, growth arrest and limb-length discrepancy; in adults, cartilage loss → secondary OA and stiffness. The urgency is absolute.</div>
+    </div>
+  </div>
+
+  <!-- CARD 11 — Treatment -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num red">11</div>
+      <h3>Treatment — Emergency Management</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <div class="box box-emergency"><strong>Step 1:</strong> Aspirate the joint and examine the fluid. <strong>Step 2:</strong> Take blood cultures. <strong>Step 3:</strong> Start IV empirical antibiotics immediately after sampling — NEVER before.</div>
+
+      <h4 class="sub">11A. General Measures</h4>
+      <div class="step"><div class="step-num red">1</div><div class="step-content"><div class="step-title">Joint Aspiration — immediately</div><p>Decompresses the joint, removes enzyme-laden pus, provides diagnostic material. Repeat daily if needle aspiration is the chosen drainage strategy.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Analgesia + Splinting</div><p>Splint in position of maximal comfort. Adequate analgesia while awaiting surgical drainage.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">IV fluid resuscitation + nutritional support</div><p>Treat systemic sepsis aggressively.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Identify and treat all foci of infection</div><p>Hunt the primary source (skin, IV line, urine, dental) — eradicating it prevents relapse.</p></div></div>
+
+      <h4 class="sub">11B. Antibiotics — Empirical Choice</h4>
+      <div class="abx-grid">
+        <div class="abx-card"><div class="abx-title">Gram-positive confirmed</div><p><strong>Flucloxacillin</strong><br>(covers S. aureus)</p></div>
+        <div class="abx-card"><div class="abx-title">Unknown / gram-negative risk</div><p><strong>3rd-generation cephalosporin</strong><br>(covers G+ and G−)</p></div>
+        <div class="abx-card"><div class="abx-title">Child &lt;4 yr — suspect H. influenzae</div><p><strong>Ampicillin</strong></p></div>
+        <div class="abx-card"><div class="abx-title">Young sexually active — gonococcus</div><p><strong>Ceftriaxone</strong></p></div>
+        <div class="abx-card"><div class="abx-title">MRSA risk (hospital, IVDU)</div><p>Add <strong>Vancomycin</strong></p></div>
+        <div class="abx-card"><div class="abx-title">IVDU — Pseudomonas</div><p><strong>Antipseudomonal agent</strong><br>(e.g. piperacillin-tazobactam)</p></div>
+      </div>
+      <div class="box box-key"><strong>Duration:</strong> IV antibiotics for <strong>1–2 weeks</strong>, then switch to <strong>oral antibiotics for ~6 weeks</strong> total. Always switch to targeted therapy once sensitivities are known. Monitor response with CRP and ESR trends — CRP falls first.</div>
+
+      <h4 class="sub">11C. Surgical Drainage — Indications</h4>
+      <ol>
+        <li>Joints <strong>not responding</strong> to antibiotics + daily arthrocentesis</li>
+        <li>Joints with <strong>limited accessibility</strong> — <em>hip</em> (especially in children), sternoclavicular joint</li>
+        <li>Patients with <strong>underlying comorbidity</strong> — diabetes, RA, immunosuppression — treat more aggressively with earlier surgery</li>
+      </ol>
+      <div class="box box-emergency"><strong>"Septic hip = open washout."</strong> The hip in children and adults requires surgical arthrotomy and washout as an emergency. It is too deep for reliable repeated needle aspiration and the consequences of delayed drainage (AVN, growth arrest) are catastrophic.</div>
+
+      <h4 class="sub">Enhancement: Prosthetic Joint Infection (PJI)</h4>
+      <ul>
+        <li>Organisms form a <strong>biofilm</strong> on the implant that antibiotics <strong>cannot penetrate</strong></li>
+        <li>Early (&lt;3 months): <strong>S. aureus</strong>; Late/indolent: <strong>coagulase-negative Staph</strong> (S. epidermidis)</li>
+        <li>Diagnosis: aspiration + culture (prolonged incubation needed) + elevated CRP/ESR</li>
+        <li>Cure usually requires <strong>removal of the implant</strong> (single- or two-stage revision) + prolonged antibiotics — antibiotics alone rarely eradicate biofilm</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="lec-card">
+    <div class="lec-card-head" onclick="toggleCard(this)">
+      <div class="num red">★</div>
+      <h3>Summary Table — Septic Arthritis at a Glance</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="lec-body">
+      <table class="summary-table">
+        <tr><th>Domain</th><th>Key Point</th><th>Clinical Clue</th></tr>
+        <tr><td>Definition</td><td>Purulent synovial infection</td><td>Aspirate → pus</td></tr>
+        <tr><td>Commonest organism</td><td>S. aureus (80% gram-positive)</td><td>Match organism to host</td></tr>
+        <tr><td>Special hosts</td><td>Gonococcus (young/sexually active); Pseudomonas (IVDU); Salmonella (sickle-cell)</td><td>Rash + migratory arthralgia = gonococcus</td></tr>
+        <tr><td>Site</td><td>Adult: knee 40–50%; Child: hip 95%</td><td>Child hip = emergency</td></tr>
+        <tr><td>Route</td><td>Haematogenous most common</td><td>Hunt the primary focus</td></tr>
+        <tr><td>Presentation</td><td>Red-hot-painful joint; no movement (pseudoparalysis)</td><td>Pain on passive ROM is key</td></tr>
+        <tr><td>Child predictor</td><td>Kocher: non-weight-bearing, fever &gt;38.5°C, ESR &gt;40, WBC &gt;12,000</td><td>3–4 criteria → aspirate/washout</td></tr>
+        <tr><td>Definitive test</td><td>Joint aspiration BEFORE antibiotics</td><td>WBC &gt;50,000, &gt;90% neutrophils</td></tr>
+        <tr><td>X-ray</td><td>Early normal/effusion; late: narrowing/destruction</td><td>Normal film NEVER excludes</td></tr>
+        <tr><td>Monitoring</td><td>CRP + ESR trends</td><td>CRP falls first</td></tr>
+        <tr><td>Treatment</td><td>Drain + IV empirical antibiotics</td><td>EMERGENCY — aspirate first</td></tr>
+        <tr><td>Antibiotics</td><td>Flucloxacillin (G+); 3rd-gen cephalosporin (unknown); IV 1–2 wk → oral ~6 wk</td><td>Switch to targeted once sensitivities known</td></tr>
+        <tr><td>Surgery</td><td>No response / hip / comorbid host</td><td>Septic hip = open washout</td></tr>
+        <tr><td>Complications</td><td>AVN, growth arrest, ankylosis, secondary OA, septicaemia</td><td>Delay = irreversible cartilage loss</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /lecture -->
+
+<!-- ══════════════════════════════════════════
+     FLASHCARDS PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-flashcards">
+  <p style="color:var(--muted);font-size:.88rem;margin:12px 0 16px;font-style:italic;text-align:center">Tap a card to reveal the answer</p>
+  <div class="fc-grid">
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Definition</span><div class="fc-q">Define septic arthritis. What is the diagnostic hallmark on aspiration?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">Inflammation of the synovial membrane with a <strong>purulent effusion</strong> in the joint capsule, most often due to bacterial infection.<br><br>Hallmark: aspiration of <strong>frank pus or turbid fluid</strong> — diagnosis is confirmed by aspiration, not imaging.</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Organisms</span><div class="fc-q">What is the single most common organism causing septic arthritis? What proportion are gram-positive?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a"><strong>Staphylococcus aureus</strong> — the single most common organism across all age groups.<br><br>~<strong>80% gram-positive</strong> aerobes; ~20% gram-negative.<br><br>50% of all cases occur in children &lt;5 years.</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Host-Specific</span><div class="fc-q">Match the organism to the host: young sexually active adult; IVDU; sickle-cell disease; late prosthetic joint infection</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">Sexually active adult → <strong>N. gonorrhoeae</strong><br>IVDU → <strong>Pseudomonas aeruginosa</strong><br>Sickle-cell → <strong>Salmonella</strong><br>Late prosthetic joint → <strong>S. epidermidis</strong> (CoNS — biofilm on implant)</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Site</span><div class="fc-q">Which joint is most commonly affected in adults? Which in infants?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">Adults: <strong>Knee</strong> — 40–50% of adult cases<br><br>Infants: <strong>Hip</strong> — ~95% of infant cases<br><br>Child hip = emergency: deep tense compartment → pressure → <strong>AVN of femoral head</strong></div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Routes</span><div class="fc-q">List the four routes by which bacteria reach a joint. Which is most common?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a"><strong>Most common: Haematogenous</strong> spread (bacteraemia)<br><br>Also:<br>Direct trauma / penetrating / iatrogenic<br>Spread from adjacent <strong>osteomyelitis</strong><br>Contiguous soft-tissue infection (cellulitis, abscess)<br><br>Joints with intracapsular metaphysis (hip, shoulder, elbow, ankle) at risk from osteomyelitis spread.</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Pathogenesis</span><div class="fc-q">How quickly does cartilage destruction begin, and why is drainage as important as antibiotics?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">Glycosaminoglycans degraded within <strong>8 hours</strong>; collagen within <strong>days</strong>.<br><br>Destruction is neutrophil-driven (host-mediated) — the enzyme-laden effusion must be drained to stop ongoing damage.<br><br><strong>Antibiotics alone are insufficient if the joint remains undrained.</strong></div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Clinical</span><div class="fc-q">Why is pain on PASSIVE movement the key sign of septic arthritis?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">Even tiny passive movement raises <strong>intra-articular pressure</strong> on the inflamed capsule, causing <strong>agonising pain</strong>.<br><br>In mechanical or mild inflammatory conditions patients may tolerate gentle passive motion. <strong>Refusal of ALL movement (pseudoparalysis)</strong> is the key red flag for septic arthritis.</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">DGI</span><div class="fc-q">Describe the classic triad of disseminated gonococcal infection (DGI)</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">1. <strong>Tenosynovitis</strong><br>2. <strong>Migratory polyarthralgia</strong><br>3. <strong>Dermatitis</strong> — papular or haemorrhagic pustules on trunk and extensor surfaces of distal limbs<br><br>Organism: <strong>N. gonorrhoeae</strong><br>Send: urethral, cervical, pharyngeal and rectal swabs</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Kocher</span><div class="fc-q">State the four Kocher criteria and the risk of septic arthritis when all four are present</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">1. <strong>Non-weight-bearing</strong><br>2. <strong>Fever &gt;38.5°C</strong><br>3. <strong>ESR &gt;40 mm/h</strong><br>4. <strong>WBC &gt;12,000/µL</strong><br><br>All 4 criteria → <strong>~99% risk</strong><br>3 criteria → ~93%<br><br>Criteria guide but do NOT replace aspiration.</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Aspiration</span><div class="fc-q">What four tests must be requested on synovial fluid aspirated from a suspected septic joint?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">1. <strong>Gram stain</strong><br>2. <strong>Culture &amp; sensitivity</strong><br>3. <strong>WBC count + differential</strong><br>4. <strong>Crystal analysis</strong> (exclude gout/pseudogout)<br><br>Always aspirate <strong>before</strong> starting antibiotics — antibiotics suppress growth and may falsify cultures.</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Synovial Fluid</span><div class="fc-q">What synovial WBC count and differential suggest septic arthritis?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">WBC <strong>&gt;50,000/µL</strong> (often &gt;100,000)<br>&gt;75–90% <strong>neutrophils (PMN)</strong><br><br>Comparison:<br>OA (non-inflammatory): &lt;2,000<br>RA / Gout (inflammatory): 2,000–50,000<br><br>Lower counts do NOT exclude sepsis (gonococcal, partial treatment, prosthetic joint).</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">X-ray</span><div class="fc-q">What does an early plain X-ray in septic arthritis typically show, and what is the clinical danger of this finding?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">Early (first 2 weeks): <strong>normal or soft-tissue swelling / widened joint space</strong> (effusion) only.<br><br>Danger: a <strong>normal X-ray can falsely reassure</strong> clinicians into delaying aspiration. <strong>A normal film NEVER excludes septic arthritis.</strong><br><br>Late: joint-space narrowing, subluxation, destructive arthritis.</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Antibiotics</span><div class="fc-q">State the empirical antibiotic for (a) gram-positive confirmed, (b) organism unknown, and the total treatment duration</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">(a) Gram-positive: <strong>Flucloxacillin</strong><br>(b) Unknown: <strong>3rd-generation cephalosporin</strong><br><br>Gonococcus: <strong>Ceftriaxone</strong><br>Child &lt;4 yr (H. influenzae): <strong>Ampicillin</strong><br><br>Duration: <strong>IV 1–2 weeks → Oral ~6 weeks</strong><br>Monitor: CRP + ESR trends (CRP falls first)</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Surgery</span><div class="fc-q">List three indications for surgical drainage (rather than repeated needle aspiration) in septic arthritis</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">1. <strong>No response</strong> to antibiotics + daily arthrocentesis<br>2. <strong>Limited access joint</strong> — hip (especially in children), sternoclavicular joint<br>3. <strong>Comorbid / immunosuppressed host</strong> — diabetes, RA → treat aggressively with early surgery<br><br>"<strong>Septic hip = open washout</strong>"</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Complications</span><div class="fc-q">Name five complications of untreated or delayed septic arthritis</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">1. <strong>AVN</strong> of the femoral head (infant hip)<br>2. <strong>Physeal (growth plate) damage</strong> → limb shortening / angular deformity<br>3. <strong>Ankylosis</strong> (bony/fibrous fusion)<br>4. <strong>Secondary OA</strong><br>5. <strong>Septicaemia / septic shock / death</strong><br><br>Also: dislocation, epiphyseal destruction, abscess/sinus</div></div>
+      </div>
+    </div>
+
+    <div class="fc-item" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><span class="fc-tag">Prosthetic Joint</span><div class="fc-q">Why do prosthetic joint infections require implant removal, and what organisms are responsible early vs late?</div><span class="fc-hint">tap to flip</span></div>
+        <div class="fc-back"><span class="fc-label">Answer</span><div class="fc-a">Organisms form a <strong>biofilm</strong> on the implant surface — antibiotics cannot penetrate biofilm adequately.<br><br>Early (&lt;3 months): <strong>S. aureus</strong><br>Late / indolent: <strong>S. epidermidis</strong> (CoNS)<br><br>Treatment: <strong>implant removal</strong> (1- or 2-stage revision) + prolonged antibiotics. Antibiotics alone rarely achieve cure.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /flashcards -->
+
+<!-- ══════════════════════════════════════════
+     MCQ PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-mcq">
+  <div class="score-bar">
+    <div>
+      <div class="score-num" id="score-display">0 / 12</div>
+      <div class="score-lbl">Questions answered</div>
+    </div>
+    <button onclick="resetMCQ()">↺ Reset</button>
+  </div>
+
+  <!-- Q1 -->
+  <div class="mcq-card" id="q1">
+    <div class="mcq-head"><div class="qnum">Question 1</div><div class="qtext">A 67-year-old man with rheumatoid arthritis presents with an acutely hot, erythematous, swollen right knee with a temperature of 38.8°C. He has known RA and recently received an intra-articular steroid injection. What is the most important immediate investigation?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q1','wrong')"><div class="badge">A</div>Urgent MRI of the right knee</div>
+      <div class="opt" onclick="answer(this,'q1','wrong')"><div class="badge">B</div>Plain X-ray of the right knee</div>
+      <div class="opt" onclick="answer(this,'q1','correct')"><div class="badge">C</div>Joint aspiration — send for Gram stain, culture, cell count and crystals</div>
+      <div class="opt" onclick="answer(this,'q1','wrong')"><div class="badge">D</div>Start IV corticosteroids for the RA flare</div>
+    </div>
+    <div class="mcq-exp" id="exp-q1"><strong>✓ Correct: C — Joint aspiration</strong>This presentation must be treated as septic arthritis until proven otherwise. Joint aspiration for Gram stain, culture, cell count and crystal analysis is the definitive diagnostic step and must precede antibiotics. MRI and X-ray are supportive but not diagnostic. Starting corticosteroids for a "RA flare" without excluding infection could be catastrophic — untreated septic arthritis destroys cartilage within days. Post-injection septic arthritis is a recognised complication of intra-articular steroid injection.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="mcq-card" id="q2">
+    <div class="mcq-head"><div class="qnum">Question 2</div><div class="qtext">A 24-year-old sexually active woman presents with a 3-day history of fever, migratory joint pains affecting the wrist and ankle, tenosynovitis of the extensor tendons of the hand, and scattered pustular lesions on her forearms and trunk. Which organism is most likely responsible?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q2','wrong')"><div class="badge">A</div>Staphylococcus aureus</div>
+      <div class="opt" onclick="answer(this,'q2','correct')"><div class="badge">B</div>Neisseria gonorrhoeae</div>
+      <div class="opt" onclick="answer(this,'q2','wrong')"><div class="badge">C</div>Pseudomonas aeruginosa</div>
+      <div class="opt" onclick="answer(this,'q2','wrong')"><div class="badge">D</div>Salmonella species</div>
+    </div>
+    <div class="mcq-exp" id="exp-q2"><strong>✓ Correct: B — Neisseria gonorrhoeae</strong>This is the classic triad of disseminated gonococcal infection (DGI): tenosynovitis + migratory polyarthralgia + dermatitis (papular/haemorrhagic pustules). N. gonorrhoeae is the most common cause of septic arthritis in young sexually active adults. Confirmatory swabs should be taken from the urethra/cervix, pharynx and rectum. Treatment: ceftriaxone. Salmonella is associated with sickle-cell disease; Pseudomonas with IV drug use.</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="mcq-card" id="q3">
+    <div class="mcq-head"><div class="qnum">Question 3</div><div class="qtext">A 2-year-old girl is brought to the emergency department with a 2-day history of fever (39.2°C), irritability, and refusal to bear weight on her right leg. On examination, the right hip is held in slight flexion and external rotation and she cries with any attempt at passive movement. Which is the most appropriate immediate management?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q3','wrong')"><div class="badge">A</div>Prescribe analgesia and review in 48 hours — likely transient synovitis</div>
+      <div class="opt" onclick="answer(this,'q3','wrong')"><div class="badge">B</div>Arrange an urgent MRI hip and admit for observation</div>
+      <div class="opt" onclick="answer(this,'q3','correct')"><div class="badge">C</div>Urgent hip aspiration ± surgical washout as an emergency</div>
+      <div class="opt" onclick="answer(this,'q3','wrong')"><div class="badge">D</div>Start oral antibiotics and arrange ultrasound the following morning</div>
+    </div>
+    <div class="mcq-exp" id="exp-q3"><strong>✓ Correct: C — Urgent hip aspiration ± surgical washout</strong>This child scores 3 Kocher criteria (non-weight-bearing, fever &gt;38.5°C, age &lt;3 years suggests high risk) — estimated risk of septic arthritis ~93%. The infant hip is a deep, tense, closed compartment. Rising intra-articular pressure can cause AVN of the femoral head within hours. A septic hip requires surgical arthrotomy and washout as an emergency — it is too deep for reliable needle aspiration alone. Oral antibiotics before drainage are inadequate and delay definitive treatment.</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="mcq-card" id="q4">
+    <div class="mcq-head"><div class="qnum">Question 4</div><div class="qtext">Synovial fluid is aspirated from a patient with a hot, swollen knee. The WBC count is 85,000 cells/µL with 88% neutrophils. What is the most likely diagnosis?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q4','wrong')"><div class="badge">A</div>Osteoarthritis</div>
+      <div class="opt" onclick="answer(this,'q4','wrong')"><div class="badge">B</div>Rheumatoid arthritis flare</div>
+      <div class="opt" onclick="answer(this,'q4','wrong')"><div class="badge">C</div>Acute gout</div>
+      <div class="opt" onclick="answer(this,'q4','correct')"><div class="badge">D</div>Septic arthritis</div>
+    </div>
+    <div class="mcq-exp" id="exp-q4"><strong>✓ Correct: D — Septic arthritis</strong>A synovial WBC of &gt;50,000/µL (especially &gt;100,000) with &gt;75–90% neutrophils is characteristic of septic arthritis. Comparison: OA &lt;2,000; inflammatory (RA/gout) 2,000–50,000. Note: crystal arthropathy can reach 50,000 and may mimic sepsis — crystals and infection can coexist, so always send culture in addition to crystal analysis. Treat as septic arthritis until cultures return.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="mcq-card" id="q5">
+    <div class="mcq-head"><div class="qnum">Question 5</div><div class="qtext">Why must joint aspiration be performed BEFORE starting antibiotics in suspected septic arthritis?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q5','wrong')"><div class="badge">A</div>Antibiotics increase intra-articular pressure and worsen pain</div>
+      <div class="opt" onclick="answer(this,'q5','correct')"><div class="badge">B</div>Antibiotics suppress bacterial growth, potentially rendering cultures falsely negative</div>
+      <div class="opt" onclick="answer(this,'q5','wrong')"><div class="badge">C</div>Aspiration is contraindicated once antibiotics are started due to altered fluid viscosity</div>
+      <div class="opt" onclick="answer(this,'q5','wrong')"><div class="badge">D</div>Antibiotics cannot penetrate the joint capsule and are therefore ineffective</div>
+    </div>
+    <div class="mcq-exp" id="exp-q5"><strong>✓ Correct: B — Antibiotics suppress bacterial growth</strong>Starting antibiotics before aspiration suppresses bacterial growth and may render Gram stain and cultures falsely negative, preventing organism identification and targeted therapy. The correct sequence is: (1) aspirate joint, (2) send for Gram stain, C/S, cell count and crystals, (3) take blood cultures, (4) start empirical IV antibiotics immediately — all within the same emergency window. Culture-negative septic arthritis is more difficult to manage and may require broader antibiotic coverage.</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="mcq-card" id="q6">
+    <div class="mcq-head"><div class="qnum">Question 6</div><div class="qtext">A child with a suspected septic hip is assessed using the Kocher criteria. She is non-weight-bearing, has a temperature of 39°C, ESR of 52 mm/h, and WBC of 14,500/µL. How many Kocher criteria does she meet, and what is the approximate risk of septic arthritis?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q6','wrong')"><div class="badge">A</div>2 criteria — approximately 40%</div>
+      <div class="opt" onclick="answer(this,'q6','wrong')"><div class="badge">B</div>3 criteria — approximately 40%</div>
+      <div class="opt" onclick="answer(this,'q6','correct')"><div class="badge">C</div>4 criteria — approximately 99%</div>
+      <div class="opt" onclick="answer(this,'q6','wrong')"><div class="badge">D</div>4 criteria — approximately 50%</div>
+    </div>
+    <div class="mcq-exp" id="exp-q6"><strong>✓ Correct: C — 4 criteria, ~99%</strong>All four Kocher criteria are met: non-weight-bearing ✓, fever &gt;38.5°C ✓, ESR &gt;40 mm/h ✓, WBC &gt;12,000/µL ✓. Four criteria = approximately 99% probability of septic arthritis. This child requires urgent surgical hip washout. The probability at 3 criteria is ~93%. Many centres add CRP &gt;20 mg/L as a fifth criterion, which further increases specificity.</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="mcq-card" id="q7">
+    <div class="mcq-head"><div class="qnum">Question 7</div><div class="qtext">An early plain X-ray of a joint is reported as "normal" in a patient presenting with a hot, tender, acutely swollen knee and fever. What is the correct clinical interpretation?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q7','wrong')"><div class="badge">A</div>A normal X-ray rules out septic arthritis — consider an alternative diagnosis</div>
+      <div class="opt" onclick="answer(this,'q7','correct')"><div class="badge">B</div>A normal X-ray does not exclude septic arthritis — proceed with joint aspiration</div>
+      <div class="opt" onclick="answer(this,'q7','wrong')"><div class="badge">C</div>A normal X-ray confirms the diagnosis of transient synovitis</div>
+      <div class="opt" onclick="answer(this,'q7','wrong')"><div class="badge">D</div>A normal X-ray indicates early-stage OA and the patient should be referred to rheumatology</div>
+    </div>
+    <div class="mcq-exp" id="exp-q7"><strong>✓ Correct: B — Normal X-ray does not exclude septic arthritis</strong>In the first two weeks, plain X-ray is non-specific — it may show only soft-tissue swelling or an effusion (widened joint space). Radiographic evidence of joint destruction (joint-space narrowing, erosions, subluxation) appears late, after significant irreversible damage has already occurred. A normal X-ray in a patient with clinical features of septic arthritis must NOT delay aspiration.</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="mcq-card" id="q8">
+    <div class="mcq-head"><div class="qnum">Question 8</div><div class="qtext">A 35-year-old man with known sickle-cell disease presents with fever and an acutely painful right hip. Blood cultures are sent. Which organism should empirical antibiotic therapy additionally cover, beyond standard S. aureus coverage?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q8','wrong')"><div class="badge">A</div>Neisseria gonorrhoeae</div>
+      <div class="opt" onclick="answer(this,'q8','wrong')"><div class="badge">B</div>Pseudomonas aeruginosa</div>
+      <div class="opt" onclick="answer(this,'q8','correct')"><div class="badge">C</div>Salmonella species</div>
+      <div class="opt" onclick="answer(this,'q8','wrong')"><div class="badge">D</div>Haemophilus influenzae</div>
+    </div>
+    <div class="mcq-exp" id="exp-q8"><strong>✓ Correct: C — Salmonella species</strong>Sickle-cell disease is associated with Salmonella septic arthritis (and osteomyelitis) due to functional hyposplenism and impaired opsonisation. This is a classic host-organism pairing. Empirical cover should include anti-Salmonella coverage (e.g. a third-generation cephalosporin or fluoroquinolone) in addition to S. aureus coverage. N. gonorrhoeae is associated with young sexually active adults; Pseudomonas with IV drug use; H. influenzae with unvaccinated children &lt;4 years.</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="mcq-card" id="q9">
+    <div class="mcq-head"><div class="qnum">Question 9</div><div class="qtext">In a confirmed gram-positive septic arthritis with no risk factors for MRSA, which is the first-line empirical IV antibiotic?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q9','wrong')"><div class="badge">A</div>Vancomycin</div>
+      <div class="opt" onclick="answer(this,'q9','correct')"><div class="badge">B</div>Flucloxacillin</div>
+      <div class="opt" onclick="answer(this,'q9','wrong')"><div class="badge">C</div>Ceftriaxone</div>
+      <div class="opt" onclick="answer(this,'q9','wrong')"><div class="badge">D</div>Ampicillin</div>
+    </div>
+    <div class="mcq-exp" id="exp-q9"><strong>✓ Correct: B — Flucloxacillin</strong>Flucloxacillin (a penicillinase-resistant penicillin) is the first-line empirical agent for gram-positive septic arthritis, providing excellent S. aureus coverage. Vancomycin is reserved for MRSA-confirmed or MRSA-suspected cases (hospital-acquired, IVDU). Ceftriaxone is used for N. gonorrhoeae. Ampicillin is for children &lt;4 years with suspected H. influenzae. When the organism is unknown, use a 3rd-generation cephalosporin to cover both gram-positive and gram-negative bacteria.</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="mcq-card" id="q10">
+    <div class="mcq-head"><div class="qnum">Question 10</div><div class="qtext">Which imaging modality is most appropriate for detecting coexisting osteomyelitis in a patient with septic arthritis of the hip?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q10','wrong')"><div class="badge">A</div>Plain X-ray</div>
+      <div class="opt" onclick="answer(this,'q10','wrong')"><div class="badge">B</div>Ultrasound</div>
+      <div class="opt" onclick="answer(this,'q10','correct')"><div class="badge">C</div>MRI</div>
+      <div class="opt" onclick="answer(this,'q10','wrong')"><div class="badge">D</div>CT scan</div>
+    </div>
+    <div class="mcq-exp" id="exp-q10"><strong>✓ Correct: C — MRI</strong>MRI is the best modality for detecting associated periarticular osteomyelitis — it detects early bone marrow oedema, periosteal changes, and intraosseous abscesses before they are visible on X-ray. Remember: in joints where the metaphysis is intracapsular (hip, shoulder, elbow, ankle), osteomyelitis and septic arthritis may coexist and should both be assumed present. Ultrasound is valuable for detecting effusions and guiding aspiration but does not assess bone marrow. CT is useful for sternoclavicular and sacroiliac joints.</div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="mcq-card" id="q11">
+    <div class="mcq-head"><div class="qnum">Question 11</div><div class="qtext">A patient with a total knee replacement develops a red, swollen knee 8 months post-operatively. Aspiration grows coagulase-negative Staphylococcus (S. epidermidis). What is the most likely reason long-term antibiotics alone are insufficient to cure this infection?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q11','wrong')"><div class="badge">A</div>S. epidermidis is intrinsically resistant to all available antibiotics</div>
+      <div class="opt" onclick="answer(this,'q11','correct')"><div class="badge">B</div>Bacteria form a biofilm on the implant surface that antibiotics cannot adequately penetrate</div>
+      <div class="opt" onclick="answer(this,'q11','wrong')"><div class="badge">C</div>The prosthetic joint has no blood supply so antibiotics cannot reach the infection site</div>
+      <div class="opt" onclick="answer(this,'q11','wrong')"><div class="badge">D</div>Antibiotic allergy in prosthetic joint infection patients prevents adequate treatment</div>
+    </div>
+    <div class="mcq-exp" id="exp-q11"><strong>✓ Correct: B — Biofilm on the implant</strong>Bacteria (especially coagulase-negative Staphylococci) form a biofilm on the prosthetic implant surface. This biofilm is a complex extracellular matrix that antibiotics cannot adequately penetrate, making medical treatment alone almost always insufficient. Cure requires removal of the implant (single- or two-stage revision arthroplasty) combined with prolonged antibiotics. Late prosthetic joint infection (3+ months) is typically S. epidermidis; early (&lt;3 months) is typically S. aureus.</div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="mcq-card" id="q12">
+    <div class="mcq-head"><div class="qnum">Question 12</div><div class="qtext">An IV drug user presents with fever, groin pain and tenderness over the right sacroiliac area. Standard joint examination of the knee and hip is unremarkable. Which organism should be specifically considered, and which imaging modality best demonstrates sacroiliac joint infection?</div></div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="answer(this,'q12','wrong')"><div class="badge">A</div>N. gonorrhoeae; ultrasound</div>
+      <div class="opt" onclick="answer(this,'q12','correct')"><div class="badge">B</div>Pseudomonas aeruginosa; CT or MRI</div>
+      <div class="opt" onclick="answer(this,'q12','wrong')"><div class="badge">C</div>S. aureus; plain X-ray</div>
+      <div class="opt" onclick="answer(this,'q12','wrong')"><div class="badge">D</div>Salmonella species; radionuclide bone scan</div>
+    </div>
+    <div class="mcq-exp" id="exp-q12"><strong>✓ Correct: B — Pseudomonas; CT or MRI</strong>IV drug users are at particular risk of Pseudomonas aeruginosa septic arthritis, which characteristically affects axial joints — sacroiliac joint and sternoclavicular joint — not the peripheral joints commonly affected in other patients. CT is preferred for the sternoclavicular joint; MRI is best for periarticular osteomyelitis and sacroiliac involvement. Aspiration of the SI joint requires CT or fluoroscopic guidance. Empirical antibiotic cover should include an antipseudomonal agent.</div>
+  </div>
+
+</div><!-- /mcq -->
+
+<footer>Designed &amp; Developed by Dr. Salaheldin Terair</footer>
+
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleCard(head) {
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+window.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.lec-card-head');
+  if (first) { first.classList.add('open'); first.nextElementSibling.classList.add('open'); }
+});
+function answer(opt, qId, result) {
+  const card = document.getElementById(qId);
+  if (card.dataset.answered) return;
+  card.dataset.answered = 'true';
+  card.querySelectorAll('.opt').forEach(o => {
+    o.style.pointerEvents = 'none';
+    if (o === opt) o.classList.add(result);
+    if (result === 'wrong' && o.onclick && o.onclick.toString().includes("'correct'")) o.classList.add('correct');
+  });
+  document.getElementById('exp-' + qId).classList.add('show');
+  updateScore();
+}
+function updateScore() {
+  const done = document.querySelectorAll('.mcq-card[data-answered]').length;
+  const right = [...document.querySelectorAll('.mcq-card[data-answered]')].filter(c => {
+    const chosen = [...c.querySelectorAll('.opt')].find(o => o.style.pointerEvents === 'none' && (o.classList.contains('correct') || o.classList.contains('wrong')));
+    return chosen && chosen.classList.contains('correct');
+  }).length;
+  document.getElementById('score-display').textContent = right + ' / ' + done;
+}
+function resetMCQ() {
+  document.querySelectorAll('.mcq-card').forEach(card => {
+    delete card.dataset.answered;
+    card.querySelectorAll('.opt').forEach(o => { o.classList.remove('correct','wrong'); o.style.pointerEvents = ''; });
+    const exp = card.querySelector('.mcq-exp');
+    if (exp) exp.classList.remove('show');
+  });
+  document.getElementById('score-display').textContent = '0 / 12';
+}
+</script>
+</body>
+</html>

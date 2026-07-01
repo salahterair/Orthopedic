@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lower Extremity: Knee Examination</title>
+<style>
+  :root {
+    --primary: #1a4a7a;
+    --primary-dark: #0f2d4f;
+    --primary-light: #2a6aad;
+    --accent: #e8f0fb;
+    --accent2: #d0e4f7;
+    --teal: #0d7377;
+    --teal-light: #14a9b0;
+    --warning: #b85c00;
+    --success: #1a6b3a;
+    --danger: #8b1a1a;
+    --text: #1a1a2e;
+    --text-muted: #4a5568;
+    --border: #c5d8ee;
+    --white: #ffffff;
+    --bg: #f4f8fd;
+    --card: #ffffff;
+    --nav-height: 60px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+
+  /* NAV */
+  nav {
+    background: var(--primary-dark);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .nav-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px; height: var(--nav-height);
+  }
+  .nav-university { color: #d4e2f3; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 2px; }
+  .nav-title { color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0.3px; }
+  @media(max-width: 380px) { .nav-title { font-size: 12px; } }
+  .nav-subtitle { color: #a8c4e0; font-size: 11px; font-weight: 400; }
+  .nav-tabs {
+    display: flex; background: var(--primary);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 10px 18px; color: #a8c4e0; font-size: 13px; font-weight: 600;
+    cursor: pointer; border-bottom: 3px solid transparent;
+    white-space: nowrap; transition: all 0.2s; letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  .nav-tab.active { color: #fff; border-bottom-color: #7ec8f7; background: rgba(255,255,255,0.1); }
+
+  /* PAGES */
+  .page { display: none; padding: 20px 16px 60px; max-width: 820px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--card); border-radius: 10px;
+    border: 1px solid var(--border); margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(26,74,122,0.07);
+  }
+  .card-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff; padding: 13px 18px; border-radius: 9px 9px 0 0;
+    font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 10px;
+    cursor: pointer; user-select: none;
+  }
+  .card-header .icon { font-size: 18px; }
+  .card-header .chevron { margin-left: auto; transition: transform 0.25s; font-size: 12px; }
+  .card-header.open .chevron { transform: rotate(180deg); }
+  .card-body { padding: 16px 18px; display: none; }
+  .card-body.open { display: block; }
+
+  /* SECTION STYLES */
+  .section-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .badge-blue { background: var(--accent2); color: var(--primary); }
+  .badge-teal { background: #d0f0f2; color: var(--teal); }
+  .badge-orange { background: #fde8d0; color: var(--warning); }
+  .badge-green { background: #d4edda; color: var(--success); }
+  .badge-red { background: #f8d7da; color: var(--danger); }
+
+  h2 { font-size: 19px; color: var(--primary); margin-bottom: 14px; font-weight: 700; }
+  h3 { font-size: 15px; color: var(--primary-dark); margin: 14px 0 8px; font-weight: 700; }
+  h4 { font-size: 14px; color: var(--teal); margin: 10px 0 6px; font-weight: 700; }
+  p { margin-bottom: 10px; color: var(--text); }
+
+  ul, ol { padding-left: 20px; margin-bottom: 10px; }
+  li { margin-bottom: 5px; color: var(--text); }
+  li strong { color: var(--primary); }
+
+  /* HIGHLIGHT BOXES */
+  .box { border-radius: 8px; padding: 12px 15px; margin: 12px 0; font-size: 14px; }
+  .box-clinical { background: #e8f7f0; border-left: 4px solid var(--success); }
+  .box-exam { background: #fff3e0; border-left: 4px solid var(--warning); }
+  .box-anatomy { background: var(--accent); border-left: 4px solid var(--primary); }
+  .box-warning { background: #fdecea; border-left: 4px solid var(--danger); }
+  .box-title { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 5px; }
+  .box-clinical .box-title { color: var(--success); }
+  .box-exam .box-title { color: var(--warning); }
+  .box-anatomy .box-title { color: var(--primary); }
+  .box-warning .box-title { color: var(--danger); }
+
+  /* TABLES */
+  .table-wrap { overflow-x: auto; margin: 10px 0; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--primary); color: #fff; padding: 9px 12px; text-align: left; font-weight: 700; }
+  td { padding: 8px 12px; border-bottom: 1px solid #e8eef5; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f6faff; }
+
+  /* VIDEO */
+  .video-block {
+    background: #0a1a2e; border-radius: 12px; overflow: hidden;
+    margin: 12px 0; border: 1px solid #1e3a5f;
+  }
+  .video-block-header {
+    padding: 10px 15px; background: linear-gradient(135deg, #0f2d4f, #1a4a7a);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .video-block-title { color: #fff; font-size: 13px; font-weight: 700; }
+  .video-block-desc { color: #a8c4e0; font-size: 11px; margin-top: 1px; }
+  .video-block iframe {
+    width: 100%; display: block; border: none;
+    aspect-ratio: 16/9; min-height: 200px;
+  }
+
+  /* STEPS */
+  .steps { counter-reset: step; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: step; padding: 8px 12px 8px 42px; position: relative;
+    margin-bottom: 6px; background: #f8fafd; border-radius: 6px; font-size: 14px;
+    border: 1px solid #e0eaf4;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    background: var(--primary); color: #fff;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+
+  /* ROM BARS */
+  .rom-item { margin: 8px 0; }
+  .rom-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+  .rom-label span:first-child { font-weight: 600; color: var(--primary); }
+  .rom-label span:last-child { color: var(--text-muted); font-weight: 700; }
+  .rom-bar-bg { background: #e0eaf4; border-radius: 20px; height: 8px; overflow: hidden; }
+  .rom-bar { background: linear-gradient(90deg, var(--primary), var(--teal-light)); height: 100%; border-radius: 20px; transition: width 0.5s; }
+
+  /* OVERVIEW GRID */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  @media(max-width: 480px) { .overview-grid { grid-template-columns: 1fr; } }
+  .overview-item {
+    background: var(--accent); border-radius: 8px; padding: 11px 13px;
+    border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px;
+  }
+  .overview-num { background: var(--primary); color: #fff; border-radius: 50%;
+    width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .overview-text { font-size: 13px; font-weight: 600; color: var(--primary); }
+
+  /* TEST CARDS */
+  .test-card {
+    background: var(--card); border-radius: 10px; padding: 16px;
+    border: 1px solid var(--border); margin-bottom: 12px;
+  }
+  .test-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .test-badge { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px; text-transform: uppercase; white-space: nowrap; }
+  .test-badge-teal { background: var(--teal); color: #fff; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px; text-transform: uppercase; white-space: nowrap; }
+
+  /* FLASHCARDS */
+  .fc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media(min-width: 900px) { .fc-grid { grid-template-columns: 1fr 1fr; } }
+  .fc-card { perspective: 800px; cursor: pointer; min-height: 180px; height: auto; }
+  .fc-inner {
+    width: 100%; height: 100%; min-height: 180px;
+    transform-style: preserve-3d; transition: transform 0.45s; position: relative;
+  }
+  .fc-card.flipped .fc-inner { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute; width: 100%; min-height: 180px;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 10px; padding: 18px 16px; display: flex;
+    flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; border: 1px solid var(--border);
+  }
+  .fc-front { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; }
+  .fc-back { background: #fff; color: var(--text); transform: rotateY(180deg); overflow-y: auto; }
+  .fc-front .fc-q { font-size: 14px; font-weight: 600; line-height: 1.5; }
+  .fc-front .fc-hint { font-size: 11px; color: #a8d4f0; margin-top: 10px; }
+  .fc-back .fc-a { font-size: 13px; line-height: 1.55; color: var(--text); }
+  .fc-back .fc-tag { font-size: 11px; color: var(--primary); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
+  .fc-flip-hint { text-align: center; font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+
+  /* MCQ */
+  .mcq-item {
+    background: var(--card); border-radius: 10px; padding: 18px;
+    border: 1px solid var(--border); margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(26,74,122,0.07);
+  }
+  .mcq-q { font-size: 14px; font-weight: 600; color: var(--primary-dark); margin-bottom: 12px; line-height: 1.5; }
+  .mcq-q span { color: var(--text-muted); font-weight: 400; font-size: 13px; }
+  .mcq-options { display: flex; flex-direction: column; gap: 8px; }
+  .mcq-opt {
+    padding: 10px 14px; border-radius: 8px; cursor: pointer;
+    border: 2px solid #d0dcea; background: #f8faff;
+    font-size: 13px; transition: all 0.15s; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .mcq-opt:hover { border-color: var(--primary-light); background: var(--accent); }
+  .mcq-opt.correct { border-color: #28a745; background: #d4edda; color: #155724; }
+  .mcq-opt.incorrect { border-color: #dc3545; background: #f8d7da; color: #721c24; }
+  .mcq-opt.selected { border-color: var(--primary); background: var(--accent2); }
+  .mcq-opt.correct.selected { border-color: #28a745; background: #d4edda; color: #155724; }
+  .mcq-opt.incorrect.selected { border-color: #dc3545; background: #f8d7da; color: #721c24; }
+  .mcq-opt .opt-letter { font-weight: 700; min-width: 20px; }
+  .mcq-explanation {
+    margin-top: 12px; padding: 12px 14px; background: #f0f7ee;
+    border-radius: 8px; border-left: 4px solid var(--success);
+    font-size: 13px; color: var(--text); display: none;
+  }
+  .mcq-explanation.show { display: block; }
+  .mcq-explanation strong { color: var(--success); }
+  .mcq-score-bar {
+    background: var(--card); border-radius: 10px; padding: 16px 18px;
+    border: 1px solid var(--border); margin-bottom: 18px; text-align: center;
+  }
+  .score-display { font-size: 32px; font-weight: 900; color: var(--primary); }
+  .score-label { color: var(--text-muted); font-size: 13px; }
+  .btn { display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: all 0.15s; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-reset { background: #e8eef5; color: var(--primary); margin-top: 14px; }
+  .btn-reset:hover { background: var(--accent2); }
+
+  /* GLOSSARY */
+  .gloss-search {
+    width: 100%; padding: 11px 15px; border-radius: 8px;
+    border: 2px solid var(--border); font-size: 14px; margin-bottom: 14px;
+    color: var(--text); outline: none; transition: border-color 0.2s;
+  }
+  .gloss-search:focus { border-color: var(--primary-light); }
+  .gloss-item { background: var(--card); border-radius: 10px; padding: 14px 16px; border: 1px solid var(--border); margin-bottom: 10px; }
+  .gloss-term { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .gloss-def { font-size: 13px; color: var(--text); line-height: 1.55; }
+  .gloss-tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 1px 7px; border-radius: 10px; margin-bottom: 5px; }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; color: #fff;
+  }
+  .page-header h1 { font-size: 20px; font-weight: 800; margin-bottom: 3px; }
+  .page-header p { font-size: 13px; color: #a8c4e0; margin: 0; }
+
+  .divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+  /* LIGAMENT GRID */
+  .lig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  @media(max-width: 480px) { .lig-grid { grid-template-columns: 1fr; } }
+  .lig-cell {
+    background: var(--accent); border-radius: 8px; padding: 10px 13px;
+    border: 1px solid var(--border);
+  }
+  .lig-name { font-weight: 700; color: var(--primary); font-size: 13px; }
+  .lig-func { color: var(--text-muted); font-size: 12px; margin-top: 3px; }
+  .lig-test { color: var(--teal); font-size: 11px; margin-top: 4px; font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 20px 16px; font-size: 12px;
+    color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-header">
+    <div>
+      <div class="nav-university">Ibn Sina University | Faculty of Medicine</div>
+      <div class="nav-title">Orthopaedics Practical: 🦴 Knee Examination</div>
+      <div class="nav-subtitle">Lower Extremity · Year 4 MBBS · Clinical Module</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showPage('lecture', this)">📖 Lecture</div>
+    <div class="nav-tab" onclick="showPage('flashcards', this)">🃏 Flashcards</div>
+    <div class="nav-tab" onclick="showPage('mcq', this)">✅ MCQ</div>
+    <div class="nav-tab" onclick="showPage('glossary', this)">📚 Glossary</div>
+  </div>
+</nav>
+
+<!-- ===================== LECTURE PAGE ===================== -->
+<div id="page-lecture" class="page active">
+  <div class="page-header">
+    <h1>Lower Extremity: Knee Examination</h1>
+    <p>Systematic clinical approach · Musculoskeletal Orthopaedic Exam</p>
+  </div>
+
+  <!-- FRAMEWORK -->
+  <div class="card">
+    <div class="card-header open" onclick="toggleCard(this)">
+      <span class="icon">🗂️</span> Examination Framework
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <p>The knee examination follows the standard orthopaedic framework applied to every joint. A systematic approach prevents missed pathology, particularly in the context of acute sports injury or trauma.</p>
+      <div class="overview-grid">
+        <div class="overview-item"><div class="overview-num">1</div><div class="overview-text">Inspection</div></div>
+        <div class="overview-item"><div class="overview-num">2</div><div class="overview-text">Palpation</div></div>
+        <div class="overview-item"><div class="overview-num">3</div><div class="overview-text">Range of Motion</div></div>
+        <div class="overview-item"><div class="overview-num">4</div><div class="overview-text">Stability Tests</div></div>
+        <div class="overview-item"><div class="overview-num">5</div><div class="overview-text">Special Tests</div></div>
+        <div class="overview-item"><div class="overview-num">⚠️</div><div class="overview-text">Joint Above &amp; Below</div></div>
+      </div>
+      <div class="box box-exam">
+        <div class="box-title">🔑 Exam Principle</div>
+        Always examine the joint <strong>above</strong> (hip) and <strong>below</strong> (ankle/foot) the site of pain. Hip pathology (e.g., slipped upper femoral epiphysis, avascular necrosis of the femoral head) frequently refers pain to the knee. Never attribute knee pain solely to local pathology without examining the hip.
+      </div>
+    </div>
+  </div>
+
+  <!-- ANATOMY -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🦴</span> Relevant Anatomy
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-blue">Anatomy</span>
+      <h3>The Knee Joint Complex</h3>
+      <p>The knee is the largest and most complex joint in the body. It comprises two articulations enclosed in a single capsule:</p>
+      <ul>
+        <li><strong>Tibiofemoral joint</strong> — the main weight-bearing articulation between the femoral condyles and tibial plateau. It is a modified hinge joint with a small degree of axial rotation.</li>
+        <li><strong>Patellofemoral joint</strong> — the articulation between the patella and the patellar (trochlear) groove of the femur. Critical for efficient quadriceps force transmission; the patella increases the mechanical advantage of the quadriceps by up to 50%.</li>
+      </ul>
+
+      <h3>Ligamentous Stabilisers</h3>
+      <div class="lig-grid">
+        <div class="lig-cell">
+          <div class="lig-name">Anterior Cruciate Ligament (ACL)</div>
+          <div class="lig-func">Prevents anterior tibial translation and internal rotation. Resists hyperextension.</div>
+          <div class="lig-test">Test: Lachman test (30° flexion), Anterior Drawer</div>
+        </div>
+        <div class="lig-cell">
+          <div class="lig-name">Posterior Cruciate Ligament (PCL)</div>
+          <div class="lig-func">Prevents posterior tibial translation. Strongest knee ligament. Intact in 95% of dislocations alone.</div>
+          <div class="lig-test">Test: Posterior Drawer, Posterior Sag Sign</div>
+        </div>
+        <div class="lig-cell">
+          <div class="lig-name">Medial Collateral Ligament (MCL)</div>
+          <div class="lig-func">Resists valgus (abduction) force and external rotation. Superficial and deep components.</div>
+          <div class="lig-test">Test: Valgus Stress Test at 30°</div>
+        </div>
+        <div class="lig-cell">
+          <div class="lig-name">Lateral Collateral Ligament (LCL)</div>
+          <div class="lig-func">Resists varus (adduction) force. Part of the posterolateral corner complex.</div>
+          <div class="lig-test">Test: Varus Stress Test at 30°</div>
+        </div>
+      </div>
+
+      <h3>The Menisci</h3>
+      <p>The medial and lateral menisci are C-shaped fibrocartilaginous structures that deepen the tibial plateau, distribute load, provide shock absorption, and contribute to joint stability. The menisci bear approximately 50–70% of the compressive load through the knee. Key differences:</p>
+      <ul>
+        <li><strong>Medial meniscus</strong> — more C-shaped, attached to the MCL and joint capsule → less mobile → more commonly torn</li>
+        <li><strong>Lateral meniscus</strong> — more circular, not attached to LCL → more mobile → less commonly torn, but torn more often in ACL injuries</li>
+        <li>The peripheral 25–30% of the meniscus is vascularised (red-red zone) and can heal; the inner avascular zone (white-white) cannot — this determines surgical strategy</li>
+      </ul>
+
+      <div class="box box-anatomy">
+        <div class="box-title">📌 Screw-Home Mechanism</div>
+        As the knee reaches full extension, the tibia externally rotates approximately 10° relative to the femur ("screwing home"), locking the joint for efficient weight bearing. This is reversed by the <strong>popliteus muscle</strong> ("unlocking" the knee) at the start of flexion. Loss of this mechanism suggests significant intra-articular pathology.
+      </div>
+
+      <h3>The Patellofemoral Joint and Q Angle</h3>
+      <p>The <strong>Q angle</strong> is the angle between the line of pull of the quadriceps (ASIS to centre of patella) and the line from the centre of the patella to the tibial tuberosity. Normal: ≤15° in males, ≤20° in females. An increased Q angle increases the lateral vector on the patella, predisposing to patellar maltracking and lateral subluxation.</p>
+    </div>
+  </div>
+
+  <!-- INSPECTION & PALPATION (video shared) -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">👁️</span> 1. Inspection
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-blue">Step 1</span>
+      <p>Expose both lower limbs fully from the thigh to the ankle. Inspect with the patient standing, walking, and lying supine. Compare both knees.</p>
+
+      <h4>Skin and Soft Tissue</h4>
+      <ul>
+        <li><strong>Erythema, warmth, swelling</strong> — the triad of a hot, red, swollen, and painful joint with systemic features (fever, malaise) mandates exclusion of <strong>septic arthritis</strong> (surgical emergency)</li>
+        <li><strong>Surgical scars</strong> — arthroscopy portals (two small incisions anteromedially and anterolaterally), medial parapatellar incision (open surgery / arthroplasty), tibial tubercle scar (Osgood-Schlatter repair)</li>
+        <li><strong>Bruising / ecchymosis</strong> — may track distally to the calf after a ligament rupture or haemarthrosis</li>
+      </ul>
+
+      <h4>Effusion Assessment</h4>
+      <ul>
+        <li><strong>Mild effusion</strong> — loss of the peripatellar hollows (dimples medially and laterally to the patella)</li>
+        <li><strong>Moderate effusion</strong> — visible suprapatellar bulge; ballottement of patella positive</li>
+        <li><strong>Severe effusion</strong> — grossly distended joint; warm to touch; skin tense</li>
+      </ul>
+      <div class="box box-clinical">
+        <div class="box-title">🩺 Clinical Correlation — Haemarthrosis vs Effusion</div>
+        Acute haemarthrosis (blood in the joint) develops within 2 hours of injury — characteristically a large, tense, warm effusion. In ~70% of cases, haemarthrosis indicates an <strong>ACL tear</strong>. Other causes: osteochondral fracture, peripheral meniscal tear (vascular zone), cruciate avulsion. A simple traumatic synovial effusion (straw-coloured fluid) develops over 6–24 hours and suggests meniscal tears, OA, or crystal arthropathy.
+      </div>
+
+      <h4>Bony and Alignment Deformities</h4>
+      <ul>
+        <li><strong>Genu valgum</strong> — "knock knees"; medial compartment unloading, lateral compartment overload</li>
+        <li><strong>Genu varum</strong> — "bow legs"; medial compartment overload → predisposes to medial OA</li>
+        <li><strong>Genu recurvatum</strong> — hyperextension deformity; suggests ligamentous laxity or PCL insufficiency</li>
+        <li><strong>Patellar displacement</strong> — lateral riding patella (patellar alta, trochlear dysplasia, increased Q angle)</li>
+      </ul>
+
+      <h4>Baker's Cyst</h4>
+      <p>A popliteal (Baker's) cyst appears as a swelling in the <strong>posterior aspect of the knee</strong> in the popliteal fossa, medial to the midline. It represents distension of the gastrocnemius-semimembranosus bursa, which communicates with the joint in many adults. It is almost always secondary to intra-articular pathology (meniscal tear, OA, inflammatory arthritis). Rupture presents as sudden calf pain and swelling — mimicking a DVT (pseudothrombophlebitis).</p>
+
+      <h4>Gait Analysis</h4>
+      <ul>
+        <li><strong>Antalgic gait</strong> — shortened stance phase on the affected side due to pain with weight bearing; indicates any painful knee condition</li>
+        <li><strong>Inability to bear weight</strong> — suggests significant structural injury (fracture, complete ligament rupture, locked meniscal tear)</li>
+        <li><strong>Quadriceps avoidance gait</strong> — patient keeps the knee extended throughout stance to avoid quadriceps activation; seen in ACL-deficient knees</li>
+      </ul>
+
+      <div class="box box-warning">
+        <div class="box-title">⚠️ Red Flag</div>
+        A hot, red, monoarthritis in a child or adolescent who cannot bear weight is septic arthritis until proven otherwise. Urgent joint aspiration (cell count &gt;50,000 WBC/mm³, &gt;90% PMNs) and surgical washout are required. Do not delay for imaging. In adults with a replaced knee, any effusion with systemic features mandates aspiration.
+      </div>
+    </div>
+  </div>
+
+  <!-- PALPATION -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🖐️</span> 2. Palpation
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-blue">Step 2</span>
+      <p>Palpate systematically with the patient supine, knee at rest in slight flexion (~20°). Identify the exact site of point tenderness to localise the pathology.</p>
+
+      <ol class="steps">
+        <li><strong>Milking the effusion (bulge sign)</strong> — compress the suprapatellar pouch with your proximal hand, pushing fluid distally. Then stroke firmly up the medial side of the knee. Now tap the lateral side — a fluid wave (bulge) appearing on the medial side indicates a mild-to-moderate effusion. Significant effusions fill the medial and lateral peripatellar hollows.</li>
+        <li><strong>Patellar tap (ballottement)</strong> — compress the suprapatellar pouch with one hand to push fluid under the patella, then sharply tap (depress) the patella with two fingers. A click as the patella hits the femoral trochlea = moderate to large effusion.</li>
+        <li><strong>Patella mobility</strong> — palpate the patella directly, ensuring it moves freely medially and laterally. Reduced mobility suggests patellofemoral arthritis or adhesions. Crepitus under the patella with passive movement indicates patellofemoral arthritis.</li>
+        <li><strong>Peripatellar tenderness</strong> — palpate the medial and lateral facets of the patella, the inferior pole (patellar tendinopathy / Sinding-Larsen-Johansson disease), and the tibial tuberosity (Osgood-Schlatter disease in adolescents).</li>
+        <li><strong>Joint line tenderness</strong> — the most important palpation finding. With the knee flexed to 90°, place both thumbs along the medial and lateral joint lines (the concavities on either side of the patellar tendon). Press firmly. Medial joint line tenderness → medial meniscus or MCL; lateral joint line tenderness → lateral meniscus or LCL.</li>
+        <li><strong>Collateral ligaments</strong> — palpate the MCL along the medial joint (from femoral condyle to tibial flare) and the LCL from the lateral femoral condyle to the fibular head. Direct tenderness over the ligament substance suggests a sprain or tear.</li>
+        <li><strong>Popliteal fossa</strong> — palpate posteriorly with the knee slightly flexed. A fluctuant swelling medial to the midline = Baker's cyst. Popliteal artery pulsation is normally palpable; loss suggests vascular injury in knee dislocation.</li>
+      </ol>
+
+      <div class="box box-clinical">
+        <div class="box-title">🩺 Clinical Correlation — Joint Line Tenderness</div>
+        Joint line tenderness (JLT) is the most sensitive clinical finding for meniscal tears (sensitivity ~86%). However, it is not specific — it is also present in collateral ligament injuries, OA, and capsular pathology. Medial JLT combined with a positive McMurray test increases diagnostic accuracy for medial meniscal tears significantly.
+      </div>
+
+      <div class="video-block">
+        <div class="video-block-header">
+          <div>
+            <div class="video-block-title">▶ Inspection, Palpation &amp; Range of Motion</div>
+            <div class="video-block-desc">Systematic knee inspection, effusion assessment, joint line palpation, and ROM demonstration</div>
+          </div>
+        </div>
+        <iframe
+          src="https://drive.google.com/file/d/106eOEkpsr4Wj-mQGkVIU8n6nQe2gE1_j/preview"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANGE OF MOTION -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🔄</span> 3. Range of Motion
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-teal">Step 3</span>
+      <p>Test active ROM first. Document all movements in degrees and always compare with the contralateral knee. Note pain at specific arc positions.</p>
+
+      <div class="rom-item">
+        <div class="rom-label"><span>Flexion</span><span>Normal: 135–140°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:82%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>Full Extension</span><span>Normal: 0° (straight)</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:100%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>Hyperextension</span><span>Normal: up to 5°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:5%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>Internal Rotation (at 90° flex)</span><span>Normal: ~10°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:18%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>External Rotation (at 90° flex)</span><span>Normal: ~40°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:40%"></div></div>
+      </div>
+
+      <h3>Specific ROM Manoeuvres</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Forced Flexion</div>
+          <div style="font-size:13px;color:var(--text-muted);">Meniscal Compression Test</div>
+        </div>
+        <p style="font-size:14px;">With the patient supine, maximally flex the knee by pressing the heel toward the buttock. Patients with a posterior horn meniscal tear cannot tolerate forced flexion — it compresses the posterior horns of the menisci between the femoral condyle and the tibial plateau. Pain in the posterolateral or posteromedial compartment = positive.</p>
+      </div>
+
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Extension Lag</div>
+          <div style="font-size:13px;color:var(--text-muted);">Mechanical Block Assessment</div>
+        </div>
+        <p style="font-size:14px;">Inability to fully extend the knee (extension lag) with the patient supine is clinically significant. Causes include: (1) <strong>locked knee</strong> — a displaced bucket-handle meniscal tear creates a mechanical block, typically limiting extension by 20–30°; (2) large <strong>haemarthrosis</strong> or effusion; (3) quadriceps weakness (extensor lag — passive extension normal but active extension limited).</p>
+      </div>
+
+      <div class="divider"></div>
+      <h3>Interpreting ROM Findings</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>ROM Finding</th><th>Likely Diagnosis</th></tr>
+          <tr><td>Cannot tolerate forced flexion</td><td>Posterior horn meniscal tear (posteromedial or posterolateral pain)</td></tr>
+          <tr><td>Limited extension (mechanical block ~20–30°)</td><td>Locked knee — bucket-handle meniscal tear</td></tr>
+          <tr><td>Limited extension (pain-limited, no mechanical block)</td><td>Haemarthrosis, large effusion, synovitis</td></tr>
+          <tr><td>Hyperextension beyond 5°</td><td>PCL insufficiency, generalised ligamentous laxity, ACL tear (chronic)</td></tr>
+          <tr><td>Global restriction (active AND passive)</td><td>Septic arthritis, severe OA, post-surgical stiffness</td></tr>
+          <tr><td>Normal passive ROM; pain-limited active ROM</td><td>Patellar tendinopathy, quadriceps pathology, mild OA</td></tr>
+        </table>
+      </div>
+
+      <div class="box box-exam">
+        <div class="box-title">🔑 Duck Walk Test</div>
+        Ask the patient to walk while in a deep squat (fully flexed knees). If they are able to perform the duck walk without knee pain, a significant meniscal injury is unlikely. Inability to perform it or pain during the manoeuvre is consistent with meniscal pathology. Simple, quick, and useful as a screening test before more formal special tests.
+      </div>
+    </div>
+  </div>
+
+  <!-- STABILITY TESTS -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">⚖️</span> 4. Stability Tests
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-teal">Step 4</span>
+      <p>Stability tests assess the integrity of the four main knee ligaments. Always compare to the contralateral knee, especially in cases of generalised ligamentous laxity.</p>
+
+      <!-- LACHMAN -->
+      <h3>Lachman Test — ACL</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Lachman Test</div>
+          <div style="font-size:13px;color:var(--text-muted);">Anterior Cruciate Ligament</div>
+        </div>
+        <ol class="steps">
+          <li>Patient supine; knee flexed to <strong>30°</strong></li>
+          <li>Stabilise the distal femur with one hand (grasp the outer/lateral aspect)</li>
+          <li>With the other hand, grasp the proximal tibia and <strong>pull anteriorly</strong></li>
+          <li>Assess the degree of anterior tibial translation and quality of the endpoint</li>
+          <li>Positive: <strong>increased anterior translation</strong> compared to the contralateral knee + <strong>soft or absent endpoint</strong> (mushy end-feel) = ACL tear</li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Exam Insight — Why Lachman Over Anterior Drawer?</div>
+          At <strong>30° flexion</strong>, the hamstrings are relaxed and cannot mask anterior translation. At 90° (anterior drawer position), the hamstrings wrap tightly around the knee and act as a secondary ACL, producing false-negative results — especially in acute ACL tears with haemarthrosis. The Lachman test has sensitivity ~85%, specificity ~94% for complete ACL tears.
+        </div>
+      </div>
+
+      <!-- POSTERIOR DRAWER -->
+      <h3>Posterior Drawer Test &amp; Posterior Sag Sign — PCL</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Posterior Drawer</div>
+          <div style="font-size:13px;color:var(--text-muted);">Posterior Cruciate Ligament</div>
+        </div>
+        <ol class="steps">
+          <li>Patient supine; hip at 45°, knee at <strong>90°</strong>, foot flat on the table</li>
+          <li>Sit on the patient's foot to stabilise it</li>
+          <li>Grasp the proximal tibia with both thumbs on the joint line anteriorly</li>
+          <li><strong>Push the tibia posteriorly</strong> with both hands</li>
+          <li>Positive: increased posterior translation of the tibia relative to the femur = PCL tear</li>
+        </ol>
+        <div class="box box-anatomy">
+          <div class="box-title">📌 Posterior Sag Sign (Godfrey's Test)</div>
+          With both hips and knees flexed to 90° while the patient is supine, the tibia of the PCL-deficient knee <strong>sags posteriorly under gravity</strong> compared to the normal side. This is highly specific for PCL injury and should be checked before the posterior drawer to avoid being falsely negative from a reduced starting position.
+        </div>
+        <div class="box box-clinical">
+          <div class="box-title">🩺 Clinical Correlation — PCL Injury Mechanism</div>
+          PCL tears typically result from a <strong>dashboard injury</strong> (posterior force on the proximal tibia with a flexed knee in a road traffic accident) or a direct blow to the anterior tibia in sports. The PCL is the strongest knee ligament and isolated PCL tears are less common than ACL tears — they are often part of a multi-ligament injury in knee dislocation.
+        </div>
+      </div>
+
+      <!-- VARUS / VALGUS -->
+      <h3>Varus &amp; Valgus Stress Tests — LCL &amp; MCL</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Valgus Stress</div>
+          <div style="font-size:13px;color:var(--text-muted);">Medial Collateral Ligament (MCL)</div>
+        </div>
+        <ol class="steps">
+          <li>Patient supine, leg resting with the heel on the table</li>
+          <li>Flex the knee to <strong>30°</strong> (isolates the MCL)</li>
+          <li>One hand stabilises the lateral aspect of the thigh; the other holds the medial ankle</li>
+          <li>Apply an <strong>abduction (valgus) force</strong> — the medial compartment of the knee is forced open</li>
+          <li>Positive: medial joint pain or gapping = <strong>MCL tear</strong></li>
+        </ol>
+      </div>
+
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Varus Stress</div>
+          <div style="font-size:13px;color:var(--text-muted);">Lateral Collateral Ligament (LCL)</div>
+        </div>
+        <ol class="steps">
+          <li>Same position; knee flexed to <strong>30°</strong></li>
+          <li>Apply an <strong>adduction (varus) force</strong> — the lateral compartment is opened</li>
+          <li>Positive: lateral joint pain or gapping = <strong>LCL tear</strong></li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Exam Insight — Test at 0° and 30°</div>
+          Always test collateral ligaments at both <strong>30° flexion</strong> (collateral ligaments most isolated) and <strong>0° (full extension)</strong>. Laxity only at 30° = isolated collateral ligament injury. Laxity at both 30° AND 0° = more extensive injury involving the posterior capsule, cruciate ligaments, and possibly the posterolateral corner (grade III multi-ligament injury).
+        </div>
+      </div>
+
+      <!-- MCMURRAY -->
+      <h3>McMurray Test — Meniscal Injury</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">McMurray Test</div>
+          <div style="font-size:13px;color:var(--text-muted);">Medial &amp; Lateral Meniscus</div>
+        </div>
+        <ol class="steps">
+          <li>Patient supine; flex the knee fully to 90° or beyond</li>
+          <li><strong>Medial meniscus</strong>: place one hand on the lateral joint line, grasp the foot, apply <strong>valgus stress + external rotation</strong>, then slowly <strong>extend the knee</strong></li>
+          <li>Positive for medial meniscus: <strong>pain or a palpable/audible click at the medial joint line</strong></li>
+          <li><strong>Lateral meniscus</strong>: stabilise the medial knee, apply <strong>varus stress + internal rotation</strong>, then slowly extend</li>
+          <li>Positive for lateral meniscus: pain or click at the lateral joint line</li>
+        </ol>
+        <div class="box box-clinical">
+          <div class="box-title">🩺 Clinical Correlation — Meniscal Tears</div>
+          Meniscal tears are among the most common sports injuries. Acute tears in young patients typically result from a twisting injury; degenerative tears in older patients occur from minimal trauma. The posterior horn of the medial meniscus is the most commonly injured part. MRI has replaced diagnostic arthroscopy — it has ~90% sensitivity and specificity for meniscal tears. The McMurray test has moderate sensitivity (~53%) but higher specificity (~59%).
+        </div>
+      </div>
+
+      <div class="video-block">
+        <div class="video-block-header">
+          <div>
+            <div class="video-block-title">▶ Stability Tests</div>
+            <div class="video-block-desc">Lachman, Posterior Drawer, Varus/Valgus Stress, and McMurray test demonstrations</div>
+          </div>
+        </div>
+        <iframe
+          src="https://drive.google.com/file/d/12o1HKUoIdb0I8gIj1TxJ1QV1bfp9rFJH/preview"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECIAL TESTS -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🔬</span> 5. Special Tests
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-orange">Step 5</span>
+      <p>Special tests are performed to confirm specific diagnoses following the standard examination. Focus particularly on the patellofemoral joint and remaining meniscal assessment.</p>
+
+      <!-- PATELLAR APPREHENSION -->
+      <h3>Patellofemoral Joint Tests</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Patellar Apprehension Test</div>
+        </div>
+        <p style="font-size:13px;margin-bottom:8px;"><strong>Tests for:</strong> Patellar instability / recurrent lateral patellar dislocation</p>
+        <ol class="steps">
+          <li>Patient supine with the knee relaxed in <strong>20–30° flexion</strong> (the position of maximum patellar instability)</li>
+          <li>Gently push the patella <strong>laterally</strong> with both thumbs while the quadriceps are relaxed</li>
+          <li>Positive: the patient <strong>braces, contracts the quadriceps, or grabs the examiner's hand</strong> — apprehension that the patella is about to dislocate</li>
+          <li>Pain alone is less specific; true apprehension (protective contraction) is the meaningful endpoint</li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Exam Insight</div>
+          A positive apprehension test is pathognomonic of previous lateral patellar dislocation or significant patellar instability. Lateral patellar dislocation is most common in adolescent females and is associated with an increased Q angle, trochlear dysplasia, and patella alta. The medial patellofemoral ligament (MPFL) is torn in virtually all first-time dislocations.
+        </div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Patellar Grind Test</div>
+          <div style="font-size:13px;color:var(--text-muted);">Patellofemoral Syndrome / Chondromalacia Patellae</div>
+        </div>
+        <ol class="steps">
+          <li>Patient supine with knee fully extended and quadriceps relaxed</li>
+          <li>Apply a <strong>posteriorly-directed force</strong> to the patella (compress it against the femoral trochlea)</li>
+          <li>Ask the patient to <strong>actively contract the quadriceps</strong> (straight leg raise)</li>
+          <li>Positive: <strong>pain or crepitus</strong> on quadriceps contraction = patellofemoral joint pathology (chondromalacia, OA)</li>
+        </ol>
+      </div>
+
+      <!-- APLEY'S TEST -->
+      <h3>Apley's Compression Test</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Apley's Test</div>
+          <div style="font-size:13px;color:var(--text-muted);">Meniscal Compression</div>
+        </div>
+        <p style="font-size:13px;margin-bottom:8px;"><strong>Tests for:</strong> Meniscal injury (compression component) vs ligament injury (distraction component)</p>
+        <ol class="steps">
+          <li>Patient <strong>prone</strong>, knee flexed to <strong>90°</strong></li>
+          <li>Stabilise the posterior thigh with your knee (or one hand)</li>
+          <li><strong>Compression phase</strong>: apply a downward force through the foot (axial compression) while rotating the tibia internally and externally</li>
+          <li>Positive compression: pain reproduced = <strong>meniscal injury</strong></li>
+          <li><strong>Distraction phase</strong>: lift the foot upward (axial distraction) while rotating — positive distraction = <strong>ligamentous injury</strong> (collateral or capsular)</li>
+        </ol>
+        <div class="box box-anatomy">
+          <div class="box-title">📌 Memory Aid — Apley's Grind vs Distraction</div>
+          <strong>Compress → Meniscus hurts</strong> (menisci are compressed between femur and tibia) <br>
+          <strong>Distract → Ligament hurts</strong> (ligaments are stressed under tension when joint is pulled apart)
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <h3>Special Tests — Summary Table</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Test</th><th>Structure Tested</th><th>Key Manoeuvre</th><th>Positive Finding</th></tr>
+          <tr><td>Lachman</td><td>ACL</td><td>Anterior pull on tibia at 30°</td><td>Soft endpoint, increased translation</td></tr>
+          <tr><td>Posterior Drawer</td><td>PCL</td><td>Posterior push on tibia at 90°</td><td>Posterior laxity</td></tr>
+          <tr><td>Posterior Sag Sign</td><td>PCL</td><td>Gravity sag at hips 45°, knees 90°</td><td>Tibia sags posteriorly</td></tr>
+          <tr><td>Valgus Stress</td><td>MCL</td><td>Abduction force at 30°</td><td>Medial pain / gapping</td></tr>
+          <tr><td>Varus Stress</td><td>LCL</td><td>Adduction force at 30°</td><td>Lateral pain / gapping</td></tr>
+          <tr><td>McMurray</td><td>Meniscus (medial/lateral)</td><td>Valgus+ER or Varus+IR then extend</td><td>Click / pain at joint line</td></tr>
+          <tr><td>Apley's Compression</td><td>Meniscus</td><td>Axial compression + rotation (prone)</td><td>Pain with compression</td></tr>
+          <tr><td>Forced Flexion</td><td>Posterior horn meniscus</td><td>Maximum knee flexion</td><td>Posterior pain / cannot tolerate</td></tr>
+          <tr><td>Duck Walk</td><td>Meniscus (screening)</td><td>Walk in deep squat</td><td>Pain or inability to complete</td></tr>
+          <tr><td>Patellar Apprehension</td><td>Patellar stability / MPFL</td><td>Lateral patellar push at 20–30°</td><td>Apprehension (not just pain)</td></tr>
+          <tr><td>Patellar Grind</td><td>Patellofemoral joint</td><td>Compress patella + quadriceps contraction</td><td>Pain / crepitus</td></tr>
+        </table>
+      </div>
+
+      <div class="video-block">
+        <div class="video-block-header">
+          <div>
+            <div class="video-block-title">▶ Special Tests</div>
+            <div class="video-block-desc">Patellar apprehension, patellar grind, Apley's compression, and duck walk demonstration</div>
+          </div>
+        </div>
+        <iframe
+          src="https://drive.google.com/file/d/1_RLp1XeIau4h9as21Yf-BeOyYE2ZYVGu/preview"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="box box-clinical">
+        <div class="box-title">🩺 Clinical Correlation — O'Donoghue's Unhappy Triad</div>
+        A valgus force combined with external rotation (e.g., lateral tackle in football) can simultaneously injure the <strong>ACL + MCL + meniscus</strong>. This was classically described as the medial meniscus; modern evidence shows the <strong>lateral meniscus</strong> is more often injured alongside ACL tears (because the lateral compartment is distracted and then compressed as the knee rebounds). Always assess all three structures when one ligament is torn.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /lecture -->
+
+<!-- ===================== FLASHCARDS PAGE ===================== -->
+<div id="page-flashcards" class="page">
+  <div class="page-header">
+    <h1>🃏 Exam Review Flashcards</h1>
+    <p>Tap each card to reveal the answer · Year 4 MBBS level</p>
+  </div>
+  <p class="fc-flip-hint">👆 Tap a card to flip it</p>
+  <div class="fc-grid" id="fc-container"></div>
+</div>
+
+<!-- ===================== MCQ PAGE ===================== -->
+<div id="page-mcq" class="page">
+  <div class="page-header">
+    <h1>✅ Self-Assessment MCQ</h1>
+    <p>Single Best Answer · Select an option to check your answer</p>
+  </div>
+  <div class="mcq-score-bar">
+    <div class="score-display" id="score-display">0 / 12</div>
+    <div class="score-label">questions answered correctly</div>
+    <button class="btn btn-reset" onclick="resetMCQ()">↺ Reset All Questions</button>
+  </div>
+  <div id="mcq-container"></div>
+</div>
+
+<!-- ===================== GLOSSARY PAGE ===================== -->
+<div id="page-glossary" class="page">
+  <div class="page-header">
+    <h1>📚 Glossary</h1>
+    <p>Key anatomical and clinical terms · Knee Examination</p>
+  </div>
+  <input class="gloss-search" type="text" id="gloss-search" placeholder="🔍 Search terms..." oninput="filterGlossary()">
+  <div id="gloss-container"></div>
+</div>
+
+<footer>
+  Designed &amp; Developed by Dr. Salaheldin Terair &nbsp;·&nbsp; Lower Extremity: Knee Examination.
+</footer>
+
+<script>
+// ===================== NAV =====================
+function showPage(id, tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  tab.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ===================== COLLAPSIBLE CARDS =====================
+function toggleCard(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+
+// ===================== FLASHCARDS =====================
+const flashcards = [
+  {
+    q: "Why is the Lachman test preferred over the Anterior Drawer test for diagnosing ACL injuries?",
+    a: "At 30° flexion (Lachman), the hamstrings are relaxed and cannot mask anterior tibial translation. At 90° flexion (Anterior Drawer), tight hamstrings act as a secondary ACL restraint, producing false-negatives — especially in acute tears with haemarthrosis. Lachman sensitivity ~85%, specificity ~94%."
+  },
+  {
+    q: "Describe the Posterior Sag Sign and what it indicates.",
+    a: "With both hips and knees flexed to 90° while the patient is supine, the tibia of the affected knee sags posteriorly under gravity compared to the normal side. This is highly specific for a PCL tear and should be checked before the Posterior Drawer test (which starts from the already-sagged position and may underestimate laxity)."
+  },
+  {
+    q: "What is the Unhappy Triad (O'Donoghue's Triad) and what mechanism causes it?",
+    a: "A combination of ACL + MCL + meniscal injury from a valgus external rotation force (e.g., lateral tackle in football). Classically described with the medial meniscus; modern evidence shows the lateral meniscus is more commonly injured alongside ACL tears, as the lateral compartment is compressed during rebound. Tests: Lachman + Valgus Stress + McMurray all positive."
+  },
+  {
+    q: "How do you differentiate MCL from LCL injury on varus/valgus stress testing?",
+    a: "Valgus stress (abduction force) at 30° flexion → medial joint opens → MCL injury. Varus stress (adduction force) at 30° flexion → lateral joint opens → LCL injury. If laxity is also present at 0° (full extension), suspect additional PCL/capsule/posterolateral corner involvement — a more severe multi-ligament injury."
+  },
+  {
+    q: "What causes haemarthrosis of the knee, and when does it develop after injury?",
+    a: "Haemarthrosis (blood in joint) develops within 2 hours of injury. The most common cause in sports injury is ACL tear (~70%). Other causes: osteochondral fracture, peripheral meniscal tear (vascular red-red zone), cruciate avulsion. Simple traumatic effusion (straw fluid from synovial irritation) develops over 6–24 hours — suggests meniscal tears or OA flare."
+  },
+  {
+    q: "Describe the McMurray test technique for the medial meniscus.",
+    a: "Patient supine, knee flexed fully. Place one hand on the lateral joint line. Grasp the foot and apply valgus stress + external rotation of the tibia. Slowly extend the knee. Positive: a palpable or audible click, or pain at the medial joint line. Sensitivity ~53%, specificity ~59%. Best combined with medial joint line tenderness for diagnostic accuracy."
+  },
+  {
+    q: "What is a Baker's cyst, what causes it, and what is the danger of rupture?",
+    a: "A popliteal (Baker's) cyst is a distension of the gastrocnemius-semimembranosus bursa posteriorly. Almost always secondary to intra-articular pathology (meniscal tears, OA, inflammatory arthritis) that increases joint fluid. Rupture causes sudden calf pain and swelling — mimicking a DVT (pseudothrombophlebitis). Ultrasound distinguishes the two."
+  },
+  {
+    q: "What are the Ottawa Knee Rules, and when is an X-ray indicated?",
+    a: "A knee X-ray is indicated if ANY of: (1) age ≥55; (2) isolated patella tenderness; (3) fibular head tenderness; (4) inability to flex the knee to 90°; (5) inability to bear weight for 4 steps both immediately and in the emergency department. Sensitivity ~99% for clinically significant fractures."
+  },
+  {
+    q: "What is the clinical significance of joint line tenderness and how is it assessed?",
+    a: "Joint line tenderness (JLT) is the most sensitive finding for meniscal tears (sensitivity ~86%). With the knee at 90° flexion, palpate the medial and lateral joint lines with both thumbs. Medial JLT → medial meniscus or MCL; lateral JLT → lateral meniscus or LCL. Not specific on its own — combine with McMurray and history of twisting injury."
+  },
+  {
+    q: "What is the Patellar Apprehension test and what does a positive result indicate?",
+    a: "With the knee in 20–30° flexion, gently displace the patella laterally. Positive: patient braces, contracts the quadriceps, or grabs the examiner's hand — apprehension of impending dislocation. This is pathognomonic of previous lateral patellar dislocation or significant patellar instability. The MPFL (medial patellofemoral ligament) is torn in virtually all first-time lateral dislocations."
+  },
+  {
+    q: "How does Apley's Test differentiate meniscal injury from ligamentous injury?",
+    a: "Patient prone, knee 90° flexed. Compression phase: axial load through foot + rotation → reproduces meniscal pain (menisci are mechanically compressed). Distraction phase: lift foot upward + rotation → reproduces ligamentous pain (collateral ligaments under tension). Memory: Compress = Meniscus; Distract = ligament."
+  },
+  {
+    q: "What is the screw-home mechanism of the knee, and which muscle unlocks it?",
+    a: "As the knee reaches full extension, the tibia externally rotates ~10° relative to the femur, locking the joint for efficient weight bearing without muscle effort. The popliteus muscle reverses this by internally rotating the tibia, 'unlocking' the knee at the start of flexion. Loss of this mechanism (e.g., due to a bucket-handle tear blocking extension) is clinically significant."
+  },
+  {
+    q: "What ROM findings suggest a bucket-handle meniscal tear?",
+    a: "A displaced bucket-handle (longitudinal) meniscal tear creates a mechanical block to extension — the knee is locked and cannot be fully extended (typically a 20–30° extension lag). Passive extension by the examiner is also blocked. This differentiates it from pain-limited extension (where the patient cannot actively extend but the examiner can passively extend the knee fully)."
+  },
+  {
+    q: "What is the Q angle, and how does an increased Q angle predispose to patellar pathology?",
+    a: "The Q angle is measured from ASIS to centre of patella to tibial tuberosity. Normal: ≤15° (male), ≤20° (female). An increased Q angle increases the lateral vector of quadriceps pull on the patella, predisposing to lateral patellar maltracking, subluxation, and dislocation. Associated with genu valgum, femoral anteversion, and external tibial torsion."
+  }
+];
+
+const fcContainer = document.getElementById('fc-container');
+flashcards.forEach((fc, i) => {
+  fcContainer.innerHTML += `
+  <div class="fc-card" onclick="this.classList.toggle('flipped')">
+    <div class="fc-inner">
+      <div class="fc-front">
+        <div class="fc-q">${fc.q}</div>
+        <div class="fc-hint">Tap to reveal answer</div>
+      </div>
+      <div class="fc-back">
+        <div class="fc-tag">Answer</div>
+        <div class="fc-a">${fc.a}</div>
+      </div>
+    </div>
+  </div>`;
+});
+
+requestAnimationFrame(() => {
+  document.querySelectorAll('.fc-card').forEach(card => {
+    const front = card.querySelector('.fc-front');
+    const back = card.querySelector('.fc-back');
+    const h = Math.max(front.scrollHeight, back.scrollHeight, 180);
+    card.style.height = h + 'px';
+    card.querySelector('.fc-inner').style.minHeight = h + 'px';
+    front.style.minHeight = h + 'px';
+    back.style.minHeight = h + 'px';
+  });
+});
+
+// ===================== MCQ =====================
+const questions = [
+  {
+    q: "A 22-year-old football player is tackled from the lateral side, forcing his right knee into valgus. He reports immediate medial knee pain and is unable to continue playing. On examination, the medial joint line is tender and valgus stress at 30° flexion produces medial pain with slight gapping, but the knee is stable in full extension. Lachman test is negative. Which structure is most likely injured?",
+    options: ["Lateral collateral ligament", "Medial meniscus (isolated tear)", "Medial collateral ligament", "Anterior cruciate ligament"],
+    answer: 2,
+    explanation: "Valgus force causing medial pain and gapping with valgus stress at 30° — but stable at 0° and negative Lachman — indicates an isolated MCL injury. Stability at full extension rules out concurrent ACL or posterior capsule involvement. MCL injuries are the most common knee ligament injury overall. Valgus stress laxity at 30° that persists at 0° would suggest a more severe multi-ligament injury."
+  },
+  {
+    q: "A 19-year-old basketball player lands awkwardly from a jump and hears a 'pop'. She is unable to continue and develops a large, tense, warm knee swelling within 90 minutes. On examination, Lachman test is positive with a soft endpoint. The most likely diagnosis is:",
+    options: ["Medial meniscal tear", "Anterior cruciate ligament tear", "Posterior cruciate ligament tear", "Grade III MCL sprain"],
+    answer: 1,
+    explanation: "Non-contact pivoting mechanism + immediate haemarthrosis (blood in joint within 2 hours) + positive Lachman with soft endpoint = ACL tear. ACL tears account for ~70% of acute traumatic haemarthrosis. The Lachman test (anterior tibial pull at 30°) is the most sensitive clinical test for ACL tears (sensitivity ~85%, specificity ~94%). Haemarthrosis is an important diagnostic clue — a simple synovial effusion takes 6–24 hours to develop."
+  },
+  {
+    q: "A 40-year-old man is a front-seat passenger in a road traffic accident. His knee was flexed and struck the dashboard anteriorly at impact. On examination, when both hips and knees are flexed to 90° while he lies supine, the right proximal tibia appears to sit posteriorly compared to the left. Which test is being described, and what injury does it indicate?",
+    options: ["Lachman test — ACL tear", "McMurray test — medial meniscal tear", "Posterior Sag Sign (Godfrey's) — PCL tear", "Apprehension test — patellar instability"],
+    answer: 2,
+    explanation: "The Posterior Sag Sign (Godfrey's test) is performed with both hips and knees at 90°; the PCL-deficient tibia sags posteriorly under gravity. The mechanism (dashboard injury — posterior force on flexed tibia) is classic for PCL tear. The PCL is the primary restraint to posterior tibial translation. This sign should be checked before the Posterior Drawer test, as the already-sagged position may lead to underestimation of PCL laxity."
+  },
+  {
+    q: "A 35-year-old man presents with medial knee pain after a twisting injury playing tennis. On examination, there is medial joint line tenderness. When the knee is flexed to 90°, valgus stress and external rotation are applied, and the knee is slowly extended — a palpable click and medial pain are reproduced. The most likely diagnosis is:",
+    options: ["Medial meniscal tear", "MCL Grade II sprain", "ACL tear", "Medial knee OA"],
+    answer: 0,
+    explanation: "This describes a positive McMurray test for the medial meniscus: valgus stress + external rotation of the tibia during extension produces a click/pain at the medial joint line. Combined with medial joint line tenderness (sensitivity ~86%), this strongly supports a medial meniscal tear. MRI is the gold standard for confirmation. In young active patients, meniscal repair is preferred over meniscectomy where feasible."
+  },
+  {
+    q: "A 68-year-old woman with known knee osteoarthritis has had a popliteal cyst for 6 weeks. She presents to the emergency department with sudden-onset right calf pain, swelling, and warmth — and notes the posterior knee swelling has disappeared. The most likely diagnosis is:",
+    options: ["Deep vein thrombosis", "Ruptured popliteal (Baker's) cyst", "Compartment syndrome of the calf", "Popliteal artery injury"],
+    answer: 1,
+    explanation: "Rupture of a Baker's cyst releases synovial fluid into the calf, causing acute pain and swelling — clinically indistinguishable from a DVT (pseudothrombophlebitis). The key clue is the disappearance of the pre-existing posterior knee swelling. Ultrasound doppler of the leg is essential to distinguish the two, as DVT must always be excluded. Treatment: address the underlying knee pathology (OA, meniscal tear)."
+  },
+  {
+    q: "A 32-year-old man presents to the emergency department after falling from a ladder. He has anterior knee pain with isolated tenderness over the patella. He is unable to walk more than 4 steps due to pain. According to the Ottawa Knee Rules, the correct management is:",
+    options: ["X-ray is indicated — isolated patella tenderness is an Ottawa criterion", "X-ray is not indicated as he is under 55 years old", "X-ray is only indicated if there is fibular head tenderness", "Ottawa Knee Rules do not apply to patellar injuries"],
+    answer: 0,
+    explanation: "The Ottawa Knee Rules state that a knee X-ray is indicated if any of the following are present: age ≥55, isolated patella tenderness, fibular head tenderness, inability to flex to 90°, or inability to bear weight for 4 steps. This patient has TWO criteria: isolated patella tenderness AND inability to bear weight. The rules apply regardless of age when other criteria are met. Sensitivity ~99% for clinically significant fractures — X-ray is mandatory."
+  },
+  {
+    q: "During examination of a 17-year-old female after a sports injury, you gently displace the patella laterally with the knee in 20° flexion. She immediately contracts her quadriceps and grabs your hand. This finding is diagnostic of:",
+    options: ["Patellofemoral osteoarthritis", "Bipartite patella", "Recurrent lateral patellar instability", "Quadriceps tendon tear"],
+    answer: 2,
+    explanation: "A positive patellar apprehension test (patient braces or grabs the examiner's hand when the patella is displaced laterally) is pathognomonic of previous lateral patellar dislocation or significant patellar instability. Pain alone is less specific. The medial patellofemoral ligament (MPFL) is torn in virtually all first-time dislocations. Predisposing factors: increased Q angle, trochlear dysplasia, patella alta, and ligamentous laxity — more common in adolescent females."
+  },
+  {
+    q: "A 45-year-old man has chronic knee pain on squatting. With the patient prone and the knee flexed to 90°, you apply downward axial compression through the foot and rotate the tibia. This reproduces his medial knee pain. When you instead apply upward traction and rotate, pain is absent. Which structure is most likely injured?",
+    options: ["Medial collateral ligament", "Posterior horn of the medial meniscus", "Posterior cruciate ligament", "Popliteus tendon"],
+    answer: 1,
+    explanation: "This is Apley's test. Compression (axial load + rotation) that reproduces pain implicates the meniscus — the menisci are mechanically compressed between the femoral condyle and tibial plateau. No pain with distraction (joint surfaces separated) excludes ligamentous injury. Medial pain under compression = medial (posterior horn) meniscal pathology. Lateral pain under compression = lateral meniscal pathology."
+  },
+  {
+    q: "A 7-year-old boy presents with a 3-day history of fever (38.5°C), inability to bear weight on the left leg, and a swollen left knee. On examination, the knee is erythematous and warm, with a moderate effusion. All passive movements are exquisitely painful and markedly restricted. Which diagnosis requires the most urgent management?",
+    options: ["Reactive (post-viral) arthritis", "Juvenile idiopathic arthritis", "Septic arthritis of the knee", "Traumatic haemarthrosis"],
+    answer: 2,
+    explanation: "A hot, swollen, painful monoarthritis with fever and inability to bear weight in a child is septic arthritis until proven otherwise — it is a surgical emergency. Untreated, the infecting organism (most commonly Staphylococcus aureus) destroys articular cartilage within 24–48 hours. Management: urgent joint aspiration (WBC >50,000/mm³ with >90% PMNs confirms diagnosis), IV antibiotics, and surgical washout. Do not delay treatment while awaiting culture results."
+  },
+  {
+    q: "A 28-year-old rugby player receives a direct lateral tackle, forcing the knee into valgus and external rotation. Immediately after, he cannot bear weight. Examination reveals: positive Lachman test, pain and gapping with valgus stress at 30°, and a positive McMurray test with medial pain. This combination of injuries is consistent with:",
+    options: ["Isolated ACL rupture with associated haemarthrosis", "Posterolateral corner injury (PCL + LCL)", "O'Donoghue's unhappy triad (ACL + MCL + meniscal injury)", "Grade III MCL injury with associated medial meniscal cyst"],
+    answer: 2,
+    explanation: "O'Donoghue's Unhappy Triad describes concurrent ACL + MCL + meniscal injury from valgus external rotation force — classically from a lateral tackle. Positive Lachman = ACL; valgus gapping = MCL; positive McMurray with medial pain = meniscal involvement. Note: modern evidence shows the lateral meniscus is actually more commonly injured with ACL tears than the medial meniscus, but MCL injury still points to medial compartment stress in this mechanism."
+  },
+  {
+    q: "A 24-year-old footballer develops a large, tense, warm knee swelling within 90 minutes of a non-contact twisting injury. X-rays are normal. Which of the following is the most common cause of acute haemarthrosis of the knee following a sports injury?",
+    options: ["Anterior cruciate ligament tear", "Posterior horn medial meniscal tear", "Grade III MCL rupture", "Osteochondral fracture of the femoral condyle"],
+    answer: 0,
+    explanation: "ACL tears account for approximately 70% of acute traumatic haemarthroses. The ACL is highly vascular and bleeds significantly when torn, producing haemarthrosis within 2 hours. Other causes include osteochondral fractures, peripheral (vascular) meniscal tears, and tibial plateau fractures. MCL tears are extra-articular and do not usually produce significant intra-articular haemarthrosis. Always suspect ACL injury when a patient presents with acute haemarthrosis and a twisting mechanism."
+  },
+  {
+    q: "During a knee examination, you apply a posteriorly-directed force to the patella while asking the patient to actively contract their quadriceps. This reproduces anterior knee pain with crepitus. This finding is consistent with:",
+    options: ["ACL deficiency causing anterolateral rotatory instability", "Patellofemoral joint pathology (chondromalacia patellae or OA)", "Patellar tendinopathy at the inferior pole", "Infrapatellar fat pad impingement (Hoffa's syndrome)"],
+    answer: 1,
+    explanation: "This is the Patellar Grind (Clarke's) test. Compressing the patella posteriorly against the femoral trochlea while the patient actively contracts the quadriceps (straight leg raise or quad set) reproduces the pain and crepitus of patellofemoral pathology — chondromalacia patellae (cartilage softening/fibrillation) or patellofemoral osteoarthritis. Common in young women with an increased Q angle and in older patients with OA. Patellar tendinopathy produces pain at the inferior patellar pole on palpation — not on this specific compression manoeuvre."
+  }
+];
+
+let answered = {};
+let correctCount = 0;
+
+function renderMCQ() {
+  const container = document.getElementById('mcq-container');
+  container.innerHTML = '';
+  questions.forEach((q, qi) => {
+    const letters = ['A', 'B', 'C', 'D'];
+    let optsHtml = q.options.map((opt, oi) =>
+      `<button type="button" class="mcq-opt" id="opt-${qi}-${oi}" onclick="selectAnswer(${qi}, ${oi})">
+        <span class="opt-letter">${letters[oi]}.</span> ${opt}
+      </button>`
+    ).join('');
+    container.innerHTML += `
+    <div class="mcq-item">
+      <div class="mcq-q"><span>Q${qi+1}.</span> ${q.q}</div>
+      <div class="mcq-options">${optsHtml}</div>
+      <div class="mcq-explanation" id="exp-${qi}">
+        <strong>✅ Correct answer: ${['A','B','C','D'][q.answer]}</strong><br>${q.explanation}
+      </div>
+    </div>`;
+  });
+}
+
+function selectAnswer(qi, oi) {
+  if (answered[qi] !== undefined) return;
+  answered[qi] = oi;
+  const isCorrect = oi === questions[qi].answer;
+  if (isCorrect) correctCount++;
+  const opts = document.querySelectorAll(`[id^="opt-${qi}-"]`);
+  opts.forEach((opt, i) => {
+    opt.classList.remove('correct', 'incorrect', 'selected');
+    opt.style.pointerEvents = 'none';
+    if (i === questions[qi].answer) opt.classList.add('correct');
+    if (i === oi && !isCorrect) opt.classList.add('incorrect');
+    if (i === oi) opt.classList.add('selected');
+  });
+  document.getElementById('exp-' + qi).classList.add('show');
+  document.getElementById('score-display').textContent = correctCount + ' / ' + questions.length;
+}
+
+function resetMCQ() {
+  answered = {}; correctCount = 0;
+  document.getElementById('score-display').textContent = '0 / ' + questions.length;
+  renderMCQ();
+}
+
+renderMCQ();
+
+// ===================== GLOSSARY =====================
+const glossaryData = [
+  { term: "Anterior Cruciate Ligament (ACL)", def: "Intra-articular ligament running from the anteromedial tibial plateau to the posterolateral femoral condyle. Prevents anterior tibial translation and resists internal rotation and hyperextension. Most commonly injured by non-contact pivoting mechanism. Diagnosed clinically by Lachman test (most sensitive) and confirmed on MRI.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Posterior Cruciate Ligament (PCL)", def: "Strongest knee ligament; runs from the posterior tibial plateau to the anteromedial femoral condyle. Prevents posterior tibial translation. Injured by dashboard mechanism (direct posterior force on flexed knee). Diagnosed by Posterior Drawer test and Posterior Sag Sign.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Medial Collateral Ligament (MCL)", def: "Extra-articular ligament on the medial aspect of the knee; resists valgus force and external rotation. Superficial layer runs from medial femoral epicondyle to tibia; deep layer blends with the medial joint capsule and medial meniscus. Most common knee ligament injury. Tested by valgus stress at 30°.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Lateral Collateral Ligament (LCL)", def: "Cord-like ligament from the lateral femoral epicondyle to the fibular head; resists varus force. Part of the posterolateral corner complex. Less commonly injured than MCL. Tested by varus stress at 30°. Injury is associated with posterolateral rotatory instability.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Medial Meniscus", def: "C-shaped fibrocartilaginous structure on the medial tibial plateau. More firmly attached to the joint capsule and MCL than the lateral meniscus → less mobile → more commonly torn. The posterior horn is the most common site of tear. Assessed by medial joint line tenderness and McMurray test (valgus + ER).", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Lateral Meniscus", def: "More circular in shape; not attached to the LCL → more mobile → less commonly torn in isolation. However, lateral meniscus tears are more common in association with ACL tears. Assessed by lateral joint line tenderness and McMurray test (varus + IR).", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Patellofemoral Joint", def: "Articulation between the articular surface of the patella and the femoral trochlear groove. The patella improves quadriceps mechanical advantage by up to 50%. Maltracking (lateral tilt or subluxation) leads to chondromalacia patellae and anterior knee pain. Assessed by Q angle, patellar apprehension, and grind tests.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Q Angle", def: "Angle between the quadriceps vector (ASIS → centre of patella) and the patellar tendon vector (centre of patella → tibial tuberosity). Normal: ≤15° male, ≤20° female. Increased Q angle increases lateral vector on the patella → predisposes to subluxation, chondromalacia, and anterior knee pain.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Screw-Home Mechanism", def: "As the knee reaches full extension, the tibia externally rotates ~10° relative to the femur, locking the joint for efficient weight bearing without muscle effort. The popliteus muscle internally rotates the tibia to 'unlock' the knee at the start of flexion. Disruption by a bucket-handle meniscal tear prevents full extension.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Haemarthrosis", def: "Blood within the knee joint. Produces a large, tense, warm effusion within 2 hours of injury. The most common cause in sports is ACL tear (~70%). Other causes: osteochondral fracture, peripheral meniscal tear, cruciate avulsion. Distinguishable from simple traumatic effusion (which develops 6–24 hours post-injury and contains clear synovial fluid).", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Baker's Cyst (Popliteal Cyst)", def: "Distension of the gastrocnemius-semimembranosus bursa in the posterior popliteal fossa, secondary to intra-articular pathology (OA, meniscal tears, inflammatory arthritis). Presents as a posterior knee swelling medial to the midline. Rupture mimics DVT (pseudothrombophlebitis). Treatment targets the underlying cause.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Unhappy Triad (O'Donoghue's Triad)", def: "Concurrent ACL + MCL + meniscal injury from valgus external rotation force (e.g., lateral tackle). Classically described with medial meniscus; modern evidence favours lateral meniscus involvement alongside ACL tears. Presents with haemarthrosis, medial joint tenderness, and instability. All three structures must be assessed when one is injured.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Bucket-Handle Tear", def: "A longitudinal vertical meniscal tear where the central fragment displaces into the intercondylar notch like a bucket handle. Causes a locked knee — a mechanical block to full extension with a 20–30° extension lag. Requires surgical reduction ± repair. Diagnosed on MRI (double PCL sign on sagittal MRI).", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Septic Arthritis", def: "Bacterial infection of the knee joint — a surgical emergency. Presents with fever, acute hot red swollen monoarthritis, and severely restricted ROM. Most common organism: Staphylococcus aureus. Joint aspiration (WBC >50,000/mm³, >90% PMNs, positive Gram stain/culture) confirms diagnosis. Requires urgent IV antibiotics and surgical washout to prevent irreversible cartilage destruction.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Antalgic Gait", def: "A limp characterised by shortened stance phase on the affected side due to pain with weight bearing. A non-specific finding indicating a painful condition of the lower extremity. The patient minimises time spent with weight on the affected limb.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Genu Valgum", def: "'Knock knees' — medial deviation of the knee relative to the hip and ankle. Increases the lateral vector on the patella. Unloads the medial compartment; overloads the lateral compartment. Associated with lateral compartment OA and patellar maltracking.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Genu Varum", def: "'Bow legs' — lateral deviation of the knee. Increases load through the medial compartment. Associated with medial compartment OA, medial meniscal degeneration, and stress fractures of the medial tibial plateau.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Lachman Test", def: "The most sensitive test for ACL integrity. Knee at 30° flexion; anterior pull on the proximal tibia with the distal femur stabilised. Positive: increased anterior translation + soft endpoint (mushy end-feel). Sensitivity ~85%, specificity ~94%. Preferred over the anterior drawer because the hamstrings are relaxed at 30°, removing their protective effect.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "McMurray Test", def: "Tests for meniscal tears. Knee flexed fully; valgus stress + external rotation + extension → medial meniscal click/pain; varus stress + internal rotation + extension → lateral meniscal click/pain. A palpable/audible click or reproduction of joint line pain is positive. Sensitivity ~53%, specificity ~59%. Best combined with joint line tenderness.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Apley's Test", def: "Performed prone with knee at 90°. Compression phase (axial load + rotation) positive for meniscal pathology; distraction phase (upward traction + rotation) positive for ligamentous injury. Distinguishes meniscal from ligamentous pathology in the same examination position.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Posterior Sag Sign (Godfrey's Test)", def: "With both hips and knees at 90° while supine, the PCL-deficient tibia sags posteriorly under gravity. Highly specific for PCL injury. Must be checked before the posterior drawer test (which may start from an already-reduced position, underestimating laxity).", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Patellar Apprehension Test", def: "Lateral displacement of the patella at 20–30° knee flexion. Positive: patient apprehension (quadriceps bracing, grabbing examiner's hand) indicating fear of dislocation. Pathognomonic of previous lateral patellar dislocation or patellar instability. More specific than pain alone.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Ottawa Knee Rules", def: "Clinical decision rule for knee X-ray after acute injury. X-ray indicated if: age ≥55, isolated patella tenderness, fibular head tenderness, inability to flex to 90°, or inability to bear weight (4 steps). Sensitivity ~99% for significant fractures. Reduces unnecessary imaging while safely identifying fractures requiring treatment.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Joint Line Tenderness (JLT)", def: "Direct tenderness on thumb palpation along the medial or lateral tibiofemoral joint line (most accessible at 90° flexion). The most sensitive clinical sign for meniscal tears (sensitivity ~86%). Also present in collateral ligament injuries, OA, and capsular pathology — not specific on its own.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Chondromalacia Patellae", def: "Softening, fibrillation, and erosion of the articular cartilage on the posterior surface of the patella. Causes anterior knee pain, worse on stairs and prolonged sitting (theatre sign). Diagnosed clinically by patellar grind test and confirmed on MRI or arthroscopy. Common in young women with increased Q angle.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Pseudothrombophlebitis", def: "Calf pain and swelling mimicking deep vein thrombosis, caused by rupture of a Baker's cyst with fluid dissecting into the calf tissues. Key clue: pre-existing posterior knee swelling that suddenly disappears. Ultrasound Doppler is required to exclude concurrent DVT, which must always be considered.", tag: "Clinical", tagColor: "badge-teal" }
+];
+
+function renderGlossary(filter = '') {
+  const container = document.getElementById('gloss-container');
+  const filtered = glossaryData.filter(g =>
+    g.term.toLowerCase().includes(filter.toLowerCase()) ||
+    g.def.toLowerCase().includes(filter.toLowerCase())
+  );
+  container.innerHTML = filtered.map(g => `
+    <div class="gloss-item">
+      <span class="gloss-tag ${g.tagColor}">${g.tag}</span>
+      <div class="gloss-term">${g.term}</div>
+      <div class="gloss-def">${g.def}</div>
+    </div>
+  `).join('');
+  if (filtered.length === 0) container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px;">No matching terms found.</p>';
+}
+
+function filterGlossary() {
+  renderGlossary(document.getElementById('gloss-search').value);
+}
+
+renderGlossary();
+</script>
+</body>
+</html>

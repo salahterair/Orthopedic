@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upper Extremity: Shoulder Examination</title>
+<style>
+  :root {
+    --primary: #1a4a7a;
+    --primary-dark: #0f2d4f;
+    --primary-light: #2a6aad;
+    --accent: #e8f0fb;
+    --accent2: #d0e4f7;
+    --teal: #0d7377;
+    --teal-light: #14a9b0;
+    --warning: #b85c00;
+    --success: #1a6b3a;
+    --danger: #8b1a1a;
+    --text: #1a1a2e;
+    --text-muted: #4a5568;
+    --border: #c5d8ee;
+    --white: #ffffff;
+    --bg: #f4f8fd;
+    --card: #ffffff;
+    --nav-height: 60px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+
+  /* NAV */
+  nav {
+    background: var(--primary-dark);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .nav-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px; height: var(--nav-height);
+  }
+  .nav-title { color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0.3px; }
+  @media(max-width: 380px) { .nav-title { font-size: 12px; } }
+  .nav-university { color: #d4e2f3; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 2px; }
+  .nav-subtitle { color: #a8c4e0; font-size: 11px; font-weight: 400; }
+  .nav-tabs {
+    display: flex; background: var(--primary);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 10px 18px; color: #a8c4e0; font-size: 13px; font-weight: 600;
+    cursor: pointer; border-bottom: 3px solid transparent;
+    white-space: nowrap; transition: all 0.2s; letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  .nav-tab.active { color: #fff; border-bottom-color: #7ec8f7; background: rgba(255,255,255,0.1); }
+
+  /* PAGES */
+  .page { display: none; padding: 20px 16px 60px; max-width: 820px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--card); border-radius: 10px;
+    border: 1px solid var(--border); margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(26,74,122,0.07);
+  }
+  .card-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff; padding: 13px 18px; border-radius: 9px 9px 0 0;
+    font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 10px;
+    cursor: pointer; user-select: none;
+  }
+  .card-header .icon { font-size: 18px; }
+  .card-header .chevron { margin-left: auto; transition: transform 0.25s; font-size: 12px; }
+  .card-header.open .chevron { transform: rotate(180deg); }
+  .card-body { padding: 16px 18px; display: none; }
+  .card-body.open { display: block; }
+
+  /* SECTION STYLES */
+  .section-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .badge-blue { background: var(--accent2); color: var(--primary); }
+  .badge-teal { background: #d0f0f2; color: var(--teal); }
+  .badge-orange { background: #fde8d0; color: var(--warning); }
+  .badge-green { background: #d4edda; color: var(--success); }
+  .badge-red { background: #f8d7da; color: var(--danger); }
+
+  h2 { font-size: 19px; color: var(--primary); margin-bottom: 14px; font-weight: 700; }
+  h3 { font-size: 15px; color: var(--primary-dark); margin: 14px 0 8px; font-weight: 700; }
+  h4 { font-size: 14px; color: var(--teal); margin: 10px 0 6px; font-weight: 700; }
+  p { margin-bottom: 10px; color: var(--text); }
+
+  ul, ol { padding-left: 20px; margin-bottom: 10px; }
+  li { margin-bottom: 5px; color: var(--text); }
+  li strong { color: var(--primary); }
+
+  /* HIGHLIGHT BOXES */
+  .box { border-radius: 8px; padding: 12px 15px; margin: 12px 0; font-size: 14px; }
+  .box-clinical { background: #e8f7f0; border-left: 4px solid var(--success); }
+  .box-exam { background: #fff3e0; border-left: 4px solid var(--warning); }
+  .box-anatomy { background: var(--accent); border-left: 4px solid var(--primary); }
+  .box-warning { background: #fdecea; border-left: 4px solid var(--danger); }
+  .box-title { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 5px; }
+  .box-clinical .box-title { color: var(--success); }
+  .box-exam .box-title { color: var(--warning); }
+  .box-anatomy .box-title { color: var(--primary); }
+  .box-warning .box-title { color: var(--danger); }
+
+  /* TABLES */
+  .table-wrap { overflow-x: auto; margin: 10px 0; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--primary); color: #fff; padding: 9px 12px; text-align: left; font-weight: 700; }
+  td { padding: 8px 12px; border-bottom: 1px solid #e8eef5; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f6faff; }
+
+  /* VIDEO PLAYER */
+  .video-block {
+    background: #0a1a2e; border-radius: 12px; overflow: hidden;
+    margin: 12px 0; border: 1px solid #1e3a5f;
+  }
+  .video-block-header {
+    padding: 10px 15px; background: linear-gradient(135deg, #0f2d4f, #1a4a7a);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .video-block-title { color: #fff; font-size: 13px; font-weight: 700; }
+  .video-block-desc { color: #a8c4e0; font-size: 11px; margin-top: 1px; }
+  .video-block iframe {
+    width: 100%; display: block; border: none;
+    aspect-ratio: 16/9; min-height: 200px;
+  }
+
+  /* TEST PROCEDURE STEPS */
+  .steps { counter-reset: step; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: step; padding: 8px 12px 8px 42px; position: relative;
+    margin-bottom: 6px; background: #f8fafd; border-radius: 6px; font-size: 14px;
+    border: 1px solid #e0eaf4;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    background: var(--primary); color: #fff;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+
+  /* MUSCLE TABLE */
+  .muscle-row { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 8px 0; }
+  @media(min-width: 480px) { .muscle-row { grid-template-columns: 1fr 1fr; } }
+  @media(min-width: 700px) { .muscle-row { grid-template-columns: 1fr 1fr 1fr; } }
+  .muscle-cell {
+    background: var(--accent); border-radius: 8px; padding: 10px 12px;
+    border: 1px solid var(--border); text-align: center; font-size: 13px;
+  }
+  .muscle-cell .muscle-name { font-weight: 700; color: var(--primary); font-size: 14px; }
+  .muscle-cell .muscle-action { color: var(--text-muted); font-size: 12px; margin-top: 3px; }
+  .muscle-cell .muscle-test { color: var(--teal); font-size: 11px; margin-top: 4px; font-weight: 600; }
+
+  /* ROM BARS */
+  .rom-item { margin: 8px 0; }
+  .rom-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+  .rom-label span:first-child { font-weight: 600; color: var(--primary); }
+  .rom-label span:last-child { color: var(--text-muted); font-weight: 700; }
+  .rom-bar-bg { background: #e0eaf4; border-radius: 20px; height: 8px; overflow: hidden; }
+  .rom-bar { background: linear-gradient(90deg, var(--primary), var(--teal-light)); height: 100%; border-radius: 20px; transition: width 0.5s; }
+
+  /* FLASHCARDS */
+  .fc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media(min-width: 900px) { .fc-grid { grid-template-columns: 1fr 1fr; } }
+  .fc-card {
+    perspective: 800px; cursor: pointer; min-height: 180px; height: auto;
+  }
+  .fc-inner {
+    width: 100%; height: 100%; min-height: 180px;
+    transform-style: preserve-3d; transition: transform 0.45s;
+    position: relative;
+  }
+  .fc-card.flipped .fc-inner { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute; width: 100%; min-height: 180px;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 10px; padding: 18px 16px; display: flex;
+    flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; border: 1px solid var(--border);
+  }
+  .fc-front {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+  }
+  .fc-back {
+    background: #fff; color: var(--text);
+    transform: rotateY(180deg);
+    overflow-y: auto;
+  }
+  .fc-front .fc-q { font-size: 14px; font-weight: 600; line-height: 1.5; }
+  .fc-front .fc-hint { font-size: 11px; color: #a8d4f0; margin-top: 10px; }
+  .fc-back .fc-a { font-size: 13px; line-height: 1.55; color: var(--text); }
+  .fc-back .fc-tag { font-size: 11px; color: var(--primary); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
+  .fc-flip-hint { text-align: center; font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+
+  /* MCQ */
+  .mcq-item {
+    background: var(--card); border-radius: 10px; padding: 18px;
+    border: 1px solid var(--border); margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(26,74,122,0.07);
+  }
+  .mcq-q { font-size: 14px; font-weight: 600; color: var(--primary-dark); margin-bottom: 12px; line-height: 1.5; }
+  .mcq-q span { color: var(--text-muted); font-weight: 400; font-size: 13px; }
+  .mcq-options { display: flex; flex-direction: column; gap: 8px; }
+  .mcq-opt {
+    padding: 10px 14px; border-radius: 8px; cursor: pointer;
+    border: 2px solid #d0dcea; background: #f8faff;
+    font-size: 13px; transition: all 0.15s; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .mcq-opt:hover { border-color: var(--primary-light); background: var(--accent); }
+  .mcq-opt.correct { border-color: #28a745; background: #d4edda; color: #155724; }
+  .mcq-opt.incorrect { border-color: #dc3545; background: #f8d7da; color: #721c24; }
+  .mcq-opt.selected { border-color: var(--primary); background: var(--accent2); color: var(--primary-dark); }
+  .mcq-opt.correct.selected { border-color: #28a745; background: #d4edda; color: #155724; }
+  .mcq-opt.incorrect.selected { border-color: #dc3545; background: #f8d7da; color: #721c24; }
+  .mcq-opt .opt-letter { font-weight: 700; min-width: 20px; }
+  .mcq-explanation {
+    margin-top: 12px; padding: 12px 14px; background: #f0f7ee;
+    border-radius: 8px; border-left: 4px solid var(--success);
+    font-size: 13px; color: var(--text); display: none;
+  }
+  .mcq-explanation.show { display: block; }
+  .mcq-explanation strong { color: var(--success); }
+  .mcq-score-bar {
+    background: var(--card); border-radius: 10px; padding: 16px 18px;
+    border: 1px solid var(--border); margin-bottom: 18px; text-align: center;
+  }
+  .score-display { font-size: 32px; font-weight: 900; color: var(--primary); }
+  .score-label { color: var(--text-muted); font-size: 13px; }
+  .btn {
+    display: inline-block; padding: 9px 20px; border-radius: 8px;
+    font-size: 13px; font-weight: 700; cursor: pointer; border: none;
+    transition: all 0.15s; text-align: center;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-reset { background: #e8eef5; color: var(--primary); margin-top: 14px; }
+  .btn-reset:hover { background: var(--accent2); }
+
+  /* GLOSSARY */
+  .gloss-search {
+    width: 100%; padding: 11px 15px; border-radius: 8px;
+    border: 2px solid var(--border); font-size: 14px; margin-bottom: 14px;
+    color: var(--text); outline: none; transition: border-color 0.2s;
+  }
+  .gloss-search:focus { border-color: var(--primary-light); }
+  .gloss-item {
+    background: var(--card); border-radius: 10px; padding: 14px 16px;
+    border: 1px solid var(--border); margin-bottom: 10px;
+  }
+  .gloss-term { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .gloss-def { font-size: 13px; color: var(--text); line-height: 1.55; }
+  .gloss-tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
+    padding: 1px 7px; border-radius: 10px; margin-bottom: 5px; }
+
+  /* PAGE HEADERS */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; color: #fff;
+  }
+  .page-header h1 { font-size: 20px; font-weight: 800; margin-bottom: 3px; }
+  .page-header p { font-size: 13px; color: #a8c4e0; margin: 0; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+  /* INTRO OVERVIEW */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  @media(max-width: 480px) { .overview-grid { grid-template-columns: 1fr; } }
+  .overview-item {
+    background: var(--accent); border-radius: 8px; padding: 11px 13px;
+    border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px;
+  }
+  .overview-num { background: var(--primary); color: #fff; border-radius: 50%;
+    width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .overview-text { font-size: 13px; font-weight: 600; color: var(--primary); }
+
+  /* SPECIAL TEST CARDS */
+  .test-card {
+    background: var(--card); border-radius: 10px; padding: 16px;
+    border: 1px solid var(--border); margin-bottom: 12px;
+  }
+  .test-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .test-badge { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px; text-transform: uppercase; white-space: nowrap; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 20px 16px; font-size: 12px;
+    color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-header">
+    <div>
+      <div class="nav-university">Ibn Sina University | Faculty of Medicine</div>
+      <div class="nav-title">Orthopaedics Practical: 🦴 Shoulder Examination</div>
+      <div class="nav-subtitle">Upper Extremity · Year 4 MBBS · Clinical Module</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showPage('lecture', this)">📖 Lecture</div>
+    <div class="nav-tab" onclick="showPage('flashcards', this)">🃏 Flashcards</div>
+    <div class="nav-tab" onclick="showPage('mcq', this)">✅ MCQ</div>
+    <div class="nav-tab" onclick="showPage('glossary', this)">📚 Glossary</div>
+  </div>
+</nav>
+
+<!-- ===================== LECTURE PAGE ===================== -->
+<div id="page-lecture" class="page active">
+  <div class="page-header">
+    <h1>Upper Extremity: Shoulder Examination</h1>
+    <p>Systematic clinical approach · Musculoskeletal Orthopaedic Exam</p>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="card">
+    <div class="card-header open" onclick="toggleCard(this)">
+      <span class="icon">🗂️</span> Examination Framework
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <p>The shoulder examination follows the standard orthopaedic framework applied to every joint. A systematic approach prevents missed pathology.</p>
+      <div class="overview-grid">
+        <div class="overview-item"><div class="overview-num">1</div><div class="overview-text">Inspection</div></div>
+        <div class="overview-item"><div class="overview-num">2</div><div class="overview-text">Palpation</div></div>
+        <div class="overview-item"><div class="overview-num">3</div><div class="overview-text">Range of Motion</div></div>
+        <div class="overview-item"><div class="overview-num">4</div><div class="overview-text">Muscle Strength</div></div>
+        <div class="overview-item"><div class="overview-num">5</div><div class="overview-text">Special Tests</div></div>
+        <div class="overview-item"><div class="overview-num">⚠️</div><div class="overview-text">Joint Above &amp; Below</div></div>
+      </div>
+      <div class="box box-exam">
+        <div class="box-title">🔑 Exam Principle</div>
+        Always examine the joint <strong>above</strong> (cervical spine / acromioclavicular joint) and <strong>below</strong> (elbow) the site of pain. Referred pain from C5–C6 radiculopathy commonly presents as shoulder pain.
+      </div>
+    </div>
+  </div>
+
+  <!-- ANATOMY OVERVIEW -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🦴</span> Relevant Anatomy
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-blue">Anatomy</span>
+      <h3>The Shoulder Girdle</h3>
+      <p>The shoulder complex comprises four articulations that work in concert:</p>
+      <ul>
+        <li><strong>Glenohumeral (GH) joint</strong> — ball-and-socket joint between the humeral head and the glenoid fossa; most mobile joint in the body, stabilised primarily by dynamic (rotator cuff) and static (labrum, capsule, ligaments) stabilisers</li>
+        <li><strong>Acromioclavicular (AC) joint</strong> — plane synovial joint between the acromion and lateral clavicle; stabilised by the AC ligament and coracoclavicular (CC) ligaments (conoid and trapezoid)</li>
+        <li><strong>Sternoclavicular (SC) joint</strong> — only true bony articulation of the upper extremity with the axial skeleton</li>
+        <li><strong>Scapulothoracic articulation</strong> — a physiological joint; contributes approximately 60° of the 180° of total shoulder abduction (scapulohumeral rhythm: 2:1 ratio of GH to scapulothoracic motion)</li>
+      </ul>
+      <div class="box box-anatomy">
+        <div class="box-title">🔬 Rotator Cuff (SITS)</div>
+        <strong>S</strong>upraspinatus (abduction, 0–15°) · <strong>I</strong>nfraspinatus (external rotation) · <strong>T</strong>eres minor (external rotation) · <strong>S</strong>ubscapularis (internal rotation). All insert on the greater or lesser tuberosity of the humerus and dynamically compress the humeral head into the glenoid.
+      </div>
+      <h3>Subacromial Space</h3>
+      <p>The subacromial space lies between the superior humeral head/greater tuberosity and the undersurface of the acromion and coracoacromial arch. It contains the supraspinatus tendon, subacromial bursa, and the long head of biceps tendon. Narrowing of this space (e.g., type III hooked acromion, acromial osteophytes) leads to impingement syndrome.</p>
+    </div>
+  </div>
+
+  <!-- INSPECTION -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">👁️</span> 1. Inspection
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-blue">Step 1</span>
+      <p>Expose both shoulders fully. Inspect from anterior, posterior, and lateral aspects. Compare both sides.</p>
+      <h3>What to Look For</h3>
+      <h4>Skin and Soft Tissue</h4>
+      <ul>
+        <li><strong>Erythema, swelling, warmth</strong> — think <em>septic arthritis</em> (surgical emergency), crystal arthropathy (gout, CPPD), or acute bursitis</li>
+        <li><strong>Surgical scars</strong> — previous arthroscopy portals (3 small puncture marks), open rotator cuff repair, arthroplasty</li>
+        <li><strong>Bruising</strong> — may indicate recent fracture (clavicle, proximal humerus) or rotator cuff avulsion</li>
+      </ul>
+      <h4>Bony Contour</h4>
+      <ul>
+        <li><strong>Squared-off / flattened deltoid contour</strong> — pathognomonic of anterior glenohumeral dislocation; loss of the normal rounded deltoid outline with a prominent coracoid process anteriorly</li>
+        <li><strong>Step deformity at AC joint</strong> — Grade III+ AC joint separation; the distal clavicle rides superiorly relative to the acromion</li>
+        <li><strong>Prominent SC joint</strong> — SC joint dislocation (posterior dislocation is a vascular emergency)</li>
+        <li><strong>Winging of scapula</strong> — paralysis of serratus anterior (long thoracic nerve injury) causing medial border of scapula to protrude posteriorly; ask patient to do a wall push-up</li>
+      </ul>
+      <h4>Muscle</h4>
+      <ul>
+        <li><strong>Deltoid wasting</strong> — axillary nerve palsy (post-dislocation), C5 radiculopathy</li>
+        <li><strong>Supraspinatus / infraspinatus fossa wasting</strong> — chronic rotator cuff tear, suprascapular nerve entrapment</li>
+        <li><strong>Popeye deformity</strong> — distal migration of the biceps muscle belly due to rupture of the long head of biceps tendon (appears as a bulge in mid-arm)</li>
+      </ul>
+      <div class="box box-clinical">
+        <div class="box-title">🩺 Clinical Correlation</div>
+        Anterior shoulder dislocation is the most common type (95%). It occurs when the arm is abducted and externally rotated. The inferior capsule is stretched and the humeral head dislocates anteroinferiorly, resulting in the classic squared-off appearance. Always check axillary nerve function (sensation over regimental badge area) before and after reduction.
+      </div>
+      <div class="box box-warning">
+        <div class="box-title">⚠️ Red Flag</div>
+        Signs of infection (erythema, warmth, swelling, restricted ROM in all planes) in the shoulder mandate urgent assessment for septic arthritis. Joint aspiration for cell count, Gram stain, and culture is required. Do not delay surgical washout.
+      </div>
+    </div>
+  </div>
+
+  <!-- PALPATION -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🖐️</span> 2. Palpation
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-blue">Step 2</span>
+      <p>Palpate systematically in a logical sequence from medial to lateral. Identify the exact site of point tenderness — this directs the diagnosis.</p>
+      <ol class="steps">
+        <li><strong>Sternoclavicular joint</strong> — palpate the medial clavicle where it articulates with the manubrium. Tenderness suggests SC joint pathology (sprain, arthritis, or rare dislocation).</li>
+        <li><strong>Clavicle shaft</strong> — run finger along the entire length of the clavicle. Localised tenderness with swelling suggests clavicle fracture (most common site: junction of middle and outer thirds).</li>
+        <li><strong>Acromioclavicular joint</strong> — palpate the distal clavicle at the AC joint. This joint may be <em>tender at baseline</em> in many patients; compare with the contralateral side. Point tenderness here + cross-arm test positive → AC joint pathology.</li>
+        <li><strong>Acromion and coracoid process</strong> — the acromion is the posterolateral bony point of the shoulder. The coracoid is palpated 2 cm below the clavicle in the deltopectoral groove (often tender in frozen shoulder and impingement).</li>
+        <li><strong>Greater tuberosity</strong> — insertion site of supraspinatus, infraspinatus, and teres minor. Tenderness here strongly suggests rotator cuff pathology.</li>
+        <li><strong>Bicipital groove &amp; tendon</strong> — with the patient's arm at 90° abduction and externally rotated, palpate the anterior humeral head to feel the long head of biceps tendon running in its groove. Tenderness = bicipital tendinopathy. As the arm is passively internally/externally rotated, the tendon can be felt rolling under the examiner's finger.</li>
+      </ol>
+      <div class="box box-clinical">
+        <div class="box-title">🩺 Clinical Correlation</div>
+        The AC joint is a common source of shoulder pain in overhead athletes (e.g., weightlifters, swimmers). Isolated AC joint tenderness on palpation, combined with a positive cross-arm adduction test, confirms AC joint involvement rather than glenohumeral or rotator cuff pathology.
+      </div>
+      <div class="video-block">
+        <div class="video-block-header">
+          <div>
+            <div class="video-block-title">▶ Shoulder Inspection &amp; Palpation</div>
+            <div class="video-block-desc">Systematic demonstration of inspection and point tenderness palpation of the shoulder girdle</div>
+          </div>
+        </div>
+        <iframe
+          src="https://drive.google.com/file/d/1CZwcIu-bKyu-z0y3U1FPmJMms-p0HvmV/preview"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANGE OF MOTION -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🔄</span> 3. Range of Motion
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-teal">Step 3</span>
+      <p>Test active ROM first. If active ROM is normal, passive ROM adds little further information. Document all movements in degrees and compare bilaterally.</p>
+
+      <div class="rom-item">
+        <div class="rom-label"><span>Forward Flexion</span><span>Normal: 150–170°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:90%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>Extension</span><span>Normal: 50–70°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:38%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>Abduction</span><span>Normal: 150–180°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:95%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>External Rotation</span><span>Normal: ~90°</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:50%"></div></div>
+      </div>
+      <div class="rom-item">
+        <div class="rom-label"><span>Internal Rotation</span><span>Normal: T7 spinous process</span></div>
+        <div class="rom-bar-bg"><div class="rom-bar" style="width:55%"></div></div>
+      </div>
+
+      <h3>Internal Rotation Measurement</h3>
+      <p>Ask the patient to place their hand behind their back with the palm facing outwards. Measure the highest vertebral spinous process the thumb can reach. Normal is above T7. The dominant hand typically reaches 2 spinous processes lower than the non-dominant hand — compare sides.</p>
+
+      <div class="divider"></div>
+      <h3>Interpreting ROM Findings</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>ROM Pattern</th><th>Likely Diagnosis</th></tr>
+          <tr><td>Normal active ROM in all planes</td><td>Rules out: humeral head fracture, GH dislocation, adhesive capsulitis (frozen shoulder)</td></tr>
+          <tr><td>Globally restricted active AND passive ROM</td><td>Adhesive capsulitis, severe GH arthritis, post-traumatic stiffness</td></tr>
+          <tr><td>Normal passive ROM; impaired active ROM (pain-limited)</td><td>Rotator cuff tear (partial or full-thickness), subacromial bursitis, tendinopathy</td></tr>
+          <tr><td>Painful arc (60°–120° abduction)</td><td>Subacromial impingement, supraspinatus tendinopathy</td></tr>
+          <tr><td>Painful arc (160°–180° abduction)</td><td>AC joint pathology</td></tr>
+        </table>
+      </div>
+      <div class="box box-clinical">
+        <div class="box-title">🩺 Clinical Correlation — Adhesive Capsulitis</div>
+        Adhesive capsulitis (frozen shoulder) classically presents with progressive loss of active AND passive ROM in all planes, with external rotation being the first and most severely affected movement. It is associated with diabetes mellitus, hypothyroidism, and prolonged immobilisation.
+      </div>
+      <div class="video-block">
+        <div class="video-block-header">
+          <div>
+            <div class="video-block-title">▶ Range of Motion Assessment</div>
+            <div class="video-block-desc">Active and passive ROM: forward flexion, extension, abduction, and internal / external rotation</div>
+          </div>
+        </div>
+        <iframe
+          src="https://drive.google.com/file/d/1SNM6rcpeBRmOJ1S4SfjYXB2NU--sddpp/preview"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRENGTH TESTING -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">💪</span> 4. Muscle Strength Testing
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-teal">Step 4</span>
+      <p>Test the four rotator cuff muscles individually. Grade strength using the Medical Research Council (MRC) scale (0–5). Always compare sides.</p>
+
+      <div class="box box-anatomy">
+        <div class="box-title">📌 Memory Aid — SITS Insertions</div>
+        <strong>Supraspinatus, Teres minor, Infraspinatus</strong> → insert on the <em>posterior</em> surface of the humerus (greater tuberosity).<br>
+        <strong>Subscapularis</strong> → inserts on the <em>anterior</em> surface (lesser tuberosity).<br>
+        Remembering this explains their actions: posterior insertions = external rotation / abduction; anterior insertion = internal rotation.
+      </div>
+
+      <h3>Supraspinatus — Empty Beer Can Test</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Supraspinatus</div>
+          <div style="font-size:13px;color:var(--text-muted);">Abduction (with deltoid)</div>
+        </div>
+        <ol class="steps">
+          <li>Position the arm at <strong>90° abduction</strong> in the scapular plane (30° forward flexion from the coronal plane)</li>
+          <li>Internally rotate the arm fully so the <strong>thumb points downward</strong> ("empty beer can" position)</li>
+          <li>Patient pushes arm upward against the examiner's downward resistance</li>
+          <li>Positive test: <strong>weakness or pain</strong> suggests supraspinatus tear or tendinopathy</li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Exam Insight</div>
+          The scapular plane position (30° anterior to coronal plane) maximises supraspinatus isolation and is the most pain-free position for testing. Sensitivity ~69%, specificity ~66% for full-thickness tears.
+        </div>
+      </div>
+
+      <h3>Infraspinatus &amp; Teres Minor — External Rotation</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Infraspinatus / Teres Minor</div>
+          <div style="font-size:13px;color:var(--text-muted);">External Rotation</div>
+        </div>
+        <ol class="steps">
+          <li>Patient stands or sits with <strong>elbow at 90° flexion</strong>, arm adducted to the side</li>
+          <li>Patient attempts to <strong>externally rotate</strong> (push forearm outward) against examiner's resistance</li>
+          <li>Positive test: weakness indicates infraspinatus tear (infraspinatus is the most commonly tested; teres minor contributes ~45% of external rotation strength)</li>
+        </ol>
+      </div>
+
+      <h3>Subscapularis — Internal Rotation / Lift-Off Test</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Subscapularis</div>
+          <div style="font-size:13px;color:var(--text-muted);">Internal Rotation</div>
+        </div>
+        <ol class="steps">
+          <li>Patient stands with arm at the side, elbow at 90°</li>
+          <li>Resist <strong>internal rotation</strong> (patient pushes forearm inward against resistance)</li>
+          <li>Alternatively: <strong>Lift-off test (Gerber's)</strong> — patient places the dorsum of the hand against the lumbar spine and attempts to lift it away; inability to do so indicates subscapularis tear</li>
+        </ol>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Muscle</th><th>Primary Action</th><th>Test Position</th><th>Nerve Supply</th></tr>
+          <tr><td><strong>Supraspinatus</strong></td><td>Initiation of abduction (0–15°)</td><td>Empty can test</td><td>Suprascapular (C5–C6)</td></tr>
+          <tr><td><strong>Infraspinatus</strong></td><td>External rotation</td><td>Resisted ER at side</td><td>Suprascapular (C5–C6)</td></tr>
+          <tr><td><strong>Teres Minor</strong></td><td>External rotation + adduction</td><td>Resisted ER at side</td><td>Axillary (C5–C6)</td></tr>
+          <tr><td><strong>Subscapularis</strong></td><td>Internal rotation + adduction</td><td>Resisted IR / Lift-off</td><td>Upper + lower subscapular (C5–C6)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECIAL TESTS -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="icon">🔬</span> 5. Special Tests
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <span class="section-badge badge-orange">Step 5</span>
+      <p>Special tests are performed after the standard exam to confirm specific diagnoses. A positive result is pain reproduction (not just discomfort) in the relevant area.</p>
+
+      <!-- AC JOINT -->
+      <h3>AC Joint Pathology</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Cross-Arm (Adduction) Test</div>
+        </div>
+        <p style="font-size:13px;margin-bottom:8px;"><strong>Tests for:</strong> AC joint injury / degeneration</p>
+        <ol class="steps">
+          <li>Patient's arm forward-flexed to <strong>90°</strong></li>
+          <li>Examiner passively <strong>adducts arm horizontally</strong> across the body, compressing the AC joint</li>
+          <li>Positive: <strong>pain specifically at the AC joint</strong> (not diffuse shoulder pain)</li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Exam Insight</div>
+          Distinguish localised AC joint pain from general shoulder pain. Sensitivity ~77%, specificity ~79%. The most specific test for AC joint pathology when combined with direct tenderness on palpation.
+        </div>
+      </div>
+
+      <!-- IMPINGEMENT -->
+      <h3>Impingement Tests (Subacromial)</h3>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">Both tests reproduce impingement by mechanically narrowing the subacromial space, pinching the supraspinatus tendon and subacromial bursa between the greater tuberosity and the coracoacromial arch.</p>
+
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Neer's Test</div>
+        </div>
+        <ol class="steps">
+          <li>Stabilise the scapula with one hand on the posterior shoulder to prevent scapular rotation</li>
+          <li>Passively <strong>forward flex the arm</strong> (internally rotated, thumb down) with the elbow extended</li>
+          <li>Positive: pain in the anterior or anterolateral shoulder at end range (>120°)</li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Mechanism</div>
+          Forward flexion drives the greater tuberosity under the anterior acromion, impinging the supraspinatus tendon. Sensitivity ~72%, specificity ~60%.
+        </div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Hawkins-Kennedy Test</div>
+        </div>
+        <ol class="steps">
+          <li>Arm at <strong>90° forward flexion</strong>, elbow at 90° flexion</li>
+          <li>Position arm at <strong>30° of horizontal adduction</strong> (across the body slightly)</li>
+          <li>Rapidly and forcefully internally rotate the shoulder (take from external → internal rotation)</li>
+          <li>Positive: pain reproduced in the anterior shoulder region</li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Mechanism</div>
+          Internal rotation in this position drives the greater tuberosity under the coracoacromial ligament, impinging the supraspinatus against it. Sensitivity ~79%, specificity ~59%. Generally more sensitive than Neer's test.
+        </div>
+      </div>
+
+      <div class="video-block">
+        <div class="video-block-header">
+          <div>
+            <div class="video-block-title">▶ Special Tests: Impingement</div>
+            <div class="video-block-desc">Neer's and Hawkins-Kennedy tests demonstrated for subacromial impingement syndrome</div>
+          </div>
+        </div>
+        <iframe
+          src="https://drive.google.com/file/d/1aUY0h8AAkQ0KMd-t95R4BwQrX3pBhL17/preview"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- LABRUM -->
+      <h3>Labral Pathology</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">O'Brien's Test (Active Compression Test)</div>
+        </div>
+        <p style="font-size:13px;margin-bottom:8px;"><strong>Tests for:</strong> SLAP (superior labrum anterior to posterior) tears; AC joint pathology</p>
+        <ol class="steps">
+          <li>Arm at <strong>90° forward flexion</strong>, elbow fully extended, adducted 10–15° across midline</li>
+          <li>Phase 1 — arm <strong>internally rotated (thumb pointing down)</strong>: patient resists downward force by examiner</li>
+          <li>Phase 2 — arm <strong>externally rotated (thumb pointing up / supinated)</strong>: patient resists same downward force</li>
+          <li>Positive for <strong>SLAP tear</strong>: pain or clicking with phase 1 (thumb down) that <em>decreases or disappears</em> with phase 2 (thumb up), and pain is felt <em>deep in the shoulder</em></li>
+          <li>Positive for <strong>AC pathology</strong>: pain localised to the top of the shoulder (at AC joint) in both phases</li>
+        </ol>
+        <div class="box box-clinical">
+          <div class="box-title">🩺 Clinical Correlation</div>
+          SLAP tears are common in overhead throwing athletes (cricketers, javelin throwers, swimmers). They often present with a clicking or catching sensation with overhead activities. MRI arthrogram is the gold standard for diagnosis.
+        </div>
+      </div>
+
+      <!-- BICEPS -->
+      <h3>Biceps Pathology</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Speed's Test</div>
+        </div>
+        <p style="font-size:13px;margin-bottom:8px;"><strong>Tests for:</strong> Long head of biceps tendinopathy / SLAP tear</p>
+        <ol class="steps">
+          <li>Grasp the patient's hand in a <strong>handshake grip</strong></li>
+          <li>Resist the patient's attempt to <strong>supinate the forearm</strong> against resistance (alternatively: resisted forward flexion with elbow extended and forearm supinated)</li>
+          <li>Positive: <strong>pain in the bicipital groove</strong> (anterior shoulder, along the long head of biceps tendon)</li>
+        </ol>
+      </div>
+
+      <!-- INSTABILITY -->
+      <h3>Shoulder Instability</h3>
+      <div class="test-card">
+        <div class="test-card-header">
+          <div class="test-badge">Apprehension Test (Crank Test)</div>
+        </div>
+        <p style="font-size:13px;margin-bottom:8px;"><strong>Tests for:</strong> Anterior glenohumeral instability (history of recurrent dislocations)</p>
+        <ol class="steps">
+          <li>Patient <strong>supine</strong>, arm abducted to <strong>90°</strong>, elbow flexed to <strong>90°</strong></li>
+          <li>Slowly externally rotate the shoulder toward <strong>90°</strong></li>
+          <li>Positive: patient reports <strong>apprehension</strong> (feeling that the shoulder will dislocate) — not just pain</li>
+          <li>Relocation test (Jobe): apply a <strong>posterior force to the humeral head</strong> — this should reduce apprehension (confirms anterior instability)</li>
+        </ol>
+        <div class="box box-exam">
+          <div class="box-title">🎯 Exam Insight</div>
+          The positive finding is <em>apprehension</em> (a feeling of impending dislocation), not just pain. Pain alone is less specific. Sensitivity ~69%, specificity ~66%. The relocation test increases specificity to ~87%.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <h3>Special Tests — Summary Table</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Test</th><th>Pathology</th><th>Key Manoeuvre</th><th>Positive Finding</th></tr>
+          <tr><td>Cross-Arm Test</td><td>AC joint injury</td><td>Horizontal adduction</td><td>Pain at AC joint</td></tr>
+          <tr><td>Neer's Test</td><td>Subacromial impingement</td><td>Passive forward flexion (IR)</td><td>Anterior shoulder pain</td></tr>
+          <tr><td>Hawkins-Kennedy</td><td>Subacromial impingement</td><td>90° FF + forced IR</td><td>Anterior shoulder pain</td></tr>
+          <tr><td>O'Brien's Test</td><td>SLAP tear / AC joint</td><td>Resisted FF: IR vs ER</td><td>Deep pain ↓ with ER (SLAP); Top pain (AC)</td></tr>
+          <tr><td>Speed's Test</td><td>Biceps tendinopathy</td><td>Resisted supination</td><td>Bicipital groove pain</td></tr>
+          <tr><td>Apprehension Test</td><td>Anterior instability</td><td>Abduction + ER</td><td>Apprehension (not pain)</td></tr>
+          <tr><td>Relocation Test</td><td>Anterior instability</td><td>Posterior humeral pressure</td><td>Relief of apprehension</td></tr>
+          <tr><td>Empty Can Test</td><td>Supraspinatus tear</td><td>Resisted abduction in scapular plane (IR)</td><td>Weakness / pain</td></tr>
+          <tr><td>Lift-Off Test</td><td>Subscapularis tear</td><td>Lift hand off lumbar spine</td><td>Inability to lift off</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /lecture -->
+
+<!-- ===================== FLASHCARDS PAGE ===================== -->
+<div id="page-flashcards" class="page">
+  <div class="page-header">
+    <h1>🃏 Exam Review Flashcards</h1>
+    <p>Tap each card to reveal the answer · Year 4 MBBS level</p>
+  </div>
+  <p class="fc-flip-hint">👆 Tap a card to flip it</p>
+  <div class="fc-grid" id="fc-container"></div>
+</div>
+
+<!-- ===================== MCQ PAGE ===================== -->
+<div id="page-mcq" class="page">
+  <div class="page-header">
+    <h1>✅ Self-Assessment MCQ</h1>
+    <p>Single Best Answer · Select an option to check your answer</p>
+  </div>
+  <div class="mcq-score-bar">
+    <div class="score-display" id="score-display">0 / 12</div>
+    <div class="score-label">questions answered correctly</div>
+    <button class="btn btn-reset" onclick="resetMCQ()">↺ Reset All Questions</button>
+  </div>
+  <div id="mcq-container"></div>
+</div>
+
+<!-- ===================== GLOSSARY PAGE ===================== -->
+<div id="page-glossary" class="page">
+  <div class="page-header">
+    <h1>📚 Glossary</h1>
+    <p>Key anatomical and clinical terms · Shoulder Examination</p>
+  </div>
+  <input class="gloss-search" type="text" id="gloss-search" placeholder="🔍 Search terms..." oninput="filterGlossary()">
+  <div id="gloss-container"></div>
+</div>
+
+<footer>
+  Designed &amp; Developed by Dr. Salaheldin Terair &nbsp;·&nbsp; Upper Extremity: Shoulder Examination.
+</footer>
+
+<script>
+// ===================== NAV =====================
+function showPage(id, tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  tab.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ===================== COLLAPSIBLE CARDS =====================
+function toggleCard(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// ===================== FLASHCARDS =====================
+const flashcards = [
+  { q: "What is the classic appearance of an anterior shoulder dislocation on inspection?", a: "Squared-off / flattened deltoid contour — loss of the normal rounded shoulder outline with the humeral head displaced anteriorly. The coracoid process becomes prominent." },
+  { q: "What normal range defines internal rotation of the shoulder?", a: "The thumb should reach at least T7 spinous process when the hand is placed behind the back (palm outward). The dominant hand typically reaches 2 vertebrae lower than the non-dominant side." },
+  { q: "Name the four rotator cuff muscles and their primary actions (SITS mnemonic).", a: "Supraspinatus (initiation of abduction 0–15°) · Infraspinatus (external rotation) · Teres minor (external rotation) · Subscapularis (internal rotation)" },
+  { q: "How do you perform the Empty Can test, and what does it assess?", a: "Arm at 90° abduction, 30° forward flexion (scapular plane), internally rotated with thumb pointing down. Resist upward pressure. Tests Supraspinatus integrity — weakness or pain = positive." },
+  { q: "What distinguishes a positive Apprehension test from a positive impingement test?", a: "Apprehension test is positive when the patient reports a feeling that the shoulder is about to DISLOCATE (apprehension) — not just pain. Pain alone is less specific. The relocation test (posterior pressure on humeral head) relieves this apprehension." },
+  { q: "What does a painful arc at 60°–120° abduction indicate versus 160°–180°?", a: "60°–120° = subacromial impingement (supraspinatus tendinopathy / bursitis) as the greater tuberosity passes under the acromion. 160°–180° = AC joint pathology as it becomes compressed at end range." },
+  { q: "Describe the Hawkins-Kennedy test technique.", a: "Arm at 90° forward flexion, elbow flexed 90°, arm 30° horizontally adducted. Rapidly internally rotate the shoulder. Positive = anterior shoulder pain — impingement of supraspinatus under the coracoacromial ligament." },
+  { q: "How do you differentiate O'Brien's test for a SLAP tear vs AC joint pathology?", a: "SLAP: deep shoulder pain with thumb-down (IR) that decreases with thumb-up (ER). AC joint: pain on top of the shoulder (at AC joint level) in BOTH positions." },
+  { q: "If a patient has full passive ROM but restricted active ROM, what is the most likely pathology category?", a: "Pain-limited active ROM with preserved passive ROM suggests rotator cuff pathology (partial or full-thickness tear), subacromial bursitis, or tendinopathy — not mechanical restriction (fracture / adhesive capsulitis)." },
+  { q: "What nerve injury following shoulder dislocation causes deltoid wasting and loss of sensation over the 'regimental badge' area?", a: "Axillary nerve (C5–C6) injury. The axillary nerve curves around the surgical neck of the humerus and is at risk during anterior shoulder dislocation or fracture of the surgical neck. Always check sensation and deltoid power post-reduction." },
+  { q: "What is the significance of winging of the scapula and what nerve is involved?", a: "Scapular winging (medial border of scapula protrudes posteriorly on wall push-up) indicates serratus anterior paralysis due to long thoracic nerve (C5–C7) injury. Common cause: axillary lymph node surgery, direct blow to lateral chest, heavy backpack use." },
+  { q: "What is the Lift-Off test (Gerber's test) and what does it detect?", a: "Patient places dorsum of hand against the lumbar spine and lifts it away from the back against resistance. Inability = subscapularis tear. This is the most specific test for subscapularis pathology (specificity ~98%)." },
+  { q: "What is the scapulohumeral rhythm and why is it clinically important?", a: "2:1 ratio: for every 3° of shoulder abduction, 2° occurs at GH joint and 1° at scapulothoracic articulation. Disruption (e.g., rotator cuff tear, frozen shoulder, AC joint pathology) alters this rhythm, causing compensatory scapular hiking and early fatigue." },
+  { q: "What should you always assess before and after reducing a shoulder dislocation?", a: "Neurovascular status: (1) Axillary nerve — deltoid power and sensation over regimental badge area; (2) Axillary artery — brachial pulse, capillary refill; (3) Document findings formally before and after reduction." }
+];
+
+const fcContainer = document.getElementById('fc-container');
+flashcards.forEach((fc, i) => {
+  fcContainer.innerHTML += `
+  <div class="fc-card" onclick="this.classList.toggle('flipped')">
+    <div class="fc-inner">
+      <div class="fc-front">
+        <div class="fc-q">${fc.q}</div>
+        <div class="fc-hint">Tap to reveal answer</div>
+      </div>
+      <div class="fc-back">
+        <div class="fc-tag">Answer</div>
+        <div class="fc-a">${fc.a}</div>
+      </div>
+    </div>
+  </div>`;
+});
+
+// Set card height to match tallest face so content is never clipped
+requestAnimationFrame(() => {
+  document.querySelectorAll('.fc-card').forEach(card => {
+    const front = card.querySelector('.fc-front');
+    const back = card.querySelector('.fc-back');
+    const h = Math.max(front.scrollHeight, back.scrollHeight, 180);
+    card.style.height = h + 'px';
+    card.querySelector('.fc-inner').style.minHeight = h + 'px';
+    front.style.minHeight = h + 'px';
+    back.style.minHeight = h + 'px';
+  });
+});
+
+// ===================== MCQ =====================
+const questions = [
+  {
+    q: "A 28-year-old cricket bowler presents with right shoulder pain during overhead activities. On examination, he has pain deep in the shoulder when the arm is forward-flexed to 90°, adducted 15° across the midline, and internally rotated (thumb down), which partially resolves when the forearm is supinated. Which structure is most likely injured?",
+    options: ["Supraspinatus tendon", "Superior glenoid labrum (SLAP tear)", "Acromioclavicular joint", "Subscapularis tendon"],
+    answer: 1,
+    explanation: "This describes a positive O'Brien's (Active Compression) test: pain with thumb-down (IR) that decreases with thumb-up (ER), and pain is felt deep in the shoulder. This pattern is consistent with a SLAP (superior labrum anterior to posterior) tear, common in overhead athletes. AC joint pathology produces pain at the top of the shoulder in both phases."
+  },
+  {
+    q: "A 45-year-old right-handed farmer presents with gradual onset right shoulder pain. He is unable to abduct his arm against resistance with the arm in 90° abduction, the scapular plane, and internally rotated (thumb pointing down). Forward flexion is preserved. Which rotator cuff muscle is most likely torn?",
+    options: ["Infraspinatus", "Subscapularis", "Supraspinatus", "Teres minor"],
+    answer: 2,
+    explanation: "This is the Empty Can (Jobe's) test, which isolates the supraspinatus. The arm position (90° abduction, 30° forward flexion, full internal rotation / thumb down) places maximal stress on the supraspinatus as it passes under the coracoacromial arch. Weakness or pain = supraspinatus tear."
+  },
+  {
+    q: "A 22-year-old rugby player is assessed after a shoulder tackle. On inspection, the shoulder has a 'squared-off' contour. The arm is held in slight abduction and external rotation. The coracoid process is prominent anteriorly. What is the most likely diagnosis?",
+    options: ["Posterior glenohumeral dislocation", "Anterior glenohumeral dislocation", "Grade III AC joint separation", "Proximal humerus fracture"],
+    answer: 1,
+    explanation: "Anterior GH dislocation is the most common type (95% of dislocations). The classic appearance is the squared-off deltoid (loss of the normal rounded contour), arm held in slight abduction and ER, and prominence of the coracoid process anteriorly. The humeral head sits anteroinferior to the glenoid."
+  },
+  {
+    q: "During examination, forward flexion of the shoulder to 90° with the elbow extended, arm internally rotated, and stabilisation of the scapula reproduces pain in the anterior shoulder. Which test is being performed, and what is the likely diagnosis?",
+    options: ["Hawkins-Kennedy test — AC joint injury", "Speed's test — biceps tendinopathy", "Neer's test — subacromial impingement", "Apprehension test — anterior instability"],
+    answer: 2,
+    explanation: "Neer's test: passive forward flexion with internal rotation and scapular stabilisation. Positive = pain in the anterior/anterolateral shoulder, consistent with subacromial impingement as the greater tuberosity is driven under the anterior acromion. The scapula is stabilised to prevent scapular compensation from masking the finding."
+  },
+  {
+    q: "A 60-year-old woman with type 2 diabetes presents with a 6-month history of progressive right shoulder pain and stiffness. On examination, passive external rotation is only 20° (normal ~90°) and all other movements are globally restricted. Both active and passive ROM are equally limited. The most likely diagnosis is:",
+    options: ["Full-thickness rotator cuff tear", "Subacromial impingement syndrome", "Adhesive capsulitis (frozen shoulder)", "Glenohumeral osteoarthritis"],
+    answer: 2,
+    explanation: "Adhesive capsulitis (frozen shoulder) is characterised by global loss of BOTH active and passive ROM, with external rotation most severely affected. It is strongly associated with diabetes mellitus. The equal limitation of active and passive motion distinguishes it from rotator cuff pathology (where passive ROM is preserved)."
+  },
+  {
+    q: "A patient is asked to place their hand behind their back with the palm facing outward. The examiner notes the thumb can only reach the L4 vertebral level. The contralateral (non-dominant) side reaches T6. Which movement is being assessed, and what does this finding suggest?",
+    options: ["External rotation — infraspinatus tear on dominant side", "Internal rotation — reduced internal rotation on dominant side", "Internal rotation — this is a normal finding for the dominant hand", "Extension — bicipital tendon pathology on dominant side"],
+    answer: 1,
+    explanation: "This assesses internal rotation via the behind-the-back test. Normal is T7 or above. The dominant hand typically reaches only 2 spinous processes lower than the non-dominant — so a dominant hand reaching T8 while the non-dominant reaches T6 is borderline normal. However, a dominant hand reaching only L4 when the non-dominant reaches T6 represents a significant asymmetry and suggests restricted internal rotation on the dominant side, possibly due to posterior capsular tightness or subscapularis pathology."
+  },
+  {
+    q: "After reducing an anterior shoulder dislocation in a 55-year-old man, the patient reports inability to abduct the arm and numbness over a patch of skin on the lateral aspect of the upper arm. Which structure has been injured?",
+    options: ["Radial nerve", "Musculocutaneous nerve", "Axillary nerve", "Brachial plexus (upper trunk)"],
+    answer: 2,
+    explanation: "The axillary nerve (C5–C6) winds around the surgical neck of the humerus and is the most commonly injured nerve in anterior shoulder dislocation. It supplies the deltoid (abduction) and teres minor (ER), and carries sensation from the 'regimental badge' area (inferior deltoid / lateral upper arm). Always assess axillary nerve function before and after reduction."
+  },
+  {
+    q: "A patient is tested for shoulder instability. With the arm abducted to 90°, elbow flexed to 90°, and the shoulder externally rotated to 90° while supine, the patient becomes visibly anxious and reports a feeling that 'the shoulder is going to come out.' The test becomes positive when a posterior force is applied to the humeral head. What is the best interpretation of these findings?",
+    options: ["Positive Hawkins-Kennedy test; subacromial impingement confirmed", "Positive apprehension and relocation tests; anterior GH instability confirmed", "Positive Neer's test; rotator cuff tendinopathy confirmed", "Positive O'Brien's test; SLAP tear confirmed"],
+    answer: 1,
+    explanation: "Apprehension test positive (arm abducted 90°, ER 90° → patient feels shoulder will dislocate). Relocation test positive (posterior force on humeral head relieves the apprehension) — confirms anterior GH instability. The positive finding is APPREHENSION (a feeling of impending dislocation), not just pain."
+  },
+  {
+    q: "When palpating the shoulder of a patient who recently fell on an outstretched hand, you locate maximal tenderness at the distal clavicle, and the patient has a visible 'step deformity' where the distal clavicle rides superiorly. The cross-arm test is positive. What is the most likely diagnosis?",
+    options: ["Proximal humerus fracture", "Anterior GH dislocation", "Acromioclavicular joint separation", "Clavicle shaft fracture"],
+    answer: 2,
+    explanation: "Grade III+ AC joint separation: fall on the tip of the shoulder (or outstretched hand) disrupts the AC and coracoclavicular ligaments, allowing the distal clavicle to displace superiorly relative to the acromion, producing the step deformity. The cross-arm adduction test is positive for AC joint pain."
+  },
+  {
+    q: "A patient cannot lift their hand away from their lumbar spine during the Gerber Lift-Off test. Weakness is also found on resisted internal rotation testing. Which muscle is torn?",
+    options: ["Supraspinatus", "Infraspinatus", "Subscapularis", "Teres minor"],
+    answer: 2,
+    explanation: "The Lift-Off (Gerber's) test specifically isolates the subscapularis — the only rotator cuff muscle that internally rotates the shoulder. Inability to lift the hand away from the lumbar spine indicates a subscapularis tear (specificity ~98%). Subscapularis tears are less common than supraspinatus tears but are increasingly recognised with routine MRI."
+  },
+  {
+    q: "A 35-year-old weightlifter presents with right shoulder pain localised to the top of the shoulder. Neer's and Hawkins-Kennedy tests are negative. The O'Brien's test produces pain at the top of the shoulder in both the internally and externally rotated positions. What is the most likely diagnosis?",
+    options: ["SLAP tear of the superior labrum", "Subacromial impingement syndrome", "Acromioclavicular joint pathology", "Bicipital tendinopathy"],
+    answer: 2,
+    explanation: "In O'Brien's test, pain localised to the TOP of the shoulder (at the AC joint level) in BOTH positions (IR and ER) indicates AC joint pathology — not SLAP tear. SLAP tears produce DEEP shoulder pain that is worse with thumb-down (IR) and improves with thumb-up (ER). Weightlifters commonly develop AC joint degeneration (distal clavicle osteolysis)."
+  },
+  {
+    q: "A patient presents with a visible lump in the mid-belly of the right biceps muscle (described as a 'Popeye deformity'). This appearance indicates rupture of which structure?",
+    options: ["Distal biceps tendon at the radial tuberosity", "Long head of biceps tendon at the bicipital groove", "Coracobrachialis tendon", "Brachioradialis tendon"],
+    answer: 1,
+    explanation: "Rupture of the long head of biceps tendon results in the classic 'Popeye deformity' — the biceps muscle belly retracts distally and bunches up in the mid-arm as a visible rounded mass. It most commonly occurs in middle-aged or older men with pre-existing rotator cuff pathology or bicipital tendinopathy. Distal biceps tendon rupture presents differently (loss of distal tendon cord at the antecubital fossa)."
+  }
+];
+
+let answered = {};
+let correctCount = 0;
+
+function renderMCQ() {
+  const container = document.getElementById('mcq-container');
+  container.innerHTML = '';
+  questions.forEach((q, qi) => {
+    const letters = ['A', 'B', 'C', 'D'];
+    let optsHtml = q.options.map((opt, oi) =>
+      `<button type="button" class="mcq-opt" id="opt-${qi}-${oi}" onclick="selectAnswer(${qi}, ${oi})">
+        <span class="opt-letter">${letters[oi]}.</span> ${opt}
+      </button>`
+    ).join('');
+    container.innerHTML += `
+    <div class="mcq-item">
+      <div class="mcq-q"><span>Q${qi+1}.</span> ${q.q}</div>
+      <div class="mcq-options">${optsHtml}</div>
+      <div class="mcq-explanation" id="exp-${qi}">
+        <strong>${q.answer !== undefined ? '✅ Correct answer: ' + ['A','B','C','D'][q.answer] : ''}</strong><br>${q.explanation}
+      </div>
+    </div>`;
+  });
+}
+
+function selectAnswer(qi, oi) {
+  if (answered[qi] !== undefined) return;
+  answered[qi] = oi;
+  const isCorrect = oi === questions[qi].answer;
+  if (isCorrect) correctCount++;
+
+  const opts = document.querySelectorAll(`[id^="opt-${qi}-"]`);
+  opts.forEach((opt, i) => {
+    opt.classList.remove('correct', 'incorrect', 'selected');
+    opt.style.pointerEvents = 'none';
+    if (i === questions[qi].answer) opt.classList.add('correct');
+    if (i === oi && !isCorrect) opt.classList.add('incorrect');
+    if (i === oi) opt.classList.add('selected');
+  });
+  document.getElementById('exp-' + qi).classList.add('show');
+  document.getElementById('score-display').textContent = correctCount + ' / ' + questions.length;
+}
+
+function resetMCQ() {
+  answered = {}; correctCount = 0;
+  document.getElementById('score-display').textContent = '0 / ' + questions.length;
+  renderMCQ();
+}
+
+renderMCQ();
+
+// ===================== GLOSSARY =====================
+const glossaryData = [
+  { term: "Glenohumeral (GH) Joint", def: "Ball-and-socket synovial joint between the humeral head and glenoid fossa. The most mobile joint in the body, with inherent instability compensated by the rotator cuff, labrum, and ligamentous complex.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Acromioclavicular (AC) Joint", def: "Plane synovial joint between the lateral clavicle and acromion process of the scapula. Stabilised by the AC ligament (horizontal stability) and coracoclavicular ligaments (conoid and trapezoid; vertical stability).", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Rotator Cuff", def: "Group of four muscles (SITS: Supraspinatus, Infraspinatus, Teres minor, Subscapularis) that stabilise the glenohumeral joint by dynamically compressing the humeral head into the glenoid during movement.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Subacromial Space", def: "Potential space between the superior humeral head / greater tuberosity and the coracoacromial arch above. Contains the supraspinatus tendon, subacromial bursa, and long head of biceps. Narrowing leads to impingement syndrome.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Supraspinatus", def: "Rotator cuff muscle arising from supraspinous fossa; inserts on superior facet of greater tuberosity. Initiates abduction (0–15°) and acts with deltoid for full abduction. Most commonly torn rotator cuff muscle. Nerve: suprascapular (C5–C6).", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Subscapularis", def: "Only anterior rotator cuff muscle; arises from subscapular fossa, inserts on lesser tuberosity. Primary internal rotator and adductor of the shoulder. Tested by Lift-Off (Gerber's) test. Nerve: upper and lower subscapular nerves (C5–C6).", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Bicipital Groove (Intertubercular Sulcus)", def: "Groove between the greater and lesser tuberosities of the humerus that houses the long head of biceps tendon. Palpated anteriorly with the arm externally rotated to 90°. Tenderness here = bicipital tendinopathy.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Superior Labrum", def: "Fibrocartilaginous ring attached to the rim of the glenoid fossa; deepens the socket by 50%. The biceps tendon attaches to the superior labrum. SLAP tears involve the superior portion from anterior to posterior.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Scapulohumeral Rhythm", def: "The coordinated ratio of glenohumeral to scapulothoracic movement during shoulder abduction: 2:1 ratio (2° GH : 1° scapulothoracic per 3° total). Disruption causes winging, impingement, or early muscle fatigue.", tag: "Anatomy", tagColor: "badge-blue" },
+  { term: "Subacromial Impingement Syndrome", def: "Compression of supraspinatus tendon and subacromial bursa between the greater tuberosity and coracoacromial arch, typically during forward flexion or abduction. Causes painful arc (60°–120°). Diagnosed clinically by Neer's and Hawkins-Kennedy tests.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "SLAP Tear", def: "Superior Labrum tear from Anterior to Posterior at the biceps anchor. Caused by repetitive overhead activity or a fall on outstretched arm (FOOSH). Diagnosed by O'Brien's test; confirmed by MRI arthrogram. Common in overhead athletes.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Adhesive Capsulitis (Frozen Shoulder)", def: "Idiopathic fibrosis and contracture of the glenohumeral joint capsule, causing progressive global loss of active AND passive ROM. Strongly associated with diabetes mellitus and hypothyroidism. External rotation is most restricted. Three phases: freezing, frozen, thawing.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Anterior Glenohumeral Dislocation", def: "Most common type (95%), occurring when the arm is forcefully abducted and externally rotated. Humeral head displaces anteroinferiorly. Classic finding: squared-off shoulder. Complications: Bankart lesion (anterior labrum tear), Hill-Sachs lesion (posterolateral humeral head impaction fracture), axillary nerve injury.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Bankart Lesion", def: "Avulsion of the anteroinferior labrum from the glenoid rim, occurring as a complication of anterior shoulder dislocation. The most common structural cause of recurrent anterior shoulder instability. Requires surgical repair (arthroscopic Bankart repair) in young active patients.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Popeye Deformity", def: "Visible bulge in the mid-belly of the biceps muscle caused by rupture of the long head of biceps tendon, allowing the muscle to retract distally. Most common in middle-aged males with pre-existing rotator cuff or biceps tendon pathology.", tag: "Clinical", tagColor: "badge-teal" },
+  { term: "Neer's Test", def: "Impingement test: passive forward flexion with internal rotation and scapular stabilisation reproduces anterior shoulder pain. Positive = subacromial impingement. Sensitivity ~72%, specificity ~60%.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Hawkins-Kennedy Test", def: "Impingement test: arm at 90° forward flexion and 30° horizontal adduction, forced internal rotation. Impinges supraspinatus under coracoacromial ligament. More sensitive than Neer's (sensitivity ~79%). Positive = anterior shoulder pain.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "O'Brien's Test (Active Compression Test)", def: "Tests for SLAP tears and AC joint pathology. 90° FF, 15° horizontal adduction; compare resisted elevation with thumb-down (IR) vs thumb-up (ER). Deep shoulder pain worse with IR and better with ER = SLAP. Top shoulder pain in both positions = AC joint.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Speed's Test", def: "Tests biceps tendinopathy and SLAP tears. Resisted supination (or resisted forward flexion with elbow extended / forearm supinated). Positive = pain in the bicipital groove.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Empty Can Test (Jobe's Test)", def: "Tests supraspinatus integrity. Arm at 90° abduction, 30° forward flexion (scapular plane), full internal rotation (thumb down). Resist upward elevation. Weakness or pain = supraspinatus pathology. Sensitivity ~69%, specificity ~66%.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Apprehension Test", def: "Tests anterior GH instability. Patient supine, arm abducted 90°, elbow flexed 90°, externally rotated to 90°. Positive = patient apprehension (feeling shoulder will dislocate). Distinguish from pain alone. Relocation test (posterior humeral pressure) relieves the apprehension.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Cross-Arm Adduction Test", def: "Tests AC joint integrity. Arm forward-flexed to 90° and passively adducted across the body, compressing the AC joint. Positive = localised pain at the AC joint (not diffuse shoulder pain). Sensitivity ~77%, specificity ~79%.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Lift-Off Test (Gerber's Test)", def: "Tests subscapularis integrity. Patient places dorsum of hand against the lumbar spine and attempts to lift it posteriorly away from the back against resistance. Inability = subscapularis tear. Specificity ~98%.", tag: "Special Test", tagColor: "badge-orange" },
+  { term: "Axillary Nerve", def: "Branch of the posterior cord of the brachial plexus (C5–C6). Winds around the surgical neck of humerus. Supplies deltoid (all three heads) and teres minor. Sensory: lateral shoulder (regimental badge area). At risk in anterior shoulder dislocation and surgical neck fracture.", tag: "Nerve", tagColor: "badge-red" },
+  { term: "Suprascapular Nerve", def: "Branch from upper trunk of brachial plexus (C5–C6). Passes through suprascapular notch to supply supraspinatus and infraspinatus. Entrapment at the suprascapular notch causes posterior shoulder pain and infraspinatus / supraspinatus wasting.", tag: "Nerve", tagColor: "badge-red" },
+  { term: "Long Thoracic Nerve", def: "Arises from C5–C7 nerve roots. Supplies serratus anterior. Injury (axillary dissection, backpack, direct blow) causes medial scapular winging — seen on the posterior chest wall push-up test.", tag: "Nerve", tagColor: "badge-red" },
+  { term: "Painful Arc", def: "Pain during a specific range of shoulder abduction movement. Arc 60°–120°: subacromial pathology (supraspinatus, bursa). Arc 160°–180°: AC joint pathology. A complete arc throughout movement suggests GH joint pathology or non-musculoskeletal cause.", tag: "Clinical", tagColor: "badge-teal" }
+];
+
+function renderGlossary(filter = '') {
+  const container = document.getElementById('gloss-container');
+  const filtered = glossaryData.filter(g =>
+    g.term.toLowerCase().includes(filter.toLowerCase()) ||
+    g.def.toLowerCase().includes(filter.toLowerCase())
+  );
+  container.innerHTML = filtered.map(g => `
+    <div class="gloss-item">
+      <span class="gloss-tag ${g.tagColor}">${g.tag}</span>
+      <div class="gloss-term">${g.term}</div>
+      <div class="gloss-def">${g.def}</div>
+    </div>
+  `).join('');
+  if (filtered.length === 0) container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px;">No matching terms found.</p>';
+}
+
+function filterGlossary() {
+  renderGlossary(document.getElementById('gloss-search').value);
+}
+
+renderGlossary();
+</script>
+</body>
+</html>
