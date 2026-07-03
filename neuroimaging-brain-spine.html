@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neuroimaging of the Brain and Spine</title>
+<style>
+:root{
+  --blue-900:#0d2a52;
+  --blue-800:#123a6b;
+  --blue-700:#1a4f8a;
+  --blue-600:#2464a8;
+  --blue-500:#2f7bc4;
+  --blue-100:#e8f1fb;
+  --blue-050:#f4f8fd;
+  --ink:#1c2733;
+  --grey:#5a6b7b;
+  --line:#d5e0ec;
+  --white:#ffffff;
+  --amber-bg:#fff8e6;
+  --amber-line:#e6c65a;
+  --green-bg:#e9f7ee;
+  --green-line:#8fd3a6;
+  --shadow:0 2px 10px rgba(13,42,82,.08);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--blue-050);
+  line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+/* Header */
+header{
+  background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+  color:#fff;
+  padding:22px 16px 16px;
+  text-align:center;
+}
+header h1{font-size:1.4rem;margin:0 0 4px;font-weight:700;line-height:1.25;}
+header p{margin:0;font-size:.85rem;opacity:.9;font-style:italic;}
+/* Nav */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--blue-900);
+  display:flex;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none;}
+nav button{
+  flex:1 0 auto;
+  min-width:88px;
+  background:none;border:none;color:#c8d8ea;
+  padding:13px 14px;font-size:.9rem;font-weight:600;
+  cursor:pointer;white-space:nowrap;
+  border-bottom:3px solid transparent;
+  transition:all .15s;
+}
+nav button.active{color:#fff;border-bottom-color:var(--blue-500);background:rgba(255,255,255,.06);}
+/* Layout */
+main{max-width:820px;margin:0 auto;padding:16px 14px 40px;}
+.tab{display:none;}
+.tab.active{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+/* Collapsible sections */
+.section{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow);
+}
+.section > .sec-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;cursor:pointer;user-select:none;
+  padding:14px 16px;background:var(--blue-100);
+}
+.section > .sec-head h2{margin:0;font-size:1.02rem;color:var(--blue-800);font-weight:700;}
+.section > .sec-head .chev{color:var(--blue-600);font-size:1rem;transition:transform .2s;flex:none;}
+.section.open > .sec-head .chev{transform:rotate(90deg);}
+.sec-body{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+.section.open .sec-body{max-height:none;padding:14px 16px 18px;}
+.sec-body h3{color:var(--blue-700);font-size:.98rem;margin:16px 0 6px;}
+.sec-body h4{color:var(--blue-600);font-size:.9rem;margin:12px 0 4px;text-transform:uppercase;letter-spacing:.3px;}
+.sec-body p{margin:8px 0;font-size:.94rem;}
+.sec-body ul{margin:8px 0;padding-left:20px;}
+.sec-body li{margin:4px 0;font-size:.94rem;}
+.sec-body strong{color:var(--blue-900);}
+/* Tables */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0;border:1px solid var(--line);border-radius:8px;}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:.86rem;}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:var(--blue-700);color:#fff;font-weight:600;}
+tr:nth-child(even) td{background:var(--blue-050);}
+/* Callouts */
+.callout{border-radius:8px;padding:10px 12px;margin:12px 0;font-size:.9rem;}
+.callout.clinical{background:var(--blue-100);border-left:4px solid var(--blue-600);}
+.callout.exam{background:var(--amber-bg);border-left:4px solid var(--amber-line);}
+.callout .lbl{display:block;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;color:var(--blue-800);}
+.callout.exam .lbl{color:#9a7b16;}
+/* Image placeholder */
+.img-ph{
+  border:2px dashed var(--blue-500);border-radius:10px;
+  background:var(--blue-050);
+  margin:14px 0;padding:14px;text-align:center;
+}
+.img-ph img{max-width:100%;height:auto;border-radius:6px;display:none;}
+.img-ph img[src]:not([src=""]){display:inline-block;margin-bottom:8px;}
+.img-ph.has-image{border-style:solid;border-color:var(--line);background:#fff;padding:8px;}
+.img-ph.has-image .ph-tag,
+.img-ph.has-image .ph-icon{display:none;}
+.img-ph .ph-icon{font-size:1.6rem;color:var(--blue-500);}
+.img-ph .ph-cap{font-size:.82rem;color:var(--grey);margin-top:6px;font-style:italic;}
+.img-ph .ph-tag{display:inline-block;background:var(--blue-600);color:#fff;font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:20px;margin-bottom:4px;}
+/* Flashcards */
+.fc-intro,.mcq-intro,.gl-intro{font-size:.92rem;color:var(--grey);margin:4px 0 16px;}
+.fc-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.flashcard{
+  perspective:1200px;min-height:150px;cursor:pointer;
+}
+.fc-inner{
+  position:relative;width:100%;min-height:150px;
+  transition:transform .5s;transform-style:preserve-3d;
+}
+.flashcard.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:12px;padding:16px;display:flex;flex-direction:column;
+  justify-content:center;box-shadow:var(--shadow);
+}
+.fc-front{background:linear-gradient(135deg,var(--blue-700),var(--blue-500));color:#fff;}
+.fc-front .fc-q{font-size:.98rem;font-weight:600;}
+.fc-front .fc-hint{font-size:.72rem;opacity:.8;margin-top:10px;text-transform:uppercase;letter-spacing:.5px;}
+.fc-back{background:#fff;border:1px solid var(--line);transform:rotateY(180deg);}
+.fc-back .fc-a{font-size:.9rem;color:var(--ink);}
+.fc-back .fc-cat{font-size:.7rem;color:var(--blue-600);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+/* Glossary */
+.gl-search{width:100%;padding:11px 14px;font-size:.95rem;border:1px solid var(--line);
+  border-radius:10px;margin-bottom:14px;outline:none;}
+.gl-search:focus{border-color:var(--blue-500);box-shadow:0 0 0 3px var(--blue-100);}
+.gl-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--shadow);}
+.gl-item dt{font-weight:700;color:var(--blue-800);font-size:.95rem;margin-bottom:3px;}
+.gl-item dd{margin:0;font-size:.9rem;color:var(--ink);}
+.gl-none{color:var(--grey);font-style:italic;padding:10px;}
+/* MCQ */
+.mcq-progress{font-size:.85rem;color:var(--grey);margin-bottom:12px;font-weight:600;}
+.mcq-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:var(--shadow);}
+.mcq-num{font-size:.72rem;font-weight:700;color:var(--blue-600);text-transform:uppercase;letter-spacing:.5px;}
+.mcq-q{font-size:.96rem;font-weight:600;margin:6px 0 12px;}
+.mcq-opt{
+  display:block;width:100%;text-align:left;
+  background:var(--blue-050);border:1.5px solid var(--line);
+  border-radius:9px;padding:11px 13px;margin-bottom:9px;
+  font-size:.92rem;cursor:pointer;transition:all .15s;color:var(--ink);
+}
+.mcq-opt:hover:not(:disabled){border-color:var(--blue-500);background:var(--blue-100);}
+.mcq-opt:disabled{cursor:default;}
+.mcq-opt.correct{background:var(--green-bg);border-color:var(--green-line);font-weight:600;}
+.mcq-opt.wrong{background:#fdecec;border-color:#e39191;}
+.mcq-opt .mark{float:right;font-weight:700;}
+.mcq-explain{margin-top:10px;padding:11px 13px;background:var(--blue-050);border-left:4px solid var(--blue-600);
+  border-radius:6px;font-size:.88rem;display:none;}
+.mcq-explain.show{display:block;}
+.mcq-explain .lbl{font-weight:700;color:var(--blue-800);font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;}
+.mcq-score{background:linear-gradient(135deg,var(--blue-700),var(--blue-500));color:#fff;
+  border-radius:12px;padding:18px;text-align:center;margin-bottom:16px;display:none;}
+.mcq-score.show{display:block;}
+.mcq-score .big{font-size:1.8rem;font-weight:700;}
+.btn{background:var(--blue-600);color:#fff;border:none;border-radius:9px;padding:11px 20px;
+  font-size:.92rem;font-weight:600;cursor:pointer;}
+.btn:hover{background:var(--blue-700);}
+.mcq-reset{text-align:center;margin-top:8px;}
+/* Footer */
+footer{background:var(--blue-900);color:#c8d8ea;text-align:center;padding:18px 14px;font-size:.82rem;}
+footer strong{color:#fff;}
+@media(min-width:640px){
+  header h1{font-size:1.7rem;}
+  .fc-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Neuroimaging of the Brain and Spine</h1>
+  <p>Reading Material for Fourth-Year Medical Students</p>
+</header>
+
+<nav id="nav">
+  <button class="active" data-tab="lecture">Lecture</button>
+  <button data-tab="flashcards">Flashcards</button>
+  <button data-tab="glossary">Glossary</button>
+  <button data-tab="mcqs">MCQs</button>
+</nav>
+
+<main>
+<!-- ============ LECTURE ============ -->
+<section class="tab active" id="lecture">
+
+  <div class="section open">
+    <div class="sec-head"><h2>Introduction to Neuroimaging</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <p>Neuroimaging plays a central role in the diagnosis and management of neurological disorders. Appropriate selection of the imaging modality depends on the clinical presentation, suspected pathology, and urgency of the condition. Computed tomography (CT) is the primary imaging modality in most neurological emergencies because of its speed and availability, whereas magnetic resonance imaging (MRI) provides superior soft tissue contrast and greater sensitivity for many intracranial and spinal disorders.</p>
+      <h4>Common Clinical Indications</h4>
+      <ul>
+        <li>Head trauma</li>
+        <li>Acute focal neurological deficit (suspected stroke or transient ischaemic attack)</li>
+        <li>Sudden severe headache or suspected subarachnoid haemorrhage</li>
+        <li>Raised intracranial pressure</li>
+        <li>Suspected central nervous system infection</li>
+        <li>New-onset seizures</li>
+        <li>Persistent or progressive focal neurological deficits</li>
+        <li>Congenital abnormalities and follow-up of known intracranial lesions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Imaging Modalities</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Modality</th><th>Principal Clinical Applications</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CT Head (Non-contrast)</strong></td><td><strong>First-line investigation in neurological emergencies.</strong> Acute stroke (to exclude intracranial haemorrhage before reperfusion therapy); head trauma; acute intracranial haemorrhage; sudden severe headache (suspected subarachnoid haemorrhage).</td></tr>
+          <tr><td><strong>CT Angiography (CTA)</strong></td><td>Evaluation of intracranial and extracranial vessels. Common indications include suspected large vessel occlusion, cerebral aneurysm, arterial dissection, and vascular malformations.</td></tr>
+          <tr><td><strong>MRI Brain</strong></td><td>Superior for evaluating brain tumours, inflammatory disorders, infections, demyelinating disease, epilepsy, posterior fossa pathology, and persistent unexplained neurological symptoms. MRI may also be the preferred initial investigation in selected clinical scenarios.</td></tr>
+          <tr><td><strong>MRI Spine</strong></td><td>Evaluation of spinal cord compression, cauda equina syndrome, disc disease, spinal infection, inflammatory disorders, trauma, and spinal tumours.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Relevant Neuroanatomy</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <p>Accurate interpretation of neuroimaging requires recognition of the major cerebral lobes, ventricular system, deep grey nuclei, brainstem, cerebellum, and principal vascular territories. These anatomical structures provide the basis for localization of neurological disease and interpretation of common imaging abnormalities.</p>
+      <ul>
+        <li><strong>Frontal Lobe:</strong> Executive function, behaviour, voluntary motor function, and expressive language (Broca's area).</li>
+        <li><strong>Parietal Lobe:</strong> Somatic sensation, spatial awareness, and sensory integration.</li>
+        <li><strong>Temporal Lobe:</strong> Auditory processing, language comprehension (Wernicke's area), and memory (hippocampus).</li>
+        <li><strong>Occipital Lobe:</strong> Visual processing.</li>
+        <li><strong>Cerebellum:</strong> Coordination of movement, balance, and posture.</li>
+        <li><strong>Brainstem:</strong> Midbrain, pons, and medulla; contains cranial nerve nuclei and vital autonomic centres.</li>
+        <li><strong>Basal Ganglia:</strong> Important in motor control and a common site of hypertensive intracerebral haemorrhage and lacunar infarction.</li>
+        <li><strong>Internal Capsule:</strong> Contains major ascending and descending white matter tracts; small infarcts may produce profound contralateral motor deficits.</li>
+        <li><strong>Thalamus:</strong> Principal sensory relay nucleus and another common site of hypertensive haemorrhage.</li>
+      </ul>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=1v4amgPyE2Ar_hq-wBjg6oY-8tDBzh3kS&sz=w1200" alt="Mid-sagittal T1 MRI Brain">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Mid-sagittal T1 MRI Brain &mdash; labelled corpus callosum, brainstem, cerebellum, and ventricles</div>
+      </div>
+      <h3>Cerebral Vascular Territories</h3>
+      <p>Understanding vascular territories is essential for localization of ischaemic stroke.</p>
+      <ul>
+        <li><strong>Anterior Cerebral Artery (ACA):</strong> Medial frontal and parietal lobes. Infarction typically causes contralateral lower-limb weakness and sensory loss.</li>
+        <li><strong>Middle Cerebral Artery (MCA):</strong> Lateral cerebral hemisphere. Infarction commonly produces contralateral face and upper-limb weakness, aphasia (dominant hemisphere), or hemispatial neglect (non-dominant hemisphere). This is the most frequently affected vascular territory in acute ischaemic stroke.</li>
+        <li><strong>Posterior Cerebral Artery (PCA):</strong> Occipital lobe and inferior temporal lobe. Infarction commonly results in contralateral homonymous visual field defects.</li>
+      </ul>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=1yyV7UeE5Qf_wAKtqQN8XagEKzWpeq96B&sz=w1200" alt="MRA Circle of Willis">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">MRA Circle of Willis &mdash; labelled ACA, MCA, PCA, and basilar artery</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Common Neurological Disorders</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <h3>1. Acute Ischaemic Stroke</h3>
+      <h4>Definition</h4>
+      <p>Acute ischaemic stroke results from occlusion of a cerebral artery, leading to reduced cerebral perfusion and irreversible infarction if blood flow is not restored promptly.</p>
+      <h4>Initial Imaging</h4>
+      <p><strong>Non-contrast CT of the head</strong> is the first-line imaging investigation because it rapidly excludes intracranial haemorrhage before reperfusion therapy is considered.</p>
+      <h4>Key Imaging Findings</h4>
+      <ul>
+        <li><strong>Early Non-contrast CT</strong> &mdash; may be normal during the first few hours after symptom onset. Early findings include loss of grey&ndash;white matter differentiation, sulcal effacement, and the hyperdense middle cerebral artery (MCA) sign.</li>
+        <li><strong>MRI (Diffusion-Weighted Imaging)</strong> &mdash; DWI demonstrates restricted diffusion within minutes of infarction. Acute infarction appears hyperintense on DWI and hypointense on the apparent diffusion coefficient (ADC) map, representing true restricted diffusion.</li>
+      </ul>
+      <div class="callout clinical"><span class="lbl">Clinical Correlation</span>A normal CT scan does not exclude acute ischaemic stroke.</div>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=1KjzdPMbEPkg4LPT3AyK4kYejUe3SBVn4&sz=w1200" alt="Axial DWI MRI Brain acute MCA infarct">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Axial DWI MRI Brain &mdash; acute MCA territory infarct showing bright restricted diffusion</div>
+      </div>
+
+      <h3>2. Intracranial Haemorrhage</h3>
+      <h4>A. Intracerebral Haemorrhage &mdash; Definition</h4>
+      <p>Intracerebral haemorrhage results from rupture of a cerebral blood vessel, leading to bleeding within the brain parenchyma. Hypertension is the most common cause of spontaneous intracerebral haemorrhage, although vascular malformations, cerebral amyloid angiopathy, anticoagulation, and intracranial tumours should also be considered.</p>
+      <h4>Imaging Findings</h4>
+      <ul>
+        <li><strong>Non-contrast CT</strong> is the investigation of choice in the acute setting.</li>
+        <li>Acute haemorrhage appears as a <strong>hyperdense (bright white)</strong> intraparenchymal lesion.</li>
+        <li>Common sites: basal ganglia (most common), thalamus, pons, cerebellum.</li>
+        <li>Secondary findings: surrounding vasogenic oedema, mass effect, midline shift, ventricular compression, hydrocephalus, and brain herniation.</li>
+      </ul>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=1hV4Z8JKjXnt6GP4Vu3rXRciu7Jda8-XL&sz=w1200" alt="Axial CT basal ganglia haemorrhage">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Axial Non-contrast CT Head &mdash; acute hyperdense basal ganglia haemorrhage with mass effect</div>
+      </div>
+
+      <h4>B. Extradural (Epidural) and Subdural Haematoma</h4>
+      <p>Traumatic extra-axial haemorrhages are important neurosurgical emergencies. Recognition of their characteristic imaging appearance allows rapid diagnosis and appropriate management.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Feature</th><th>Extradural (Epidural)</th><th>Subdural</th></tr></thead>
+        <tbody>
+          <tr><td>Shape</td><td>Biconvex (lens-shaped)</td><td>Crescent-shaped</td></tr>
+          <tr><td>Location</td><td>Between skull and dura mater</td><td>Between dura mater and arachnoid mater</td></tr>
+          <tr><td>Crosses sutures</td><td><strong>No</strong></td><td><strong>Yes</strong></td></tr>
+          <tr><td>Crosses midline</td><td>Usually no</td><td>Limited by falx cerebri and tentorium cerebelli</td></tr>
+          <tr><td>Typical source</td><td>Middle meningeal artery</td><td>Bridging veins</td></tr>
+          <tr><td>Common setting</td><td>Temporal bone fracture following trauma</td><td>Elderly, falls, anticoagulation, cerebral atrophy</td></tr>
+          <tr><td>Clinical significance</td><td>Neurosurgical emergency with potential for rapid deterioration</td><td>May present acutely, subacutely, or chronically</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout exam"><span class="lbl">Exam Insight</span>Extradural haematoma is classically associated with temporal bone fracture and middle meningeal artery injury; a <strong>lucid interval</strong> may precede deterioration. Subdural haematoma results from torn bridging veins and is frequent in the elderly because cerebral atrophy stretches these veins.</div>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=1qXWP3vnsELnGXe6LoShCWo0NEcgO0DGg&sz=w1200" alt="Axial CT SDH vs EDH">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Axial CT Head &mdash; comparing crescentic SDH vs biconvex EDH</div>
+      </div>
+
+      <h4>C. Subarachnoid Haemorrhage &mdash; Definition</h4>
+      <p>Subarachnoid haemorrhage is bleeding into the subarachnoid space surrounding the brain. The most common non-traumatic cause is rupture of a saccular (berry) aneurysm.</p>
+      <h4>Clinical Presentation</h4>
+      <p>Sudden severe ("thunderclap") headache, neck stiffness, photophobia, vomiting, reduced level of consciousness, and meningism.</p>
+      <h4>Imaging Findings</h4>
+      <ul>
+        <li><strong>Non-contrast CT</strong> demonstrates hyperdense blood within the basal cisterns, sylvian fissures, and cerebral sulci.</li>
+        <li>CT sensitivity is highest during the first few hours after symptom onset.</li>
+        <li>If CT is negative but clinical suspicion remains high, lumbar puncture may demonstrate <strong>xanthochromia</strong>, depending on timing and local protocols.</li>
+        <li><strong>CT angiography (CTA)</strong> or <strong>MR angiography (MRA)</strong> is performed to identify the underlying aneurysm or other vascular abnormality.</li>
+      </ul>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=143dHj05mypbLmsnF5Fp_Pn2Nb8KfnQO_&sz=w1200" alt="Axial CT subarachnoid haemorrhage">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Axial CT Head &mdash; acute subarachnoid haemorrhage within the basal cisterns and sylvian fissures</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Brain Tumours</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <p>Brain tumours are broadly classified as <strong>extra-axial</strong> (arising outside the brain parenchyma) or <strong>intra-axial</strong> (arising within the brain).</p>
+      <h3>Meningioma</h3>
+      <ul>
+        <li>Usually a benign extra-axial tumour.</li>
+        <li>Well-circumscribed with a broad dural attachment.</li>
+        <li>Homogeneous contrast enhancement.</li>
+        <li>A <strong>dural tail</strong> is a characteristic imaging feature, although it is not pathognomonic.</li>
+        <li>Adjacent hyperostosis may be present.</li>
+      </ul>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=1sGclHea8PxhWD4hRBxt8kfpc05nCXhi6&sz=w1200" alt="Contrast T1 MRI meningioma dural tail">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Contrast-enhanced T1 MRI &mdash; meningioma with dural tail</div>
+      </div>
+      <h3>Glioblastoma</h3>
+      <p>Glioblastoma is the most common primary malignant brain tumour in adults. Typical MRI features include irregular infiltrative margins, thick irregular ring enhancement, central necrosis, extensive surrounding vasogenic oedema, and significant mass effect.</p>
+      <div class="callout clinical"><span class="lbl">Clinical Correlation</span>Ring enhancement is <strong>not specific</strong> for glioblastoma. Similar appearances occur in cerebral abscess, metastatic disease, tuberculoma, toxoplasmosis, and tumefactive demyelinating lesions. Clinical history and imaging characteristics should always be interpreted together.</div>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=16G0r0uGa_Ufj8Y0LeUXkCesIEGgDvAEs&sz=w1200" alt="Axial T1 C+ MRI glioblastoma">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Axial T1 C+ MRI &mdash; ring-enhancing lesion with central necrosis (Glioblastoma)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Central Nervous System Infections</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <h3>Herpes Simplex Encephalitis</h3>
+      <p>Herpes simplex virus type 1 (HSV-1) is the most common cause of sporadic fatal viral encephalitis.</p>
+      <h4>Clinical Features</h4>
+      <p>Fever, altered mental status, seizures, behavioural changes, and focal neurological deficits.</p>
+      <h4>MRI Findings</h4>
+      <ul>
+        <li>Hyperintense signal on T2-weighted and FLAIR sequences.</li>
+        <li>Predominantly involves the temporal lobes.</li>
+        <li>Early disease may be unilateral or asymmetrical before progressing to bilateral involvement.</li>
+        <li>Diffusion restriction and contrast enhancement may also be present.</li>
+      </ul>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=18g-VQzWo8Fks6N3EmWS5px1--xy6Q7no&sz=w1200" alt="Axial FLAIR MRI HSV encephalitis">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Axial FLAIR MRI &mdash; bilateral temporal lobe hyperintensity (HSV encephalitis)</div>
+      </div>
+      <h3>Cerebral Tuberculoma</h3>
+      <p>Tuberculoma is a localized granulomatous lesion caused by <em>Mycobacterium tuberculosis</em>.</p>
+      <h4>Imaging Findings</h4>
+      <ul>
+        <li>Solitary or multiple ring-enhancing lesions.</li>
+        <li>Frequently located within the supratentorial compartment.</li>
+        <li>Variable surrounding vasogenic oedema.</li>
+        <li>May mimic metastases, cerebral abscesses, or high-grade gliomas.</li>
+      </ul>
+      <div class="callout clinical"><span class="lbl">Clinical Correlation</span>Clinical history and microbiological investigations are essential for diagnosis.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Hydrocephalus and Cerebral Atrophy</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <p>Enlargement of the ventricular system may result from <strong>hydrocephalus</strong> or <strong>cerebral atrophy</strong>. Differentiating these conditions is essential because hydrocephalus may require urgent neurosurgical intervention, whereas cerebral atrophy generally reflects chronic loss of brain volume.</p>
+      <h3>Hydrocephalus</h3>
+      <p><strong>Definition:</strong> Abnormal enlargement of the ventricular system due to impaired cerebrospinal fluid (CSF) circulation or absorption.</p>
+      <h4>Imaging Findings</h4>
+      <ul>
+        <li>Enlargement of the lateral, third, and/or fourth ventricles.</li>
+        <li>Narrow or effaced cortical sulci despite ventricular enlargement.</li>
+        <li>Periventricular low attenuation on CT or high T2/FLAIR signal on MRI due to transependymal CSF flow.</li>
+        <li>Depending on the cause, an obstructing lesion may be identified.</li>
+      </ul>
+      <h3>Cerebral Atrophy</h3>
+      <p><strong>Definition:</strong> Loss of brain parenchymal volume resulting in compensatory enlargement of the ventricles and cortical sulci.</p>
+      <h4>Imaging Findings</h4>
+      <ul>
+        <li>Enlarged ventricles.</li>
+        <li>Prominent cortical sulci.</li>
+        <li>Widened subarachnoid spaces.</li>
+        <li>No evidence of transependymal CSF flow.</li>
+      </ul>
+      <div class="callout exam"><span class="lbl">Exam Insight</span><strong>Hydrocephalus:</strong> enlarged ventricles with <strong>compressed</strong> cortical sulci. <strong>Cerebral atrophy:</strong> enlarged ventricles with <strong>prominent</strong> cortical sulci.</div>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=19wLdSm949FCJTlZI0xVIij-2ZHpFVmEG&sz=w1200" alt="Axial CT hydrocephalus vs atrophy">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Axial CT &mdash; comparison of hydrocephalus (tight sulci, large ventricles) vs atrophy (prominent sulci, large ventricles)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Spinal Disorders</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <p>MRI is the imaging modality of choice for most spinal disorders because it provides excellent visualization of the spinal cord, intervertebral discs, nerve roots, ligaments, and surrounding soft tissues.</p>
+      <h3>Lumbar Disc Herniation</h3>
+      <p><strong>Definition:</strong> Occurs when degeneration or rupture of the annulus fibrosus allows displacement of nucleus pulposus material, resulting in compression of adjacent nerve roots.</p>
+      <h4>Imaging Findings</h4>
+      <ul>
+        <li>Reduced disc height.</li>
+        <li>Posterior disc protrusion or extrusion.</li>
+        <li>Compression of the thecal sac and/or exiting nerve root.</li>
+        <li>Associated spinal canal or foraminal stenosis may be present.</li>
+      </ul>
+      <h3>Spondylolisthesis</h3>
+      <p><strong>Definition:</strong> Anterior displacement of one vertebral body relative to the vertebra below it, most commonly involving <strong>L5 on S1</strong>.</p>
+      <h4>Imaging Findings</h4>
+      <ul>
+        <li>Anterior vertebral displacement.</li>
+        <li>Step-off deformity on sagittal imaging.</li>
+        <li>Associated degenerative disc disease or pars interarticularis defects may be present.</li>
+      </ul>
+      <h3>Syringomyelia</h3>
+      <p><strong>Definition:</strong> The presence of a fluid-filled cavity (<strong>syrinx</strong>) within the spinal cord.</p>
+      <h4>Common Associations</h4>
+      <p>Chiari type I malformation, spinal cord trauma, intramedullary tumours, and previous meningitis.</p>
+      <h4>MRI Findings</h4>
+      <ul>
+        <li>Well-defined intramedullary cavity with cerebrospinal fluid signal intensity.</li>
+        <li>Variable cord expansion depending on lesion size.</li>
+      </ul>
+      <h3>Cauda Equina Syndrome</h3>
+      <p><strong>Definition:</strong> A neurosurgical emergency caused by compression of the lumbosacral nerve roots below the conus medullaris.</p>
+      <h4>Clinical Features</h4>
+      <ul>
+        <li>Severe low back pain.</li>
+        <li>Bilateral lower limb weakness or sensory disturbance.</li>
+        <li>Saddle anaesthesia.</li>
+        <li>Bladder dysfunction or urinary retention.</li>
+        <li>Bowel dysfunction.</li>
+        <li>Reduced anal sphincter tone.</li>
+      </ul>
+      <div class="callout clinical"><span class="lbl">Clinical Correlation</span><strong>MRI of the lumbar spine</strong> is the investigation of choice and should be performed urgently when cauda equina syndrome is suspected.</div>
+      <div class="img-ph">
+        <span class="ph-tag">Image placeholder</span>
+        <img src="https://drive.google.com/thumbnail?id=17jd4kqH72ZZxbybaJvoNa4kMho80AUf3&sz=w1200" alt="Sagittal T2 MRI lumbar disc bulge">
+        <div class="ph-icon">&#128444;</div>
+        <div class="ph-cap">Sagittal T2 MRI Lumbar Spine &mdash; large disc bulge compressing the thecal sac</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Imaging Approach to Common Presentations</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Clinical Presentation</th><th>Preferred Initial Imaging</th><th>Principal Diagnostic Objective</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Acute ischaemic stroke / TIA</strong></td><td>Non-contrast CT Head</td><td>Exclude intracranial haemorrhage before reperfusion therapy and identify early signs of infarction.</td></tr>
+          <tr><td><strong>Sudden severe headache (suspected SAH)</strong></td><td>Non-contrast CT Head</td><td>Detect acute subarachnoid haemorrhage. If CT is negative but suspicion remains high, consider lumbar puncture and/or CT angiography per local protocols.</td></tr>
+          <tr><td><strong>Head trauma</strong></td><td>Non-contrast CT Head</td><td>Identify skull fractures, intracranial haemorrhage, cerebral contusions, and mass effect.</td></tr>
+          <tr><td><strong>New-onset seizures</strong></td><td>CT Head (acute) or MRI Brain</td><td>CT rapidly excludes haemorrhage and major mass lesions; MRI provides superior evaluation of structural abnormalities, epilepsy-related lesions, infection, and neoplasms.</td></tr>
+          <tr><td><strong>Persistent focal neurological deficit</strong></td><td>MRI Brain</td><td>Evaluate for tumour, demyelinating disease, infection, chronic infarction, or other structural pathology.</td></tr>
+          <tr><td><strong>Back pain with neurological deficits / red flags</strong></td><td>MRI Spine</td><td>Evaluate for disc herniation, spinal cord compression, infection, tumour, or cauda equina syndrome.</td></tr>
+          <tr><td><strong>Suspected dementia</strong></td><td>CT Head or MRI Brain</td><td>Assess cerebral atrophy, chronic subdural haematoma, hydrocephalus, and other potentially reversible structural causes.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Fundamental MRI Sequences</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <p>Magnetic resonance imaging consists of multiple pulse sequences, each designed to highlight specific anatomical structures or pathological processes. Understanding the basic characteristics of these sequences facilitates interpretation of radiology reports and correlation with clinical findings.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Sequence</th><th>Imaging Characteristics</th><th>Clinical Applications</th></tr></thead>
+        <tbody>
+          <tr><td><strong>T1-weighted</strong></td><td>Fat appears bright and water appears dark. Excellent anatomical detail.</td><td>Normal anatomy, fat-containing structures, subacute haemorrhage, and post-contrast enhancement. Enhancement reflects disruption of the blood&ndash;brain barrier (BBB).</td></tr>
+          <tr><td><strong>T2-weighted</strong></td><td>Water and fluid appear bright.</td><td>Demonstrates oedema, inflammation, tumours, infection, infarction, and most pathological processes of the brain and spinal cord.</td></tr>
+          <tr><td><strong>FLAIR</strong></td><td>T2-weighted sequence with suppression of CSF signal.</td><td>Improves detection of periventricular and cortical lesions, including MS plaques, cerebral oedema, encephalitis, and subarachnoid pathology.</td></tr>
+          <tr><td><strong>DWI / ADC</strong></td><td>Evaluates diffusion of water molecules within tissues.</td><td>Acute infarction: hyperintense on DWI with low ADC signal (true restricted diffusion). Also valuable in cerebral abscess and Creutzfeldt&ndash;Jakob disease.</td></tr>
+          <tr><td><strong>GRE / SWI</strong></td><td>Highly sensitive to magnetic susceptibility from blood products and mineralization.</td><td>Detection of haemorrhage, cerebral microbleeds, diffuse axonal injury, cavernous malformations, and haemorrhagic transformation. Calcification may appear similar &mdash; correlate with CT.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Standard Imaging Planes</h3>
+      <ul>
+        <li><strong>Axial (Transverse):</strong> Horizontal sections dividing the body into superior and inferior portions. Widely used for intracranial pathology.</li>
+        <li><strong>Sagittal:</strong> Vertical sections dividing right from left. Useful for the corpus callosum, pituitary gland, brainstem, spinal cord, and vertebral alignment.</li>
+        <li><strong>Coronal:</strong> Vertical sections dividing anterior from posterior. Useful for the temporal lobes, hippocampi, pituitary region, paranasal sinuses, skull base, and ventricular anatomy.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Key Imaging Findings</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Imaging Finding</th><th>Likely Diagnosis</th><th>Clinical Significance</th></tr></thead>
+        <tbody>
+          <tr><td>Hyperdense intraparenchymal lesion on non-contrast CT</td><td><strong>Acute intracerebral haemorrhage</strong></td><td>Medical emergency. Assess blood pressure, coagulation, mass effect, and need for urgent neurosurgical consultation.</td></tr>
+          <tr><td>Crescent-shaped extra-axial collection</td><td><strong>Subdural haematoma</strong></td><td>Common after falls, especially in elderly and anticoagulated patients. Large collections with mass effect require neurosurgical assessment.</td></tr>
+          <tr><td>Lens-shaped (biconvex) extra-axial collection</td><td><strong>Extradural haematoma</strong></td><td>Usually temporal bone fracture with middle meningeal artery injury. Neurosurgical emergency due to risk of rapid deterioration.</td></tr>
+          <tr><td>Hyperdense blood in basal cisterns / cerebral sulci</td><td><strong>Subarachnoid haemorrhage</strong></td><td>Usually aneurysm rupture. CT angiography identifies the bleeding source.</td></tr>
+          <tr><td>Hyperintense DWI with low ADC signal</td><td><strong>Acute ischaemic infarction</strong></td><td>True restricted diffusion confirming acute infarction. Early recognition facilitates timely reperfusion therapy in eligible patients.</td></tr>
+          <tr><td>Enlarged ventricles with compressed cortical sulci</td><td><strong>Hydrocephalus</strong></td><td>Suggests increased intracranial CSF volume. Clinical correlation determines whether urgent intervention is indicated.</td></tr>
+          <tr><td>Enlarged ventricles with prominent cortical sulci</td><td><strong>Cerebral atrophy</strong></td><td>Reflects chronic loss of brain volume, commonly ageing or neurodegenerative disease rather than raised ICP.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>Chapter Summary</h2><span class="chev">&#9656;</span></div>
+    <div class="sec-body">
+      <ul>
+        <li><strong>Non-contrast CT</strong> is the first-line investigation in most acute neurological emergencies because it rapidly identifies intracranial haemorrhage and major structural abnormalities.</li>
+        <li><strong>MRI</strong> provides superior soft tissue contrast and is more sensitive than CT for acute ischaemic infarction, inflammatory disorders, neoplasms, posterior fossa lesions, and spinal pathology.</li>
+        <li>Interpretation requires integration of the <strong>clinical presentation</strong>, <strong>anatomical localization</strong>, and <strong>characteristic imaging findings</strong>.</li>
+        <li>Recognition of common vascular territories facilitates localization of acute stroke.</li>
+        <li>Differentiation of <strong>intra-axial</strong> and <strong>extra-axial</strong> lesions assists in formulating a differential diagnosis.</li>
+        <li>Knowledge of the basic MRI sequences (T1, T2, FLAIR, DWI/ADC, GRE/SWI) enables accurate interpretation of radiology reports.</li>
+      </ul>
+      <h3>Suggested Self-Directed Image Review</h3>
+      <p>When reviewing neuroimaging, systematically identify: (1) the imaging modality (CT or MRI); (2) the imaging plane (axial, sagittal, or coronal); (3) the MRI sequence, if applicable; (4) the anatomical structures demonstrated; (5) the principal abnormality; (6) the likely diagnosis; and (7) the associated clinical significance. This systematic approach promotes accurate interpretation and strengthens clinicoradiological correlation.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ FLASHCARDS ============ -->
+<section class="tab" id="flashcards">
+  <p class="fc-intro">Tap a card to reveal the answer. Use these for rapid exam review of the key imaging facts.</p>
+  <div class="fc-grid" id="fcGrid"></div>
+</section>
+
+<!-- ============ GLOSSARY ============ -->
+<section class="tab" id="glossary">
+  <p class="gl-intro">Key neuroimaging terms and abbreviations. Type to filter.</p>
+  <input class="gl-search" id="glSearch" type="text" placeholder="Search terms (e.g. FLAIR, dural tail)..." aria-label="Search glossary">
+  <dl id="glList"></dl>
+</section>
+
+<!-- ============ MCQs ============ -->
+<section class="tab" id="mcqs">
+  <p class="mcq-intro">Single best answer questions (NBME / AMEE style). Select an option to see the correct answer and explanation.</p>
+  <div class="mcq-progress" id="mcqProgress"></div>
+  <div class="mcq-score" id="mcqScore"></div>
+  <div id="mcqContainer"></div>
+  <div class="mcq-reset"><button class="btn" id="mcqReset">Reset Quiz</button></div>
+</section>
+</main>
+
+<footer>
+  Designed &amp; Developed by <strong>Dr. Salaheldin Terair</strong>
+</footer>
+
+<script>
+/* ---------- Tab navigation ---------- */
+document.querySelectorAll('#nav button').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('#nav button').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ---------- Image placeholders: hide chrome once a real image loads ---------- */
+document.querySelectorAll('.img-ph img').forEach(function(img){
+  var box = img.closest('.img-ph');
+  function ok(){ if(img.getAttribute('src')){ box.classList.add('has-image'); } }
+  function fail(){ box.classList.remove('has-image'); img.style.display='none'; }
+  if(img.complete){ (img.naturalWidth>0 ? ok : fail)(); }
+  img.addEventListener('load',ok);
+  img.addEventListener('error',fail);
+});
+
+/* ---------- Collapsible sections ---------- */
+document.querySelectorAll('.section .sec-head').forEach(function(h){
+  h.addEventListener('click',function(){h.parentElement.classList.toggle('open');});
+});
+
+/* ---------- Flashcards ---------- */
+var flashcards = [
+  {cat:"Stroke", q:"On DWI/ADC, how does an acute infarct appear?", a:"Hyperintense (bright) on DWI and hypointense (dark) on the ADC map — true restricted diffusion."},
+  {cat:"Stroke", q:"Does a normal early CT exclude acute ischaemic stroke?", a:"No. CT may be normal in the first few hours; a normal scan does not exclude infarction."},
+  {cat:"Stroke", q:"Early non-contrast CT signs of MCA infarction?", a:"Loss of grey–white differentiation, sulcal effacement, and the hyperdense MCA sign."},
+  {cat:"Vascular", q:"Which vascular territory causes contralateral lower-limb weakness?", a:"Anterior cerebral artery (ACA) — medial frontal and parietal lobes."},
+  {cat:"Vascular", q:"Most frequently affected territory in acute ischaemic stroke?", a:"Middle cerebral artery (MCA) — face/upper-limb weakness, aphasia or neglect."},
+  {cat:"Vascular", q:"PCA infarction typically produces which deficit?", a:"Contralateral homonymous visual field defect (occipital lobe)."},
+  {cat:"Haemorrhage", q:"Most common site of hypertensive intracerebral haemorrhage?", a:"Basal ganglia (also thalamus, pons, cerebellum). Appears hyperdense on CT."},
+  {cat:"Haemorrhage", q:"Shape and source of an extradural (epidural) haematoma?", a:"Biconvex (lens-shaped); middle meningeal artery; does not cross sutures."},
+  {cat:"Haemorrhage", q:"Shape and source of a subdural haematoma?", a:"Crescent-shaped; bridging veins; crosses sutures but limited by falx/tentorium."},
+  {cat:"Haemorrhage", q:"What is a 'lucid interval'?", a:"A period of normal consciousness between injury and deterioration — classic for EDH."},
+  {cat:"Haemorrhage", q:"Most common non-traumatic cause of subarachnoid haemorrhage?", a:"Rupture of a saccular (berry) aneurysm; CT shows blood in basal cisterns/sulci."},
+  {cat:"Tumour", q:"Characteristic imaging feature of a meningioma?", a:"Extra-axial, broad dural attachment, homogeneous enhancement, and a dural tail (not pathognomonic)."},
+  {cat:"Tumour", q:"Most common primary malignant brain tumour in adults?", a:"Glioblastoma — thick irregular ring enhancement, central necrosis, marked oedema."},
+  {cat:"Tumour", q:"Differential for a ring-enhancing lesion?", a:"Abscess, metastasis, tuberculoma, toxoplasmosis, tumefactive demyelination — not specific for GBM."},
+  {cat:"Infection", q:"Region typically involved in HSV-1 encephalitis?", a:"Temporal lobes — T2/FLAIR hyperintensity, may be asymmetrical then bilateral."},
+  {cat:"CSF spaces", q:"How to distinguish hydrocephalus from atrophy?", a:"Hydrocephalus: large ventricles + compressed sulci. Atrophy: large ventricles + prominent sulci."},
+  {cat:"MRI", q:"On T1, how do fat and water appear?", a:"Fat bright, water dark — best for anatomy and post-contrast enhancement (BBB disruption)."},
+  {cat:"MRI", q:"What does FLAIR add over standard T2?", a:"Suppresses CSF signal — improves detection of periventricular/cortical lesions (e.g. MS plaques)."},
+  {cat:"MRI", q:"Which sequence best detects blood products and microbleeds?", a:"GRE / SWI — sensitive to magnetic susceptibility (correlate calcification with CT)."},
+  {cat:"Spine", q:"Investigation of choice for suspected cauda equina syndrome?", a:"Urgent MRI of the lumbar spine. Red flags: saddle anaesthesia, bladder/bowel dysfunction."}
+];
+var fcGrid = document.getElementById('fcGrid');
+flashcards.forEach(function(c){
+  var card = document.createElement('div');
+  card.className='flashcard';
+  card.innerHTML =
+    '<div class="fc-inner">'+
+      '<div class="fc-face fc-front"><div class="fc-q">'+c.q+'</div><div class="fc-hint">Tap to reveal</div></div>'+
+      '<div class="fc-face fc-back"><div class="fc-cat">'+c.cat+'</div><div class="fc-a">'+c.a+'</div></div>'+
+    '</div>';
+  card.addEventListener('click',function(){card.classList.toggle('flipped');});
+  fcGrid.appendChild(card);
+});
+
+/* ---------- Glossary ---------- */
+var glossary = [
+  {t:"ADC (Apparent Diffusion Coefficient)", d:"MRI map quantifying water diffusion. Acute infarcts show low (dark) ADC signal, confirming true restricted diffusion."},
+  {t:"BBB (Blood–Brain Barrier)", d:"Selective barrier limiting passage of substances into the brain. Its breakdown produces contrast enhancement on T1."},
+  {t:"Cauda equina syndrome", d:"Neurosurgical emergency from compression of the lumbosacral nerve roots below the conus medullaris; urgent lumbar spine MRI required."},
+  {t:"CTA (CT Angiography)", d:"Contrast-enhanced CT of the vessels; used for large vessel occlusion, aneurysm, dissection, and vascular malformations."},
+  {t:"DWI (Diffusion-Weighted Imaging)", d:"MRI sequence sensitive to water molecule movement; acute infarction appears hyperintense (bright)."},
+  {t:"Dural tail", d:"Enhancing extension of thickened dura adjacent to a meningioma; characteristic but not pathognomonic."},
+  {t:"Extradural (epidural) haematoma", d:"Biconvex (lens-shaped) collection between skull and dura, usually from middle meningeal artery injury; does not cross sutures."},
+  {t:"FLAIR (Fluid-Attenuated Inversion Recovery)", d:"T2-weighted sequence with CSF signal suppressed; improves detection of periventricular and cortical lesions."},
+  {t:"Glioblastoma", d:"Most common primary malignant brain tumour in adults; irregular ring enhancement with central necrosis and marked oedema."},
+  {t:"GRE / SWI", d:"Gradient-recalled echo / susceptibility-weighted imaging; highly sensitive to blood products, microbleeds, and mineralization."},
+  {t:"Hydrocephalus", d:"Ventricular enlargement from impaired CSF circulation or absorption; enlarged ventricles with compressed sulci."},
+  {t:"Hyperdense MCA sign", d:"Early CT sign of thrombus within the middle cerebral artery in acute ischaemic stroke."},
+  {t:"Intra-axial", d:"Lesion arising within the brain parenchyma (e.g. glioblastoma)."},
+  {t:"Extra-axial", d:"Lesion arising outside the brain parenchyma (e.g. meningioma, subdural/extradural haematoma)."},
+  {t:"Lucid interval", d:"Transient recovery of consciousness between head injury and deterioration; classically associated with extradural haematoma."},
+  {t:"Meningioma", d:"Usually benign extra-axial tumour with broad dural attachment, homogeneous enhancement, and a dural tail."},
+  {t:"Subarachnoid haemorrhage (SAH)", d:"Bleeding into the subarachnoid space; commonly ruptured berry aneurysm; CT shows blood in basal cisterns and sulci."},
+  {t:"Subdural haematoma", d:"Crescent-shaped collection between dura and arachnoid from torn bridging veins; frequent in the elderly."},
+  {t:"Syringomyelia", d:"Fluid-filled cavity (syrinx) within the spinal cord; associated with Chiari I malformation, trauma, and tumours."},
+  {t:"Spondylolisthesis", d:"Anterior displacement of one vertebral body on the one below, most commonly L5 on S1."},
+  {t:"Transependymal CSF flow", d:"Periventricular low attenuation (CT) or high T2/FLAIR signal indicating raised intraventricular pressure in hydrocephalus."},
+  {t:"Tuberculoma", d:"Granulomatous CNS lesion caused by Mycobacterium tuberculosis; ring-enhancing, may mimic metastases or abscess."},
+  {t:"Xanthochromia", d:"Yellow discolouration of CSF from haemoglobin breakdown; supports SAH when CT is negative."}
+];
+glossary.sort(function(a,b){return a.t.localeCompare(b.t);});
+var glList = document.getElementById('glList');
+function renderGlossary(filter){
+  glList.innerHTML='';
+  var f=(filter||'').toLowerCase();
+  var shown=0;
+  glossary.forEach(function(g){
+    if(f && g.t.toLowerCase().indexOf(f)===-1 && g.d.toLowerCase().indexOf(f)===-1) return;
+    shown++;
+    var item=document.createElement('div');
+    item.className='gl-item';
+    item.innerHTML='<dt>'+g.t+'</dt><dd>'+g.d+'</dd>';
+    glList.appendChild(item);
+  });
+  if(shown===0){glList.innerHTML='<p class="gl-none">No matching terms.</p>';}
+}
+renderGlossary('');
+document.getElementById('glSearch').addEventListener('input',function(e){renderGlossary(e.target.value);});
+
+/* ---------- MCQs ---------- */
+var questions = [
+  {q:"A 68-year-old man presents with sudden right-sided weakness 90 minutes ago. Non-contrast CT of the head is unremarkable. Which statement best guides further management?", options:["The normal CT excludes acute ischaemic stroke","The normal CT excludes intracranial haemorrhage and does not rule out infarction","A hyperdense MCA sign confirms haemorrhage","MRI is contraindicated at this stage"], answer:"The normal CT excludes intracranial haemorrhage and does not rule out infarction", explanation:"Early CT is often normal in acute infarction. Its main role is to exclude haemorrhage before reperfusion therapy; a normal scan does not rule out ischaemia."},
+  {q:"Which non-contrast CT feature is an early sign of acute middle cerebral artery territory infarction?", options:["Dural tail","Hyperdense MCA sign","Biconvex hyperdensity","Transependymal flow"], answer:"Hyperdense MCA sign", explanation:"Early ischaemic signs include loss of grey–white differentiation, sulcal effacement, and the hyperdense MCA sign representing intraluminal thrombus."},
+  {q:"On MRI, which combination indicates true restricted diffusion in acute infarction?", options:["High DWI and high ADC","Low DWI and high ADC","High DWI and low ADC","Low DWI and low ADC"], answer:"High DWI and low ADC", explanation:"Acute infarcts are hyperintense on DWI and hypointense on the ADC map, confirming true restricted diffusion within minutes of onset."},
+  {q:"Infarction of which arterial territory most characteristically produces contralateral lower-limb weakness?", options:["Anterior cerebral artery","Middle cerebral artery","Posterior cerebral artery","Basilar artery"], answer:"Anterior cerebral artery", explanation:"The ACA supplies the medial frontal and parietal lobes, corresponding to the lower-limb region of the motor and sensory homunculus."},
+  {q:"A 55-year-old with poorly controlled hypertension has a spontaneous intracerebral haemorrhage. Which is the most common site?", options:["Cerebellum","Basal ganglia","Occipital lobe","Corpus callosum"], answer:"Basal ganglia", explanation:"The basal ganglia are the most common site of hypertensive intracerebral haemorrhage, followed by thalamus, pons, and cerebellum."},
+  {q:"A patient develops a lens-shaped (biconvex) hyperdense extra-axial collection after temporal trauma. Which vessel is most likely injured?", options:["Bridging veins","Middle meningeal artery","Anterior communicating artery","Superior sagittal sinus"], answer:"Middle meningeal artery", explanation:"A biconvex extradural haematoma that does not cross sutures is classically due to middle meningeal artery injury with an associated temporal bone fracture."},
+  {q:"Which imaging feature best distinguishes a subdural from an extradural haematoma?", options:["Subdural is biconvex; extradural is crescentic","Subdural crosses sutures; extradural does not","Extradural crosses the midline freely","Subdural never causes mass effect"], answer:"Subdural crosses sutures; extradural does not", explanation:"Subdural haematomas are crescentic and cross sutures (limited by dural reflections); extradural haematomas are biconvex and do not cross sutures."},
+  {q:"An elderly patient on anticoagulation presents after a fall with a crescent-shaped extra-axial collection. What is the most likely source of bleeding?", options:["Middle meningeal artery","Bridging veins","Ruptured berry aneurysm","Cortical arteriovenous malformation"], answer:"Bridging veins", explanation:"Subdural haematomas result from torn bridging veins and are common in the elderly, in whom cerebral atrophy stretches these veins."},
+  {q:"A young adult presents with a sudden 'thunderclap' headache. Non-contrast CT is negative. Which investigation may confirm subarachnoid haemorrhage?", options:["Lumbar puncture showing xanthochromia","Repeat CT in one week","Skull radiograph","Carotid ultrasound"], answer:"Lumbar puncture showing xanthochromia", explanation:"If CT is negative but suspicion remains high, lumbar puncture may show xanthochromia depending on timing; CTA/MRA then identifies the aneurysm."},
+  {q:"Which extra-axial tumour is best characterised by a broad dural attachment, homogeneous enhancement, and a dural tail?", options:["Glioblastoma","Meningioma","Metastasis","Ependymoma"], answer:"Meningioma", explanation:"Meningiomas are extra-axial, well-circumscribed tumours with homogeneous enhancement; the dural tail is characteristic though not pathognomonic."},
+  {q:"A ring-enhancing lesion with central necrosis and marked oedema is seen in an adult. Which statement is most accurate?", options:["It is diagnostic of glioblastoma","Ring enhancement is non-specific and has a broad differential","It excludes cerebral abscess","It confirms a metastasis"], answer:"Ring enhancement is non-specific and has a broad differential", explanation:"Ring enhancement may occur in glioblastoma, abscess, metastasis, tuberculoma, toxoplasmosis, and tumefactive demyelination; clinical correlation is essential."},
+  {q:"A patient with fever, confusion, and seizures shows T2/FLAIR hyperintensity in the temporal lobes. Which is the most likely diagnosis?", options:["Herpes simplex encephalitis","Glioblastoma","Subdural empyema","Normal pressure hydrocephalus"], answer:"Herpes simplex encephalitis", explanation:"HSV-1 encephalitis characteristically involves the temporal lobes with T2/FLAIR hyperintensity, often asymmetrical before becoming bilateral."},
+  {q:"CT shows enlarged ventricles with effaced (compressed) cortical sulci. Which best explains this pattern?", options:["Cerebral atrophy","Hydrocephalus","Chronic subdural haematoma","Normal ageing"], answer:"Hydrocephalus", explanation:"Hydrocephalus produces ventricular enlargement with compressed sulci, whereas atrophy shows enlarged ventricles with prominent sulci."},
+  {q:"Which MRI sequence is most useful for detecting cerebral microbleeds and haemorrhagic transformation?", options:["T1-weighted","FLAIR","GRE / SWI","DWI"], answer:"GRE / SWI", explanation:"GRE and SWI are highly sensitive to magnetic susceptibility from blood products, making them ideal for microbleeds, DAI, and cavernomas."},
+  {q:"On which MRI sequence does contrast enhancement chiefly reflect blood–brain barrier disruption?", options:["T2-weighted","T1-weighted post-contrast","FLAIR","ADC map"], answer:"T1-weighted post-contrast", explanation:"Gadolinium shortens T1 relaxation; enhancement on post-contrast T1 indicates disruption of the blood–brain barrier."},
+  {q:"What is the principal advantage of FLAIR over conventional T2-weighted imaging?", options:["It brightens fat","It suppresses CSF signal","It shortens scan time drastically","It removes the need for contrast"], answer:"It suppresses CSF signal", explanation:"FLAIR nulls CSF signal, improving conspicuity of periventricular and cortical lesions such as multiple sclerosis plaques."},
+  {q:"A 40-year-old presents with saddle anaesthesia, bilateral leg weakness, and urinary retention. What is the most appropriate imaging?", options:["Urgent MRI of the lumbar spine","Non-contrast CT head","Lumbar radiograph","Nerve conduction studies"], answer:"Urgent MRI of the lumbar spine", explanation:"These features suggest cauda equina syndrome, a neurosurgical emergency requiring urgent lumbar spine MRI to identify compressive pathology."},
+  {q:"Anterior displacement of one vertebral body on the vertebra below, most commonly at L5–S1, describes which condition?", options:["Syringomyelia","Spondylolisthesis","Disc extrusion","Cauda equina syndrome"], answer:"Spondylolisthesis", explanation:"Spondylolisthesis is anterior slippage of a vertebral body, most often L5 on S1, sometimes with pars interarticularis defects."},
+  {q:"A fluid-filled intramedullary cavity following spinal cord signal on MRI is most consistent with which diagnosis?", options:["Spondylolisthesis","Syringomyelia","Lumbar disc herniation","Extradural haematoma"], answer:"Syringomyelia", explanation:"A syrinx is a fluid-filled cavity within the cord with CSF signal intensity, associated with Chiari I malformation, trauma, and intramedullary tumours."},
+  {q:"Which imaging modality is the first-line investigation for a haemodynamically unstable patient with acute head trauma?", options:["MRI brain","Non-contrast CT head","Skull radiograph","CT angiography"], answer:"Non-contrast CT head", explanation:"Non-contrast CT is fast and widely available, making it first-line in trauma to detect fractures, haemorrhage, contusions, and mass effect."}
+];
+var mcqState = [];
+var container = document.getElementById('mcqContainer');
+var progressEl = document.getElementById('mcqProgress');
+var scoreEl = document.getElementById('mcqScore');
+
+function buildMCQs(){
+  container.innerHTML='';
+  mcqState = questions.map(function(){return {answered:false,correct:false};});
+  questions.forEach(function(item,qi){
+    var card=document.createElement('div');
+    card.className='mcq-card';
+    var opts='';
+    item.options.forEach(function(opt,oi){
+      opts+='<button class="mcq-opt" data-q="'+qi+'" data-o="'+oi+'">'+opt+'</button>';
+    });
+    card.innerHTML='<div class="mcq-num">Question '+(qi+1)+' of '+questions.length+'</div>'+
+      '<div class="mcq-q">'+item.q+'</div>'+opts+
+      '<div class="mcq-explain" id="exp-'+qi+'"><span class="lbl">Explanation</span><br>'+item.explanation+'</div>';
+    container.appendChild(card);
+  });
+  container.querySelectorAll('.mcq-opt').forEach(function(b){
+    b.addEventListener('click',handleAnswer);
+  });
+  scoreEl.classList.remove('show');
+  updateProgress();
+}
+function handleAnswer(e){
+  var qi=+e.target.dataset.q;
+  if(mcqState[qi].answered) return;
+  var chosen=e.target.textContent;
+  var correct=questions[qi].answer;
+  var card=e.target.closest('.mcq-card');
+  card.querySelectorAll('.mcq-opt').forEach(function(b){
+    b.disabled=true;
+    if(b.textContent===correct){b.classList.add('correct');b.innerHTML+='<span class="mark">✓</span>';}
+    else if(b===e.target){b.classList.add('wrong');b.innerHTML+='<span class="mark">✗</span>';}
+  });
+  document.getElementById('exp-'+qi).classList.add('show');
+  mcqState[qi]={answered:true,correct:chosen===correct};
+  updateProgress();
+}
+function updateProgress(){
+  var done=mcqState.filter(function(s){return s.answered;}).length;
+  var right=mcqState.filter(function(s){return s.correct;}).length;
+  progressEl.textContent='Answered '+done+' / '+questions.length+'   •   Correct: '+right;
+  if(done===questions.length){
+    var pct=Math.round(right/questions.length*100);
+    scoreEl.innerHTML='<div class="big">'+right+' / '+questions.length+' ('+pct+'%)</div><div>Quiz complete</div>';
+    scoreEl.classList.add('show');
+  }
+}
+document.getElementById('mcqReset').addEventListener('click',function(){
+  buildMCQs();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+buildMCQs();
+</script>
+</body>
+</html>
